@@ -1,11 +1,48 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+:root{
+  --color-border-tertiary: rgba(0,0,0,0.08);
+  --color-border-secondary: rgba(0,0,0,0.16);
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f4f4f4;
+  --color-text-primary: #1f1f1f;
+  --color-text-secondary: #6a6a6a;
+  --border-radius-lg: 14px;
+  --border-radius-md: 10px;
+  --vriezer: #00A0E2;
+  --productie: #E6AC00;
+  --schap: #639922;
+}
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .app { max-width: 420px; margin: 0 auto; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: rgba(255,255,255,0.88); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-.header { background: #00A0E2; padding: 14px 16px; color: #fff; display: flex; align-items: center; gap: 10px; }
-.header-title { font-size: 16px; font-weight: 500; flex: 1; }
+.header { background: #00A0E2; padding: 12px 16px; color: #fff; display: flex; align-items: center; gap: 10px; position: relative; }
+.header-back { font-size: 20px; cursor: pointer; opacity: 0.85; background:none; border:none; color:#fff; line-height:1; z-index:1; }
+.header-center { position: absolute; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 10px; pointer-events: none; }
+.header-logo { width: 34px; height: 34px; border-radius: 0; background: #fff; padding: 4px; flex-shrink: 0; display:block; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+.header-title { font-size: 16px; font-weight: 600; }
+/* Intro */
+.intro-block { padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; }
+.intro-icon { font-size: 44px; text-align: center; }
+.intro-title { font-size: 19px; font-weight: 600; color: var(--color-text-primary); text-align: center; line-height: 1.35; }
+.intro-sub { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; text-align: center; }
+.intro-fases { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.intro-fase { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: var(--border-radius-md); background: rgba(245,245,245,0.92); border: 0.5px solid var(--color-border-tertiary); }
+.intro-fase .ico { font-size: 22px; width: 28px; text-align: center; flex-shrink: 0; }
+.intro-fase .txt { flex: 1; }
+.intro-fase .nm { font-size: 14px; font-weight: 600; color: var(--color-text-primary); }
+.intro-fase .ds { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; line-height: 1.4; }
+.intro-fase.blauw { border-left: 3px solid #00A0E2; }
+.intro-fase.geel { border-left: 3px solid #E6AC00; }
+.intro-fase.groen { border-left: 3px solid #639922; }
+.start-btn { width: 100%; background: #00A0E2; color: #fff; border: none; border-radius: 8px; padding: 13px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 6px; }
+.start-btn:hover { background: #0089c2; }
+/* Onthoud-tips op resultscherm */
+.eind-les { background: #E8F4FC; border: 0.5px solid #00A0E2; border-radius: var(--border-radius-md); padding: 13px 14px; font-size: 13px; color: #005BA3; line-height: 1.55; text-align: left; width: 100%; margin-top: 4px; }
+.eind-les strong { font-weight: 600; }
+.eind-les ul { margin: 8px 0 0; padding-left: 18px; }
+.eind-les li { margin-bottom: 6px; }
+.eind-les li:last-child { margin-bottom: 0; }
 .lang-bar { display: flex; gap: 6px; padding: 8px 12px; background: rgba(240,240,240,0.85); border-bottom: 0.5px solid var(--color-border-tertiary); overflow-x: auto; }
 .lang-btn { background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 500; cursor: pointer; white-space: nowrap; color: var(--color-text-primary); }
 .lang-btn.active { background: #00A0E2; border-color: #00A0E2; color: #fff; }
@@ -64,8 +101,11 @@
 
 <div class="page-bg"><div class="app">
   <div class="header">
-    <i class="ti ti-arrow-left" style="font-size:20px;cursor:pointer" aria-hidden="true" onclick="goBack()"></i>
-    <span class="header-title" id="header-title">Schapvoorraad controleren</span>
+    <button class="header-back" onclick="terug()" aria-label="Terug">&#8592;</button>
+    <div class="header-center">
+      <img class="header-logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB2ZXJzaW9uPSIxLjEiCiAgIHdpZHRoPSIxMDAwIgogICBoZWlnaHQ9IjEwNDcuMDkiCiAgIGlkPSJzdmczODU4Ij4KICA8ZGVmcwogICAgIGlkPSJkZWZzMzg2MCIgLz4KICA8bWV0YWRhdGEKICAgICBpZD0ibWV0YWRhdGEzODYzIj4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29yawogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICAgIDxkYzp0aXRsZT48L2RjOnRpdGxlPgogICAgICA8L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZwogICAgIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy44NjgyMTUsMzA1LjYyNDA5KSIKICAgICBpZD0ibGF5ZXIxIj4KICAgIDxnCiAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgxNS41MDQxMzcsMCwwLDE1LjUwNDEzNywtNTg2Ni4wNTExLC03Mzc5LjczODEpIgogICAgICAgaWQ9ImczOTI4Ij4KICAgICAgPHBhdGgKICAgICAgICAgZD0ibSA0NDAuNDU3ODksNDg4LjY5NTE5IGMgMCwwIC0xNC4wODY5MSwtMjYuMjM5MDIgLTE0LjA4NjkxLC0yNi4yMzkwMiAtMS40ODQzNywtMi43NTg3OCAtNC44ODQwNCwtMy43NjgzMSAtNy41OTc2NSwtMi4yNTU4NiAwLDAgLTI1Ljc4MjQ3LDE0LjM3NSAtMjUuNzgyNDcsMTQuMzc1IC0xLjE2MDg5LDAuNjY0MDYgLTIuMjQzNjUsMS44MjM3NCAtMi43MzY4MiwzLjQ2NjggMCwwIC02LjkxODk1LDI0LjAyOTU0IC02LjkxODk1LDI0LjAyOTU0IC0wLjgyODg2LDIuODczNTQgMC43OTIyNCw1Ljg4NzQ2IDMuNjIxODMsNi43MzIxOSAwLDAgNDAuNjQ0NTQsMTEuNTYwMDUgNDAuNjQ0NTQsMTEuNTYwMDUgMi44MjcxNSwwLjg0MjI4IDUuNzkzNDUsLTAuODA4MSA2LjYyMzUyLC0zLjY4NTMgMCwwIDYuNzIzNjQsLTIzLjU2MjAyIDYuNzIzNjQsLTIzLjU2MjAyIDAuNDM3MDEsLTEuMzgzMDUgMC4xOTE2NSwtMy4wODk2IC0wLjQ5MDczLC00LjQyMTM4IHoiCiAgICAgICAgIGlkPSJwYXRoMzMwNyIKICAgICAgICAgc3R5bGU9ImZpbGw6IzAwYTBlMjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgLz4KICAgICAgPHBhdGgKICAgICAgICAgZD0ibSA0MDguODYyNDQsNDkzLjc0NjQ2IGMgMCwwIC00LjQ3MDIyLC04LjcxNzA0IC03LjM1OTYyLC04LjcxNzA0IC0yLjIzOTk5LDAuMDAyIC0yLjQzNDA5LDIuMzY4MTcgLTIuNDI3OTgsOC4wNzAwNyAwLjAwOSw1LjcwNDM1IDAuMzE2MTcsNy45MjYwMiAyLjQyMDY1LDcuOTI2MDIgMi44NjAxMiwtMC4wMDIgNy4zNjY5NSwtNy4yNzkwNSA3LjM2Njk1LC03LjI3OTA1IHogbSA1Ljc0NzA3LC03LjI3Mjk1IGMgMi4yOTAwMywtMy4yOTcxMiA0LjM2MDM1LC02LjU2MTI3IDguMjMyNDIsLTYuNTYxMjcgNC4yODcxMiwtMC4wMDIgNi42MTAxMiwzLjU4NjQyIDYuNjI0NzUsNi42MDY0MyAwLDAuMDMwNSAtMC4wMTgzLDE5LjMzMzUgLTAuMDE4MywxOS4zMzM1IDAsMCAtNC44MTQ0NiwwIC00LjgxNDQ2LDAgMCwwIC0wLjAyMDgsLTE4LjMwMDc4IC0wLjAyMDgsLTE4LjMwMDc4IDAsLTIuNTEzNDMgLTIuMDIwMjYsLTIuNTA4NTQgLTIuMDQ4MzQsLTIuNTA4NTQgLTEuNjI4NDEsMCAtNC42MjE1OSw0LjA4MzI1IC03Ljk1Mjg5LDguNjE2OTQgMCwwIDAsMTIuMTk5NzEgMCwxMi4xOTk3MSAwLDAgLTQuODY4MTYsMC4wMDUgLTQuODY4MTYsMC4wMDUgMCwwIC0wLjAwNiwtNS42NDY5NiAtMC4wMDYsLTUuNjQ2OTYgMCwwIC0zLjIxODk5LDUuNjQ2OTYgLTguMDM4MzIsNS42NTMwNyAtNS40Njc1NCwxMGUtNCAtNy4zMjMsLTMuNzU4NTUgLTcuMzM2NDMsLTEyLjc2NDkgLTAuMDA5LC04LjU4MDMyIDEuMjA4NDksLTEzLjE3MTM5IDcuMDY5MDksLTEzLjE3NjI2IDQuNDU4MDEsLTAuMDA0IDguMjg3MzUsNi40OTE3IDguMjg3MzUsNi40OTE3IDAsMCAxMGUtNCwtNC4xMTM3OCAxMGUtNCwtNC4xMTM3OCAwLDAgNC44OTEzNSwtNi41ODgxMyA0Ljg5MTM1LC02LjU4ODEzIDAsMCAtMC4wMjA4LDEwLjc4MDAzIC0wLjAwMiwxMC43NTQ0IHoiCiAgICAgICAgIGlkPSJwYXRoMzMwOSIKICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgLz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo=" alt="Albert Heijn">
+      <span class="header-title" id="header-title">Wat jij ziet, ziet BAK</span>
+    </div>
   </div>
 
   <div class="lang-bar">
@@ -76,7 +116,31 @@
     <button class="lang-btn" onclick="setLang('ar',this)">AR</button>
   </div>
 
-  <div class="screen active" id="screen-schap">
+  <!-- SCHERM 0: Intro -->
+  <div class="screen active" id="screen-intro">
+    <div class="intro-block">
+      <div class="intro-icon">&#128064;</div>
+      <div class="intro-title" id="intro-title">Wat jij ziet, ziet BAK</div>
+      <div class="intro-sub" id="intro-sub">BAK ziet alleen wat jij invoert. Controleer je de schapvoorraad goed, dan geeft BAK een nauwkeurig bakadvies. Tel je verkeerd, dan baseert BAK zijn advies op foute cijfers. In deze oefening controleer je de schapvoorraad van programma 103.</div>
+      <div class="intro-fases">
+        <div class="intro-fase blauw">
+          <div class="ico" style="color:#00A0E2">&#128065;</div>
+          <div class="txt"><div class="nm" id="if-1-nm">Jij bent de ogen van BAK</div><div class="ds" id="if-1-ds">BAK weet alleen wat er op het schap ligt als jij het telt.</div></div>
+        </div>
+        <div class="intro-fase geel">
+          <div class="ico" style="color:#E6AC00">&#9888;</div>
+          <div class="txt"><div class="nm" id="if-2-nm">Afwijkingen hebben gevolgen</div><div class="ds" id="if-2-ds">Te hoog of te laag ingevoerd leidt tot lege schappen of verspilling.</div></div>
+        </div>
+        <div class="intro-fase groen">
+          <div class="ico" style="color:#639922">&#9989;</div>
+          <div class="txt"><div class="nm" id="if-3-nm">Correct tellen helpt BAK</div><div class="ds" id="if-3-ds">Elke juiste telling zorgt voor betere prognoses en minder verspilling.</div></div>
+        </div>
+      </div>
+      <button class="start-btn" id="start-btn" onclick="showScreen('screen-schap')">Start de oefening &rarr;</button>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-schap">
     <div class="info-banner" id="info-banner">
       Controleer minstens één keer per dag de schapvoorraad. BAK gebruikt deze informatie om het bakadvies voor de rest van de dag bij te stellen.
     </div>
@@ -87,7 +151,7 @@
       <div class="tab">Prog. 104</div>
     </div>
     <div class="section-header">
-      <span class="section-title">Programma 103</span>
+      <span class="section-title" id="section-title">Programma 103</span>
       <span class="count-label" id="count-label">0/25 gecontroleerd</span>
     </div>
     <div id="products"></div>
@@ -102,6 +166,15 @@
     <div class="result-sub" id="result-sub"></div>
     <div class="result-stat" id="result-stats"></div>
     <div class="result-tip" id="result-tip"></div>
+    <div class="eind-les" id="eind-les">
+      <strong id="onthoud-kop">&#128161; Onthoud!</strong>
+      <ul>
+        <li id="les-1">BAK ziet alleen wat jij invoert: jij bent de ogen van BAK.</li>
+        <li id="les-2">Te hoog ingevoerd? Dan adviseert BAK te weinig en liggen schappen straks leeg.</li>
+        <li id="les-3">Te laag ingevoerd? Dan adviseert BAK te veel en ontstaat er verspilling.</li>
+        <li id="les-4">Controleer de schapvoorraad minstens één keer per dag voor een betrouwbaar advies.</li>
+      </ul>
+    </div>
     <button class="footer-btn" onclick="opnieuw()" id="btn-opnieuw" style="margin-top:4px;width:100%;">Opnieuw</button>
   </div>
 </div></div>
@@ -164,7 +237,7 @@ const products = [
 
 const T = {
   nl: {
-    pageTitle: "Schapvoorraad controleren",
+    pageTitle: "Wat jij ziet, ziet BAK",
     infoBanner: "Controleer minstens één keer per dag de schapvoorraad. BAK gebruikt deze informatie om het bakadvies voor de rest van de dag bij te stellen.",
     countLabel: n => `${n}/25 gecontroleerd`,
     bonus: "Bonus",
@@ -185,10 +258,23 @@ const T = {
     tipSlecht: "💡 BAK is zo goed als de cijfers die jij invoert. Elke correcte telling helpt BAK beter leren — minder verspilling, minder lege schappen, betere adviezen. Jij bent de ogen van BAK!",
     overLabel: "Te hoog ingevoerd:",
     underLabel: "Te laag ingevoerd:",
-    totaalAfwijking: "Totaal afwijkende producten:"
+    totaalAfwijking: "Totaal afwijkende producten:",
+    introTitle: "Wat jij ziet, ziet BAK",
+    introSub: "BAK ziet alleen wat jij invoert. Controleer je de schapvoorraad goed, dan geeft BAK een nauwkeurig bakadvies. Tel je verkeerd, dan baseert BAK zijn advies op foute cijfers. In deze oefening controleer je de schapvoorraad van programma 103.",
+    if1Nm: "Jij bent de ogen van BAK", if1Ds: "BAK weet alleen wat er op het schap ligt als jij het telt.",
+    if2Nm: "Afwijkingen hebben gevolgen", if2Ds: "Te hoog of te laag ingevoerd leidt tot lege schappen of verspilling.",
+    if3Nm: "Correct tellen helpt BAK", if3Ds: "Elke juiste telling zorgt voor betere prognoses en minder verspilling.",
+    startBtn: "Start de oefening \u2192",
+    onthoudKop: "\uD83D\uDCA1 Onthoud!",
+    les1: "BAK ziet alleen wat jij invoert: jij bent de ogen van BAK.",
+    les2: "Te hoog ingevoerd? Dan adviseert BAK te weinig en liggen schappen straks leeg.",
+    les3: "Te laag ingevoerd? Dan adviseert BAK te veel en ontstaat er verspilling.",
+    les4: "Controleer de schapvoorraad minstens één keer per dag voor een betrouwbaar advies.",
+    opnieuwBtn: "Opnieuw",
+    programmaLabel: "Programma 103"
   },
   en: {
-    pageTitle: "Check shelf stock",
+    pageTitle: "What you see, BAK sees",
     infoBanner: "Check the shelf stock at least once a day. BAK uses this information to adjust the baking advice for the rest of the day.",
     countLabel: n => `${n}/25 checked`,
     bonus: "Bonus",
@@ -209,10 +295,23 @@ const T = {
     tipSlecht: "💡 BAK is only as good as the numbers you enter. Every accurate count helps BAK learn — less waste, fewer empty shelves, better advice. You are the eyes of BAK!",
     overLabel: "Entered too high:",
     underLabel: "Entered too low:",
-    totaalAfwijking: "Total deviating products:"
+    totaalAfwijking: "Total deviating products:",
+    introTitle: "What you see, BAK sees",
+    introSub: "BAK only sees what you enter. Check the shelf stock well and BAK gives an accurate baking advice. Count wrong and BAK bases its advice on wrong numbers. In this exercise you check the shelf stock of programme 103.",
+    if1Nm: "You are the eyes of BAK", if1Ds: "BAK only knows what's on the shelf if you count it.",
+    if2Nm: "Deviations have consequences", if2Ds: "Entering too high or too low leads to empty shelves or waste.",
+    if3Nm: "Correct counting helps BAK", if3Ds: "Every correct count means better forecasts and less waste.",
+    startBtn: "Start the exercise \u2192",
+    onthoudKop: "\uD83D\uDCA1 Remember!",
+    les1: "BAK only sees what you enter: you are the eyes of BAK.",
+    les2: "Entered too high? Then BAK advises too little and shelves run empty.",
+    les3: "Entered too low? Then BAK advises too much and waste occurs.",
+    les4: "Check the shelf stock at least once a day for a reliable advice.",
+    opnieuwBtn: "Again",
+    programmaLabel: "Programme 103"
   },
   tr: {
-    pageTitle: "Raf stoğunu kontrol et",
+    pageTitle: "Senin gördüğünü BAK görür",
     infoBanner: "Raf stoğunu günde en az bir kez kontrol edin. BAK bu bilgiyi günün geri kalanı için pişirme tavsiyesini ayarlamak üzere kullanır.",
     countLabel: n => `${n}/25 kontrol edildi`,
     bonus: "Bonus",
@@ -233,10 +332,23 @@ const T = {
     tipSlecht: "💡 BAK, senin girdiğin rakamlar kadar iyidir. Her doğru sayım BAK'ın daha iyi öğrenmesine yardımcı olur — daha az israf, daha az boş raf, daha iyi tavsiyeler. Sen BAK'ın gözlerisin!",
     overLabel: "Fazla girildi:",
     underLabel: "Eksik girildi:",
-    totaalAfwijking: "Toplam sapan ürünler:"
+    totaalAfwijking: "Toplam sapan ürünler:",
+    introTitle: "Senin gördüğünü BAK görür",
+    introSub: "BAK yalnızca senin girdiğini görür. Raf stoğunu iyi kontrol edersen BAK doğru bir pişirme tavsiyesi verir. Yanlış sayarsan BAK tavsiyesini yanlış sayılara dayandırır. Bu alıştırmada program 103'ün raf stoğunu kontrol edersin.",
+    if1Nm: "Sen BAK'ın gözlerisin", if1Ds: "BAK rafta ne olduğunu yalnızca sen sayarsan bilir.",
+    if2Nm: "Sapmaların sonuçları vardır", if2Ds: "Çok yüksek veya çok düşük girmek boş raflara veya israfa yol açar.",
+    if3Nm: "Doğru saymak BAK'a yardım eder", if3Ds: "Her doğru sayım daha iyi tahmin ve daha az israf demektir.",
+    startBtn: "Alıştırmayı başlat \u2192",
+    onthoudKop: "\uD83D\uDCA1 Unutma!",
+    les1: "BAK yalnızca senin girdiğini görür: sen BAK'ın gözlerisin.",
+    les2: "Çok mu yüksek girdin? O zaman BAK çok az tavsiye eder ve raflar boşalır.",
+    les3: "Çok mu düşük girdin? O zaman BAK çok fazla tavsiye eder ve israf oluşur.",
+    les4: "Güvenilir bir tavsiye için raf stoğunu günde en az bir kez kontrol et.",
+    opnieuwBtn: "Tekrar",
+    programmaLabel: "Program 103"
   },
   pl: {
-    pageTitle: "Sprawdź stan półki",
+    pageTitle: "Co widzisz, widzi BAK",
     infoBanner: "Sprawdzaj stan półki co najmniej raz dziennie. BAK używa tych informacji do dostosowania porady dotyczącej pieczenia na resztę dnia.",
     countLabel: n => `${n}/25 sprawdzono`,
     bonus: "Bonus",
@@ -257,10 +369,23 @@ const T = {
     tipSlecht: "💡 BAK jest tak dobry jak liczby, które wprowadzasz. Każde dokładne liczenie pomaga BAK uczyć się — mniej marnotrawstwa, mniej pustych półek, lepsze porady. Jesteś oczami BAK!",
     overLabel: "Wprowadzono za wysoko:",
     underLabel: "Wprowadzono za nisko:",
-    totaalAfwijking: "Łącznie odbiegające produkty:"
+    totaalAfwijking: "Łącznie odbiegające produkty:",
+    introTitle: "Co widzisz, widzi BAK",
+    introSub: "BAK widzi tylko to, co wprowadzisz. Dobrze sprawdzisz stan półki, a BAK da dokładne zalecenie pieczenia. Policzysz źle, a BAK oprze zalecenie na błędnych liczbach. W tym ćwiczeniu sprawdzasz stan półki programu 103.",
+    if1Nm: "Jesteś oczami BAK", if1Ds: "BAK wie, co jest na półce, tylko gdy to policzysz.",
+    if2Nm: "Odchylenia mają skutki", if2Ds: "Za wysoko lub za nisko prowadzi do pustych półek lub marnotrawstwa.",
+    if3Nm: "Poprawne liczenie pomaga BAK", if3Ds: "Każde poprawne liczenie to lepsze prognozy i mniej marnotrawstwa.",
+    startBtn: "Rozpocznij ćwiczenie \u2192",
+    onthoudKop: "\uD83D\uDCA1 Zapamiętaj!",
+    les1: "BAK widzi tylko to, co wprowadzisz: jesteś oczami BAK.",
+    les2: "Wprowadzono za wysoko? Wtedy BAK doradza za mało i półki pustoszeją.",
+    les3: "Wprowadzono za nisko? Wtedy BAK doradza za dużo i powstaje marnotrawstwo.",
+    les4: "Sprawdzaj stan półki co najmniej raz dziennie, by zalecenie było wiarygodne.",
+    opnieuwBtn: "Ponownie",
+    programmaLabel: "Program 103"
   },
   ar: {
-    pageTitle: "تحقق من مخزون الرف",
+    pageTitle: "ما تراه، يراه BAK",
     infoBanner: "تحقق من مخزون الرف مرة واحدة على الأقل يومياً. يستخدم BAK هذه المعلومات لضبط نصيحة الخبز لبقية اليوم.",
     countLabel: n => `تم التحقق من ${n}/25`,
     bonus: "مكافأة",
@@ -281,7 +406,20 @@ const T = {
     tipSlecht: "💡 BAK بقدر ما تُدخله من أرقام صحيحة. كل عدّ دقيق يساعد BAK على التعلم — أقل هدراً، أقل رفوفاً فارغة، نصائح أفضل. أنت عيون BAK!",
     overLabel: "تم الإدخال بقيمة أعلى:",
     underLabel: "تم الإدخال بقيمة أقل:",
-    totaalAfwijking: "إجمالي المنتجات المنحرفة:"
+    totaalAfwijking: "إجمالي المنتجات المنحرفة:",
+    introTitle: "ما تراه، يراه BAK",
+    introSub: "يرى BAK فقط ما تُدخله. إذا تحقّقت من مخزون الرف جيدًا، يقدّم BAK توصية خَبز دقيقة. وإذا عددت خطأً، يبني BAK توصيته على أرقام خاطئة. في هذا التمرين تتحقّق من مخزون رفّ البرنامج 103.",
+    if1Nm: "أنت عينا BAK", if1Ds: "لا يعرف BAK ما على الرفّ إلا إذا عددته أنت.",
+    if2Nm: "للانحرافات عواقب", if2Ds: "الإدخال المرتفع أو المنخفض جدًا يؤدي إلى رفوف فارغة أو هدر.",
+    if3Nm: "العدّ الصحيح يساعد BAK", if3Ds: "كل عدّ صحيح يعني توقّعات أفضل وهدرًا أقل.",
+    startBtn: "ابدأ التمرين \u2192",
+    onthoudKop: "\uD83D\uDCA1 تذكّر!",
+    les1: "يرى BAK فقط ما تُدخله: أنت عينا BAK.",
+    les2: "أدخلت رقمًا مرتفعًا جدًا؟ إذًا يوصي BAK بالقليل وتفرغ الرفوف.",
+    les3: "أدخلت رقمًا منخفضًا جدًا؟ إذًا يوصي BAK بالكثير ويحدث هدر.",
+    les4: "تحقّق من مخزون الرف مرة واحدة يوميًا على الأقل للحصول على توصية موثوقة.",
+    opnieuwBtn: "مرة أخرى",
+    programmaLabel: "البرنامج 103"
   }
 };
 
@@ -299,9 +437,21 @@ function applyLang() {
   const L = T[lang];
   const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
   set('header-title', L.pageTitle);
+  set('section-title', L.programmaLabel);
+  set('intro-title', L.introTitle);
+  set('intro-sub', L.introSub);
+  set('if-1-nm', L.if1Nm); set('if-1-ds', L.if1Ds);
+  set('if-2-nm', L.if2Nm); set('if-2-ds', L.if2Ds);
+  set('if-3-nm', L.if3Nm); set('if-3-ds', L.if3Ds);
+  set('start-btn', L.startBtn);
   set('info-banner', L.infoBanner);
   set('btn-opslaan', L.opslaan);
+  const ok = document.getElementById('onthoud-kop'); if(ok) ok.innerHTML = L.onthoudKop;
+  set('les-1', L.les1); set('les-2', L.les2); set('les-3', L.les3); set('les-4', L.les4);
+  set('btn-opnieuw', L.opnieuwBtn);
+  document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
   updateCountLabel();
+  if (document.getElementById('screen-result').classList.contains('active')) renderResult();
 }
 
 function updateCountLabel() {
@@ -359,52 +509,59 @@ function render() {
   updateCountLabel();
 }
 
+let lastResult = null;
 function goToResult() {
-  const L = T[lang];
-  let overList = [], underList = [];
+  let over = 0, under = 0;
   products.forEach(p => {
     const diff = p.input - p.real;
-    if (diff > 0) overList.push(`${p.emoji} ${p.name}: +${diff}`);
-    else if (diff < 0) underList.push(`${p.emoji} ${p.name}: ${diff}`);
+    if (diff > 0) over++;
+    else if (diff < 0) under++;
   });
-  const hasIssues = overList.length > 0 || underList.length > 0;
-  document.getElementById('result-icon').textContent = hasIssues ? '⚠️' : '✅';
-  document.getElementById('result-title').textContent = hasIssues ? L.resultTitleSlecht : L.resultTitleGoed;
-  document.getElementById('result-sub').textContent = hasIssues
-    ? L.resultSubSlecht(overList.length, underList.length)
-    : L.resultSubGoed;
-
-  document.getElementById('result-stats').style.display = 'none';
-  document.getElementById('result-tip').textContent = hasIssues ? L.tipSlecht : L.tipGoed;
+  lastResult = { over, under, hasIssues: (over > 0 || under > 0) };
+  renderResult();
   showScreen('screen-result');
 }
 
-function goBack() {
-  if (document.getElementById('screen-result').classList.contains('active')) {
-    applyLang();
-    showScreen('screen-schap');
-  }
+function renderResult() {
+  if (!lastResult) return;
+  const L = T[lang];
+  const { over, under, hasIssues } = lastResult;
+  document.getElementById('result-icon').textContent = hasIssues ? '⚠️' : '✅';
+  document.getElementById('result-title').textContent = hasIssues ? L.resultTitleSlecht : L.resultTitleGoed;
+  document.getElementById('result-sub').textContent = hasIssues
+    ? L.resultSubSlecht(over, under)
+    : L.resultSubGoed;
+  document.getElementById('result-stats').style.display = 'none';
+  document.getElementById('result-tip').textContent = hasIssues ? L.tipSlecht : L.tipGoed;
+}
+
+function terug() {
+  const cur = ['screen-intro','screen-schap','screen-result'].find(id => document.getElementById(id).classList.contains('active'));
+  if (cur === 'screen-result') { applyLang(); showScreen('screen-schap'); }
+  else if (cur === 'screen-schap') { showScreen('screen-intro'); }
 }
 
 function showScreen(id) {
-  ['screen-schap','screen-result'].forEach(s => {
+  ['screen-intro','screen-schap','screen-result'].forEach(s => {
     const el = document.getElementById(s);
     el.classList.remove('active');
     el.style.display = 'none';
   });
   const el = document.getElementById(id);
-  el.style.display = id === 'screen-result' ? 'flex' : 'flex';
+  el.style.display = 'flex';
   el.classList.add('active');
+  window.scrollTo(0,0);
 }
 
 function opnieuw() {
+  lastResult = null;
   products.forEach(p => { p.input = p.real; p.checked = false; });
-  showScreen('screen-schap');
   applyLang();
   render();
+  showScreen('screen-intro');
 }
 
 applyLang();
 render();
-showScreen('screen-schap');
+showScreen('screen-intro');
 </script>
