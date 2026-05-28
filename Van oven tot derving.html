@@ -1,11 +1,45 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+:root{
+  --color-border-tertiary: rgba(0,0,0,0.08);
+  --color-border-secondary: rgba(0,0,0,0.16);
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f4f4f4;
+  --color-text-primary: #1f1f1f;
+  --color-text-secondary: #6a6a6a;
+  --border-radius-lg: 14px;
+  --border-radius-md: 10px;
+}
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .app { max-width: 420px; margin: 0 auto; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: rgba(255,255,255,0.88); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-.header { background: #00A0E2; padding: 14px 16px; color: #fff; display: flex; align-items: center; gap: 10px; }
-.header-title { font-size: 16px; font-weight: 500; flex: 1; }
+.header { background: #00A0E2; padding: 12px 16px; color: #fff; display: flex; align-items: center; gap: 10px; position: relative; }
+.header-back { font-size: 20px; cursor: pointer; opacity: 0.85; background:none; border:none; color:#fff; line-height:1; z-index:1; }
+.header-center { position: absolute; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 10px; pointer-events: none; }
+.header-logo { width: 34px; height: 34px; border-radius: 0; background: #fff; padding: 4px; flex-shrink: 0; display:block; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+.header-title { font-size: 16px; font-weight: 600; }
+/* Intro */
+.intro-block { padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; }
+.intro-icon { font-size: 44px; text-align: center; }
+.intro-title { font-size: 19px; font-weight: 600; color: var(--color-text-primary); text-align: center; line-height: 1.35; }
+.intro-sub { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; text-align: center; }
+.intro-fases { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.intro-fase { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: var(--border-radius-md); background: rgba(245,245,245,0.92); border: 0.5px solid var(--color-border-tertiary); }
+.intro-fase .ico { font-size: 22px; width: 28px; text-align: center; flex-shrink: 0; }
+.intro-fase .txt { flex: 1; }
+.intro-fase .nm { font-size: 14px; font-weight: 600; color: var(--color-text-primary); }
+.intro-fase .ds { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; line-height: 1.4; }
+.intro-fase.blauw { border-left: 3px solid #00A0E2; }
+.intro-fase.geel { border-left: 3px solid #E6AC00; }
+.intro-fase.groen { border-left: 3px solid #639922; }
+.start-btn { width: 100%; background: #00A0E2; color: #fff; border: none; border-radius: 8px; padding: 13px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 6px; }
+.start-btn:hover { background: #0089c2; }
+/* Onthoud-tips op resultscherm */
+.eind-les { background: #E8F4FC; border: 0.5px solid #00A0E2; border-radius: var(--border-radius-md); padding: 13px 14px; font-size: 13px; color: #005BA3; line-height: 1.55; text-align: left; width: 100%; margin-top: 4px; }
+.eind-les strong { font-weight: 600; }
+.eind-les ul { margin: 8px 0 0; padding-left: 18px; }
+.eind-les li { margin-bottom: 6px; }
+.eind-les li:last-child { margin-bottom: 0; }
 .lang-bar { display: flex; gap: 6px; padding: 8px 12px; background: rgba(240,240,240,0.85); border-bottom: 0.5px solid var(--color-border-tertiary); overflow-x: auto; }
 .lang-btn { background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 500; cursor: pointer; white-space: nowrap; color: var(--color-text-primary); }
 .lang-btn.active { background: #00A0E2; border-color: #00A0E2; color: #fff; }
@@ -62,8 +96,11 @@
 
 <div class="page-bg"><div class="app">
   <div class="header">
-    <i class="ti ti-arrow-left" style="font-size:20px;cursor:pointer" aria-hidden="true" onclick="goBack()"></i>
-    <span class="header-title" id="header-title">Vernietigen</span>
+    <button class="header-back" onclick="terug()" aria-label="Terug">&#8592;</button>
+    <div class="header-center">
+      <img class="header-logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB2ZXJzaW9uPSIxLjEiCiAgIHdpZHRoPSIxMDAwIgogICBoZWlnaHQ9IjEwNDcuMDkiCiAgIGlkPSJzdmczODU4Ij4KICA8ZGVmcwogICAgIGlkPSJkZWZzMzg2MCIgLz4KICA8bWV0YWRhdGEKICAgICBpZD0ibWV0YWRhdGEzODYzIj4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29yawogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICAgIDxkYzp0aXRsZT48L2RjOnRpdGxlPgogICAgICA8L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZwogICAgIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy44NjgyMTUsMzA1LjYyNDA5KSIKICAgICBpZD0ibGF5ZXIxIj4KICAgIDxnCiAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgxNS41MDQxMzcsMCwwLDE1LjUwNDEzNywtNTg2Ni4wNTExLC03Mzc5LjczODEpIgogICAgICAgaWQ9ImczOTI4Ij4KICAgICAgPHBhdGgKICAgICAgICAgZD0ibSA0NDAuNDU3ODksNDg4LjY5NTE5IGMgMCwwIC0xNC4wODY5MSwtMjYuMjM5MDIgLTE0LjA4NjkxLC0yNi4yMzkwMiAtMS40ODQzNywtMi43NTg3OCAtNC44ODQwNCwtMy43NjgzMSAtNy41OTc2NSwtMi4yNTU4NiAwLDAgLTI1Ljc4MjQ3LDE0LjM3NSAtMjUuNzgyNDcsMTQuMzc1IC0xLjE2MDg5LDAuNjY0MDYgLTIuMjQzNjUsMS44MjM3NCAtMi43MzY4MiwzLjQ2NjggMCwwIC02LjkxODk1LDI0LjAyOTU0IC02LjkxODk1LDI0LjAyOTU0IC0wLjgyODg2LDIuODczNTQgMC43OTIyNCw1Ljg4NzQ2IDMuNjIxODMsNi43MzIxOSAwLDAgNDAuNjQ0NTQsMTEuNTYwMDUgNDAuNjQ0NTQsMTEuNTYwMDUgMi44MjcxNSwwLjg0MjI4IDUuNzkzNDUsLTAuODA4MSA2LjYyMzUyLC0zLjY4NTMgMCwwIDYuNzIzNjQsLTIzLjU2MjAyIDYuNzIzNjQsLTIzLjU2MjAyIDAuNDM3MDEsLTEuMzgzMDUgMC4xOTE2NSwtMy4wODk2IC0wLjQ5MDczLC00LjQyMTM4IHoiCiAgICAgICAgIGlkPSJwYXRoMzMwNyIKICAgICAgICAgc3R5bGU9ImZpbGw6IzAwYTBlMjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgLz4KICAgICAgPHBhdGgKICAgICAgICAgZD0ibSA0MDguODYyNDQsNDkzLjc0NjQ2IGMgMCwwIC00LjQ3MDIyLC04LjcxNzA0IC03LjM1OTYyLC04LjcxNzA0IC0yLjIzOTk5LDAuMDAyIC0yLjQzNDA5LDIuMzY4MTcgLTIuNDI3OTgsOC4wNzAwNyAwLjAwOSw1LjcwNDM1IDAuMzE2MTcsNy45MjYwMiAyLjQyMDY1LDcuOTI2MDIgMi44NjAxMiwtMC4wMDIgNy4zNjY5NSwtNy4yNzkwNSA3LjM2Njk1LC03LjI3OTA1IHogbSA1Ljc0NzA3LC03LjI3Mjk1IGMgMi4yOTAwMywtMy4yOTcxMiA0LjM2MDM1LC02LjU2MTI3IDguMjMyNDIsLTYuNTYxMjcgNC4yODcxMiwtMC4wMDIgNi42MTAxMiwzLjU4NjQyIDYuNjI0NzUsNi42MDY0MyAwLDAuMDMwNSAtMC4wMTgzLDE5LjMzMzUgLTAuMDE4MywxOS4zMzM1IDAsMCAtNC44MTQ0NiwwIC00LjgxNDQ2LDAgMCwwIC0wLjAyMDgsLTE4LjMwMDc4IC0wLjAyMDgsLTE4LjMwMDc4IDAsLTIuNTEzNDMgLTIuMDIwMjYsLTIuNTA4NTQgLTIuMDQ4MzQsLTIuNTA4NTQgLTEuNjI4NDEsMCAtNC42MjE1OSw0LjA4MzI1IC03Ljk1Mjg5LDguNjE2OTQgMCwwIDAsMTIuMTk5NzEgMCwxMi4xOTk3MSAwLDAgLTQuODY4MTYsMC4wMDUgLTQuODY4MTYsMC4wMDUgMCwwIC0wLjAwNiwtNS42NDY5NiAtMC4wMDYsLTUuNjQ2OTYgMCwwIC0zLjIxODk5LDUuNjQ2OTYgLTguMDM4MzIsNS42NTMwNyAtNS40Njc1NCwxMGUtNCAtNy4zMjMsLTMuNzU4NTUgLTcuMzM2NDMsLTEyLjc2NDkgLTAuMDA5LC04LjU4MDMyIDEuMjA4NDksLTEzLjE3MTM5IDcuMDY5MDksLTEzLjE3NjI2IDQuNDU4MDEsLTAuMDA0IDguMjg3MzUsNi40OTE3IDguMjg3MzUsNi40OTE3IDAsMCAxMGUtNCwtNC4xMTM3OCAxMGUtNCwtNC4xMTM3OCAwLDAgNC44OTEzNSwtNi41ODgxMyA0Ljg5MTM1LC02LjU4ODEzIDAsMCAtMC4wMjA4LDEwLjc4MDAzIC0wLjAwMiwxMC43NTQ0IHoiCiAgICAgICAgIGlkPSJwYXRoMzMwOSIKICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgLz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo=" alt="Albert Heijn">
+      <span class="header-title" id="header-title">Van oven tot derving</span>
+    </div>
   </div>
 
   <div class="lang-bar">
@@ -74,7 +111,31 @@
     <button class="lang-btn" onclick="setLang('ar',this)">AR</button>
   </div>
 
-  <div class="screen active" id="screen-vernietigen">
+  <!-- SCHERM 0: Intro -->
+  <div class="screen active" id="screen-intro">
+    <div class="intro-block">
+      <div class="intro-icon">&#128293;</div>
+      <div class="intro-title" id="intro-title">Van oven tot derving</div>
+      <div class="intro-sub" id="intro-sub">Aan het einde van de dag voer je in hoeveel er per product over is. Wat overblijft, wordt vernietigd (derving). Hoe nauwkeuriger je de hele dag met BAK werkt, hoe minder er overblijft — en hoe betrouwbaarder de prognoses voor morgen. In deze oefening verwerk je de derving van programma 103.</div>
+      <div class="intro-fases">
+        <div class="intro-fase geel">
+          <div class="ico" style="color:#E6AC00">&#9203;</div>
+          <div class="txt"><div class="nm" id="if-1-nm">Om 23:45 wordt nulgesteld</div><div class="ds" id="if-1-ds">Resterende voorraad in BAK gaat automatisch naar nul. Voer alles op tijd in.</div></div>
+        </div>
+        <div class="intro-fase blauw">
+          <div class="ico" style="color:#00A0E2">&#128202;</div>
+          <div class="txt"><div class="nm" id="if-2-nm">Derving verstoort de data</div><div class="ds" id="if-2-ds">Elk overschot dat wordt nulgesteld maakt de prognoses een beetje minder betrouwbaar.</div></div>
+        </div>
+        <div class="intro-fase groen">
+          <div class="ico" style="color:#639922">&#9989;</div>
+          <div class="txt"><div class="nm" id="if-3-nm">Minder derving = betere data</div><div class="ds" id="if-3-ds">Goed werken met BAK betekent minder verspilling en slimmere adviezen morgen.</div></div>
+        </div>
+      </div>
+      <button class="start-btn" id="start-btn" onclick="showScreen('screen-vernietigen')">Start de oefening &rarr;</button>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-vernietigen">
     <div class="info-banner" id="info-banner">⏰ Om 23:45 wordt de resterende voorraad in BAK automatisch nulgesteld. Zorg dat je alles hebt ingevoerd vóór die tijd.</div>
     <div class="scan-banner">
       <div class="scan-icon">📷</div>
@@ -106,6 +167,15 @@
     <div class="result-verschil" id="result-verschil" style="border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:12px;line-height:1.5;"></div>
     <div class="result-stat" id="result-stats"></div>
     <div class="result-tip" id="result-tip" style="border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:12px;line-height:1.5;"></div>
+    <div class="eind-les" id="eind-les">
+      <strong id="onthoud-kop">&#128161; Onthoud!</strong>
+      <ul>
+        <li id="les-1">Wat aan het eind van de dag overblijft, wordt vernietigd: dat is derving.</li>
+        <li id="les-2">Om 23:45 stelt BAK de resterende voorraad op nul — voer alles op tijd in.</li>
+        <li id="les-3">Veel derving maakt de voorraaddata en prognoses minder betrouwbaar.</li>
+        <li id="les-4">Goed werken met BAK overdag (uittellen, schap bijhouden) beperkt de derving.</li>
+      </ul>
+    </div>
     <button class="footer-btn" onclick="opnieuw()" id="btn-opnieuw" style="margin-top:4px;">Opnieuw</button>
   </div>
 </div></div>
@@ -168,7 +238,7 @@ const products = [
 
 const T = {
   nl: {
-    pageTitle:"Vernietigen", infoBanner:"⏰ Om 23:45 wordt de resterende voorraad in BAK automatisch nulgesteld. Zorg dat je alles hebt ingevoerd vóór die tijd.", scanLabel:"Scan een barcode of zoek naar producten om deze toe te voegen.",
+    pageTitle:"Van oven tot derving", infoBanner:"⏰ Om 23:45 wordt de resterende voorraad in BAK automatisch nulgesteld. Zorg dat je alles hebt ingevoerd vóór die tijd.", scanLabel:"Scan een barcode of zoek naar producten om deze toe te voegen.",
     timeLabel:"Einde van de dag — voer in hoeveel er over is per product", sectionTitle:"Programma 103",
     countLabel:n=>`${n}/25 ingevoerd`, liveLabel:"Totale verspilling tot nu toe:", bevestigen:"Bevestigen en vernietigen",
     wegLabel:"over", resultTitle:"Vernietigd",
@@ -178,10 +248,21 @@ const T = {
     verschilSlecht:kg=>`⚠️ Voorraadverschil: ${kg} wordt om 23:45 nulgesteld. Als dit vaker gebeurt, raken de prognoses vervuild en geeft BAK steeds slechtere adviezen.`,
     tipGoed:"💡 Zo werkt het: BAK leert van wat jij invoert. Geen verspilling = goede data = betere adviezen morgen. Jij maakt BAK slimmer.",
     tipSlecht:"💡 BAK leert van jouw invoer. Hoe minder verspilling en hoe nauwkeuriger je werkt, hoe beter BAK morgen adviseert. Kleine verbeteringen tellen op!",
-    totaal:"Totaal vernietigd:", items:"Producten met overschot:", opnieuw:"Opnieuw"
+    totaal:"Totaal vernietigd:", items:"Producten met overschot:", opnieuw:"Opnieuw",
+    introTitle:"Van oven tot derving",
+    introSub:"Aan het einde van de dag voer je in hoeveel er per product over is. Wat overblijft, wordt vernietigd (derving). Hoe nauwkeuriger je de hele dag met BAK werkt, hoe minder er overblijft — en hoe betrouwbaarder de prognoses voor morgen. In deze oefening verwerk je de derving van programma 103.",
+    if1Nm:"Om 23:45 wordt nulgesteld", if1Ds:"Resterende voorraad in BAK gaat automatisch naar nul. Voer alles op tijd in.",
+    if2Nm:"Derving verstoort de data", if2Ds:"Elk overschot dat wordt nulgesteld maakt de prognoses een beetje minder betrouwbaar.",
+    if3Nm:"Minder derving = betere data", if3Ds:"Goed werken met BAK betekent minder verspilling en slimmere adviezen morgen.",
+    startBtn:"Start de oefening \u2192",
+    onthoudKop:"\uD83D\uDCA1 Onthoud!",
+    les1:"Wat aan het eind van de dag overblijft, wordt vernietigd: dat is derving.",
+    les2:"Om 23:45 stelt BAK de resterende voorraad op nul — voer alles op tijd in.",
+    les3:"Veel derving maakt de voorraaddata en prognoses minder betrouwbaar.",
+    les4:"Goed werken met BAK overdag (uittellen, schap bijhouden) beperkt de derving."
   },
   en: {
-    pageTitle:"Destroy", infoBanner:"⏰ At 23:45 the remaining stock in BAK is automatically set to zero. Make sure you have entered everything before that time.", scanLabel:"Scan a barcode or search for products to add them.",
+    pageTitle:"From oven to waste", infoBanner:"⏰ At 23:45 the remaining stock in BAK is automatically set to zero. Make sure you have entered everything before that time.", scanLabel:"Scan a barcode or search for products to add them.",
     timeLabel:"End of day — enter how many are left per product", sectionTitle:"Programme 103",
     countLabel:n=>`${n}/25 entered`, liveLabel:"Total waste so far:", bevestigen:"Confirm and destroy",
     wegLabel:"left", resultTitle:"Destroyed",
@@ -191,10 +272,21 @@ const T = {
     verschilSlecht:kg=>`⚠️ Stock difference: ${kg} will be zeroed out at 23:45. If this happens more often, forecasts become unreliable and BAK gives increasingly worse advice.`,
     tipGoed:"💡 Well done! By working well with BAK you prevented waste today and ensure reliable forecasts for tomorrow.",
     tipSlecht:"💡 By working accurately with BAK throughout the day — counting out, tracking shelf stock — you limit waste at end of day and keep forecasts reliable.",
-    totaal:"Total destroyed:", items:"Products with surplus:", opnieuw:"Try again"
+    totaal:"Total destroyed:", items:"Products with surplus:", opnieuw:"Try again",
+    introTitle:"From oven to waste",
+    introSub:"At the end of the day you enter how many of each product are left. What remains gets destroyed (waste). The more accurately you work with BAK all day, the less is left over — and the more reliable tomorrow's forecasts. In this exercise you process the waste for programme 103.",
+    if1Nm:"Reset to zero at 23:45", if1Ds:"Remaining stock in BAK is set to zero automatically. Enter everything in time.",
+    if2Nm:"Waste distorts the data", if2Ds:"Every surplus that gets zeroed out makes the forecasts a little less reliable.",
+    if3Nm:"Less waste = better data", if3Ds:"Working well with BAK means less waste and smarter advice tomorrow.",
+    startBtn:"Start the exercise \u2192",
+    onthoudKop:"\uD83D\uDCA1 Remember!",
+    les1:"Whatever is left at the end of the day gets destroyed: that is waste.",
+    les2:"At 23:45 BAK sets the remaining stock to zero — enter everything in time.",
+    les3:"A lot of waste makes the stock data and forecasts less reliable.",
+    les4:"Working well with BAK during the day (counting out, tracking the shelf) limits waste."
   },
   tr: {
-    pageTitle:"İmha", infoBanner:"⏰ Saat 23:45'te BAK'taki kalan stok otomatik olarak sıfırlanır. O saatten önce her şeyi girdiğinizden emin olun.", scanLabel:"Barkod tarayın veya eklemek için ürün arayın.",
+    pageTitle:"Fırından imhaya", infoBanner:"⏰ Saat 23:45'te BAK'taki kalan stok otomatik olarak sıfırlanır. O saatten önce her şeyi girdiğinizden emin olun.", scanLabel:"Barkod tarayın veya eklemek için ürün arayın.",
     timeLabel:"Günün sonu — her ürün için kaç tane kaldığını girin", sectionTitle:"Program 103",
     countLabel:n=>`${n}/25 girildi`, liveLabel:"Şimdiye kadar toplam israf:", bevestigen:"Onayla ve imha et",
     wegLabel:"kaldı", resultTitle:"İmha edildi",
@@ -204,10 +296,21 @@ const T = {
     verschilSlecht:kg=>`⚠️ Stok farkı: ${kg} saat 23:45'te sıfırlanacak. Bu sık olursa tahminler bozulur ve BAK giderek daha kötü tavsiyeler verir.`,
     tipGoed:"💡 Aferin! BAK ile iyi çalışarak bugün israfı önlediniz ve yarın için güvenilir tahminler sağladınız.",
     tipSlecht:"💡 Gün boyunca BAK ile doğru çalışarak — sayım yaparak, raf stoğunu takip ederek — günün sonundaki israfı azaltır ve tahminleri güvenilir tutarsınız.",
-    totaal:"Toplam imha:", items:"Fazlalığı olan ürünler:", opnieuw:"Tekrar dene"
+    totaal:"Toplam imha:", items:"Fazlalığı olan ürünler:", opnieuw:"Tekrar dene",
+    introTitle:"Fırından imhaya",
+    introSub:"Günün sonunda her üründen kaç tane kaldığını girersin. Kalanlar imha edilir (fire). Gün boyunca BAK ile ne kadar doğru çalışırsan, o kadar az kalır — ve yarının tahminleri o kadar güvenilir olur. Bu alıştırmada program 103'ün firesini işlersin.",
+    if1Nm:"23:45'te sıfırlanır", if1Ds:"BAK'taki kalan stok otomatik olarak sıfırlanır. Her şeyi zamanında gir.",
+    if2Nm:"Fire veriyi bozar", if2Ds:"Sıfırlanan her fazlalık tahminleri biraz daha az güvenilir yapar.",
+    if3Nm:"Az fire = daha iyi veri", if3Ds:"BAK ile iyi çalışmak daha az israf ve yarın daha akıllı tavsiye demektir.",
+    startBtn:"Alıştırmayı başlat \u2192",
+    onthoudKop:"\uD83D\uDCA1 Unutma!",
+    les1:"Günün sonunda kalan her şey imha edilir: bu firedir.",
+    les2:"Saat 23:45'te BAK kalan stoğu sıfırlar — her şeyi zamanında gir.",
+    les3:"Çok fire, stok verisini ve tahminleri daha az güvenilir yapar.",
+    les4:"Gün içinde BAK ile iyi çalışmak (sayım, raf takibi) fireyi azaltır."
   },
   pl: {
-    pageTitle:"Zniszczenie", infoBanner:"⏰ O 23:45 pozostały stan w BAK jest automatycznie zerowany. Upewnij się, że wszystko zostało wprowadzone przed tym czasem.", scanLabel:"Zeskanuj kod kreskowy lub wyszukaj produkty, aby je dodać.",
+    pageTitle:"Od pieca do strat", infoBanner:"⏰ O 23:45 pozostały stan w BAK jest automatycznie zerowany. Upewnij się, że wszystko zostało wprowadzone przed tym czasem.", scanLabel:"Zeskanuj kod kreskowy lub wyszukaj produkty, aby je dodać.",
     timeLabel:"Koniec dnia — wprowadź ile pozostało z każdego produktu", sectionTitle:"Program 103",
     countLabel:n=>`${n}/25 wprowadzono`, liveLabel:"Całkowite marnotrawstwo do tej pory:", bevestigen:"Potwierdź i zniszcz",
     wegLabel:"pozostało", resultTitle:"Zniszczono",
@@ -217,10 +320,21 @@ const T = {
     verschilSlecht:kg=>`⚠️ Różnica w stanie: ${kg} zostanie wyzerowane o 23:45. Jeśli zdarza się to częściej, prognozy stają się niewiarygodne i BAK daje coraz gorsze porady.`,
     tipGoed:"💡 Dobra robota! Dobrze pracując z BAK, zapobiegłeś marnotrawstwu i zapewniasz wiarygodne prognozy na jutro.",
     tipSlecht:"💡 Pracując dokładnie z BAK przez cały dzień — licząc, śledząc stan półek — ograniczasz marnotrawstwo na koniec dnia i utrzymujesz wiarygodność prognoz.",
-    totaal:"Łącznie zniszczono:", items:"Produkty z nadwyżką:", opnieuw:"Spróbuj ponownie"
+    totaal:"Łącznie zniszczono:", items:"Produkty z nadwyżką:", opnieuw:"Spróbuj ponownie",
+    introTitle:"Od pieca do strat",
+    introSub:"Na koniec dnia wprowadzasz, ile zostało z każdego produktu. To, co zostaje, jest niszczone (straty). Im dokładniej pracujesz z BAK przez cały dzień, tym mniej zostaje — i tym bardziej wiarygodne są jutrzejsze prognozy. W tym ćwiczeniu przetwarzasz straty programu 103.",
+    if1Nm:"Zerowanie o 23:45", if1Ds:"Pozostały stan w BAK jest automatycznie zerowany. Wprowadź wszystko na czas.",
+    if2Nm:"Straty zaburzają dane", if2Ds:"Każda zerowana nadwyżka sprawia, że prognozy są nieco mniej wiarygodne.",
+    if3Nm:"Mniej strat = lepsze dane", if3Ds:"Dobra praca z BAK to mniej marnotrawstwa i mądrzejsze porady jutro.",
+    startBtn:"Rozpocznij ćwiczenie \u2192",
+    onthoudKop:"\uD83D\uDCA1 Zapamiętaj!",
+    les1:"Co zostaje na koniec dnia, jest niszczone: to są straty.",
+    les2:"O 23:45 BAK zeruje pozostały stan — wprowadź wszystko na czas.",
+    les3:"Dużo strat sprawia, że dane o stanie i prognozy są mniej wiarygodne.",
+    les4:"Dobra praca z BAK w ciągu dnia (liczenie, śledzenie półki) ogranicza straty."
   },
   ar: {
-    pageTitle:"الإتلاف", infoBanner:"⏰ في الساعة 23:45 يتم تصفير المخزون المتبقي في BAK تلقائياً. تأكد من إدخال كل شيء قبل ذلك الوقت.", scanLabel:"امسح الباركود أو ابحث عن المنتجات لإضافتها.",
+    pageTitle:"من الفرن إلى الإتلاف", infoBanner:"⏰ في الساعة 23:45 يتم تصفير المخزون المتبقي في BAK تلقائياً. تأكد من إدخال كل شيء قبل ذلك الوقت.", scanLabel:"امسح الباركود أو ابحث عن المنتجات لإضافتها.",
     timeLabel:"نهاية اليوم — أدخل كم تبقى من كل منتج", sectionTitle:"البرنامج 103",
     countLabel:n=>`تم إدخال ${n}/25`, liveLabel:"إجمالي الهدر حتى الآن:", bevestigen:"تأكيد والإتلاف",
     wegLabel:"متبقي", resultTitle:"تم الإتلاف",
@@ -230,7 +344,18 @@ const T = {
     verschilSlecht:kg=>`⚠️ فرق في المخزون: سيتم تصفير ${kg} في الساعة 23:45. إذا حدث هذا أكثر، تصبح التوقعات غير موثوقة ويعطي BAK نصائح أسوأ.`,
     tipGoed:"💡 أحسنت! من خلال العمل الجيد مع BAK منعت الهدر اليوم وتضمن توقعات موثوقة لغد.",
     tipSlecht:"💡 من خلال العمل الدقيق مع BAK طوال اليوم — العد، تتبع مخزون الرف — تحد من الهدر في نهاية اليوم وتحافظ على موثوقية التوقعات.",
-    totaal:"إجمالي المتلف:", items:"المنتجات ذات الفائض:", opnieuw:"حاول مرة أخرى"
+    totaal:"إجمالي المتلف:", items:"المنتجات ذات الفائض:", opnieuw:"حاول مرة أخرى",
+    introTitle:"من الفرن إلى الإتلاف",
+    introSub:"في نهاية اليوم تُدخل كم تبقى من كل منتج. ما يتبقّى يتم إتلافه (الفاقد). كلما عملت بدقة أكبر مع BAK طوال اليوم، قلّ المتبقّي — وأصبحت توقعات الغد أكثر موثوقية. في هذا التمرين تعالج فاقد البرنامج 103.",
+    if1Nm:"التصفير في الساعة 23:45", if1Ds:"يتم تصفير المخزون المتبقي في BAK تلقائياً. أدخل كل شيء في الوقت المناسب.",
+    if2Nm:"الفاقد يشوّه البيانات", if2Ds:"كل فائض يتم تصفيره يجعل التوقعات أقل موثوقية قليلاً.",
+    if3Nm:"فاقد أقل = بيانات أفضل", if3Ds:"العمل الجيد مع BAK يعني هدراً أقل ونصائح أذكى غداً.",
+    startBtn:"ابدأ التمرين \u2192",
+    onthoudKop:"\uD83D\uDCA1 تذكّر!",
+    les1:"ما يتبقّى في نهاية اليوم يتم إتلافه: هذا هو الفاقد.",
+    les2:"في الساعة 23:45 يصفّر BAK المخزون المتبقي — أدخل كل شيء في الوقت المناسب.",
+    les3:"الكثير من الفاقد يجعل بيانات المخزون والتوقعات أقل موثوقية.",
+    les4:"العمل الجيد مع BAK خلال اليوم (العدّ، متابعة الرف) يحدّ من الفاقد."
   }
 };
 
@@ -248,6 +373,12 @@ function applyLang() {
   const L = T[lang];
   const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
   set('header-title', L.pageTitle);
+  set('intro-title', L.introTitle);
+  set('intro-sub', L.introSub);
+  set('if-1-nm', L.if1Nm); set('if-1-ds', L.if1Ds);
+  set('if-2-nm', L.if2Nm); set('if-2-ds', L.if2Ds);
+  set('if-3-nm', L.if3Nm); set('if-3-ds', L.if3Ds);
+  set('start-btn', L.startBtn);
   set('info-banner', L.infoBanner);
   set('time-label', L.timeLabel);
   set('section-title', L.sectionTitle);
@@ -256,15 +387,20 @@ function applyLang() {
   set('btn-opnieuw', L.opnieuw || 'Opnieuw');
   set('scan-label', L.scanLabel || '');
   set('result-title', L.resultTitle || '');
+  const ok = document.getElementById('onthoud-kop'); if(ok) ok.innerHTML = L.onthoudKop;
+  set('les-1', L.les1); set('les-2', L.les2); set('les-3', L.les3); set('les-4', L.les4);
+  document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
   updateCountLabel();
   updateLiveTotal();
+  if (document.getElementById('screen-result').classList.contains('active')) renderResult();
 }
 
 function opnieuw() {
+  lastResultGrams = null;
   products.forEach(p => { p.over = 0; p.checked = false; });
-  showScreen('screen-vernietigen');
   applyLang();
   render();
+  showScreen('screen-intro');
 }
 
 function updateCountLabel() {
@@ -321,14 +457,23 @@ function render() {
   updateLiveTotal();
 }
 
+let lastResultGrams = null;
 function goToResult() {
-  const L = T[lang];
   let totalGrams = 0;
   products.forEach(p => {
     if (p.over > 0) {
       totalGrams += p.over * p.w;
     }
   });
+  lastResultGrams = totalGrams;
+  renderResult();
+  showScreen('screen-result');
+}
+
+function renderResult() {
+  if (lastResultGrams === null) return;
+  const L = T[lang];
+  const totalGrams = lastResultGrams;
   const disp = totalGrams >= 1000 ? `${(totalGrams/1000).toFixed(2)} kg` : `${totalGrams}g`;
   const hasWaste = totalGrams > 0;
 
@@ -339,7 +484,6 @@ function goToResult() {
   document.getElementById('result-sub').textContent = hasWaste ? L.resultSubSlecht(disp) : L.resultSubGoed;
 
   document.getElementById('result-verschil').style.display = 'none';
-
   document.getElementById('result-stats').style.display = 'none';
 
   const tipEl = document.getElementById('result-tip');
@@ -347,19 +491,16 @@ function goToResult() {
   tipEl.style.background = hasWaste ? '#FFF3CD' : '#E8F4FC';
   tipEl.style.border = hasWaste ? '0.5px solid #E6AC00' : '0.5px solid #00A0E2';
   tipEl.style.color = hasWaste ? '#633806' : '#005BA3';
-
-  showScreen('screen-result');
 }
 
-function goBack() {
-  if (document.getElementById('screen-result').classList.contains('active')) {
-    applyLang();
-    showScreen('screen-vernietigen');
-  }
+function terug() {
+  const cur = ['screen-intro','screen-vernietigen','screen-result'].find(id => document.getElementById(id).classList.contains('active'));
+  if (cur === 'screen-result') { applyLang(); showScreen('screen-vernietigen'); }
+  else if (cur === 'screen-vernietigen') { showScreen('screen-intro'); }
 }
 
 function showScreen(id) {
-  ['screen-vernietigen','screen-result'].forEach(s => {
+  ['screen-intro','screen-vernietigen','screen-result'].forEach(s => {
     const el = document.getElementById(s);
     el.classList.remove('active');
     el.style.display = 'none';
@@ -367,9 +508,10 @@ function showScreen(id) {
   const el = document.getElementById(id);
   el.style.display = 'flex';
   el.classList.add('active');
+  window.scrollTo(0,0);
 }
 
 applyLang();
 render();
-showScreen('screen-vernietigen');
+showScreen('screen-intro');
 </script>
