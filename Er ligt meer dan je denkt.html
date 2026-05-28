@@ -1,11 +1,45 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+:root{
+  --color-border-tertiary: rgba(0,0,0,0.08);
+  --color-border-secondary: rgba(0,0,0,0.16);
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f4f4f4;
+  --color-text-primary: #1f1f1f;
+  --color-text-secondary: #6a6a6a;
+  --border-radius-lg: 14px;
+  --border-radius-md: 10px;
+}
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .app { max-width: 420px; margin: 0 auto; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: rgba(255,255,255,0.88); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-.header { background: #00A0E2; padding: 14px 16px; color: #fff; display: flex; align-items: center; gap: 10px; }
-.header-title { font-size: 16px; font-weight: 500; flex: 1; }
+.header { background: #00A0E2; padding: 12px 16px; color: #fff; display: flex; align-items: center; gap: 10px; position: relative; }
+.header-back { font-size: 20px; cursor: pointer; opacity: 0.85; background:none; border:none; color:#fff; line-height:1; z-index:1; }
+.header-center { position: absolute; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 10px; pointer-events: none; }
+.header-logo { width: 34px; height: 34px; border-radius: 0; background: #fff; padding: 4px; flex-shrink: 0; display:block; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+.header-title { font-size: 16px; font-weight: 600; }
+/* Intro */
+.intro-block { padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; }
+.intro-icon { font-size: 44px; text-align: center; }
+.intro-title { font-size: 19px; font-weight: 600; color: var(--color-text-primary); text-align: center; line-height: 1.35; }
+.intro-sub { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; text-align: center; }
+.intro-fases { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.intro-fase { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: var(--border-radius-md); background: rgba(245,245,245,0.92); border: 0.5px solid var(--color-border-tertiary); }
+.intro-fase .ico { font-size: 22px; width: 28px; text-align: center; flex-shrink: 0; }
+.intro-fase .txt { flex: 1; }
+.intro-fase .nm { font-size: 14px; font-weight: 600; color: var(--color-text-primary); }
+.intro-fase .ds { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; line-height: 1.4; }
+.intro-fase.blauw { border-left: 3px solid #00A0E2; }
+.intro-fase.geel { border-left: 3px solid #E6AC00; }
+.intro-fase.groen { border-left: 3px solid #639922; }
+.start-btn { width: 100%; background: #00A0E2; color: #fff; border: none; border-radius: 8px; padding: 13px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 6px; }
+.start-btn:hover { background: #0089c2; }
+/* Onthoud-tips op resultscherm */
+.eind-les { background: #E8F4FC; border: 0.5px solid #00A0E2; border-radius: var(--border-radius-md); padding: 13px 14px; font-size: 13px; color: #005BA3; line-height: 1.55; text-align: left; width: 100%; margin-bottom: 12px; }
+.eind-les strong { font-weight: 600; }
+.eind-les ul { margin: 8px 0 0; padding-left: 18px; }
+.eind-les li { margin-bottom: 6px; }
+.eind-les li:last-child { margin-bottom: 0; }
 .lang-bar { display: flex; gap: 6px; padding: 8px 12px; background: rgba(240,240,240,0.85); border-bottom: 0.5px solid var(--color-border-tertiary); overflow-x: auto; }
 .lang-btn { background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 500; cursor: pointer; white-space: nowrap; color: var(--color-text-primary); }
 .lang-btn.active { background: #00A0E2; border-color: #00A0E2; color: #fff; }
@@ -79,8 +113,11 @@
 
 <div class="page-bg"><div class="app">
   <div class="header">
-    <i class="ti ti-arrow-left" style="font-size:20px;cursor:pointer" aria-hidden="true"></i>
-    <span class="header-title" id="header-title">Bijbakken</span>
+    <button class="header-back" onclick="terug()" aria-label="Terug">&#8592;</button>
+    <div class="header-center">
+      <img class="header-logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB2ZXJzaW9uPSIxLjEiCiAgIHdpZHRoPSIxMDAwIgogICBoZWlnaHQ9IjEwNDcuMDkiCiAgIGlkPSJzdmczODU4Ij4KICA8ZGVmcwogICAgIGlkPSJkZWZzMzg2MCIgLz4KICA8bWV0YWRhdGEKICAgICBpZD0ibWV0YWRhdGEzODYzIj4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29yawogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICAgIDxkYzp0aXRsZT48L2RjOnRpdGxlPgogICAgICA8L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZwogICAgIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy44NjgyMTUsMzA1LjYyNDA5KSIKICAgICBpZD0ibGF5ZXIxIj4KICAgIDxnCiAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgxNS41MDQxMzcsMCwwLDE1LjUwNDEzNywtNTg2Ni4wNTExLC03Mzc5LjczODEpIgogICAgICAgaWQ9ImczOTI4Ij4KICAgICAgPHBhdGgKICAgICAgICAgZD0ibSA0NDAuNDU3ODksNDg4LjY5NTE5IGMgMCwwIC0xNC4wODY5MSwtMjYuMjM5MDIgLTE0LjA4NjkxLC0yNi4yMzkwMiAtMS40ODQzNywtMi43NTg3OCAtNC44ODQwNCwtMy43NjgzMSAtNy41OTc2NSwtMi4yNTU4NiAwLDAgLTI1Ljc4MjQ3LDE0LjM3NSAtMjUuNzgyNDcsMTQuMzc1IC0xLjE2MDg5LDAuNjY0MDYgLTIuMjQzNjUsMS44MjM3NCAtMi43MzY4MiwzLjQ2NjggMCwwIC02LjkxODk1LDI0LjAyOTU0IC02LjkxODk1LDI0LjAyOTU0IC0wLjgyODg2LDIuODczNTQgMC43OTIyNCw1Ljg4NzQ2IDMuNjIxODMsNi43MzIxOSAwLDAgNDAuNjQ0NTQsMTEuNTYwMDUgNDAuNjQ0NTQsMTEuNTYwMDUgMi44MjcxNSwwLjg0MjI4IDUuNzkzNDUsLTAuODA4MSA2LjYyMzUyLC0zLjY4NTMgMCwwIDYuNzIzNjQsLTIzLjU2MjAyIDYuNzIzNjQsLTIzLjU2MjAyIDAuNDM3MDEsLTEuMzgzMDUgMC4xOTE2NSwtMy4wODk2IC0wLjQ5MDczLC00LjQyMTM4IHoiCiAgICAgICAgIGlkPSJwYXRoMzMwNyIKICAgICAgICAgc3R5bGU9ImZpbGw6IzAwYTBlMjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgLz4KICAgICAgPHBhdGgKICAgICAgICAgZD0ibSA0MDguODYyNDQsNDkzLjc0NjQ2IGMgMCwwIC00LjQ3MDIyLC04LjcxNzA0IC03LjM1OTYyLC04LjcxNzA0IC0yLjIzOTk5LDAuMDAyIC0yLjQzNDA5LDIuMzY4MTcgLTIuNDI3OTgsOC4wNzAwNyAwLjAwOSw1LjcwNDM1IDAuMzE2MTcsNy45MjYwMiAyLjQyMDY1LDcuOTI2MDIgMi44NjAxMiwtMC4wMDIgNy4zNjY5NSwtNy4yNzkwNSA3LjM2Njk1LC03LjI3OTA1IHogbSA1Ljc0NzA3LC03LjI3Mjk1IGMgMi4yOTAwMywtMy4yOTcxMiA0LjM2MDM1LC02LjU2MTI3IDguMjMyNDIsLTYuNTYxMjcgNC4yODcxMiwtMC4wMDIgNi42MTAxMiwzLjU4NjQyIDYuNjI0NzUsNi42MDY0MyAwLDAuMDMwNSAtMC4wMTgzLDE5LjMzMzUgLTAuMDE4MywxOS4zMzM1IDAsMCAtNC44MTQ0NiwwIC00LjgxNDQ2LDAgMCwwIC0wLjAyMDgsLTE4LjMwMDc4IC0wLjAyMDgsLTE4LjMwMDc4IDAsLTIuNTEzNDMgLTIuMDIwMjYsLTIuNTA4NTQgLTIuMDQ4MzQsLTIuNTA4NTQgLTEuNjI4NDEsMCAtNC42MjE1OSw0LjA4MzI1IC03Ljk1Mjg5LDguNjE2OTQgMCwwIDAsMTIuMTk5NzEgMCwxMi4xOTk3MSAwLDAgLTQuODY4MTYsMC4wMDUgLTQuODY4MTYsMC4wMDUgMCwwIC0wLjAwNiwtNS42NDY5NiAtMC4wMDYsLTUuNjQ2OTYgMCwwIC0zLjIxODk5LDUuNjQ2OTYgLTguMDM4MzIsNS42NTMwNyAtNS40Njc1NCwxMGUtNCAtNy4zMjMsLTMuNzU4NTUgLTcuMzM2NDMsLTEyLjc2NDkgLTAuMDA5LC04LjU4MDMyIDEuMjA4NDksLTEzLjE3MTM5IDcuMDY5MDksLTEzLjE3NjI2IDQuNDU4MDEsLTAuMDA0IDguMjg3MzUsNi40OTE3IDguMjg3MzUsNi40OTE3IDAsMCAxMGUtNCwtNC4xMTM3OCAxMGUtNCwtNC4xMTM3OCAwLDAgNC44OTEzNSwtNi41ODgxMyA0Ljg5MTM1LC02LjU4ODEzIDAsMCAtMC4wMjA4LDEwLjc4MDAzIC0wLjAwMiwxMC43NTQ0IHoiCiAgICAgICAgIGlkPSJwYXRoMzMwOSIKICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgLz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo=" alt="Albert Heijn">
+      <span class="header-title" id="header-title">Er ligt meer dan je denkt</span>
+    </div>
   </div>
   <div class="lang-bar">
     <button class="lang-btn active" onclick="setLang('nl',this)">NL</button>
@@ -90,7 +127,31 @@
     <button class="lang-btn" onclick="setLang('ar',this)">AR</button>
   </div>
 
-  <div class="screen active" id="screen-situatie">
+  <!-- SCHERM 0: Intro -->
+  <div class="screen active" id="screen-intro">
+    <div class="intro-block">
+      <div class="intro-icon">&#127838;</div>
+      <div class="intro-title" id="intro-title">Er ligt meer dan je denkt</div>
+      <div class="intro-sub" id="intro-sub">Een bijna leeg schap betekent niet automatisch dat je moet bijbakken. Vaak liggen er genoeg alternatieven en houdt BAK al rekening met de voorraad. In deze oefening kies jij wat je doet als het schap Pistolet wit leeg dreigt te lopen.</div>
+      <div class="intro-fases">
+        <div class="intro-fase blauw">
+          <div class="ico" style="color:#00A0E2">&#128064;</div>
+          <div class="txt"><div class="nm" id="if-1-nm">Kijk verder dan één product</div><div class="ds" id="if-1-ds">Er liggen vaak genoeg alternatieve broodsoorten op het schap.</div></div>
+        </div>
+        <div class="intro-fase geel">
+          <div class="ico" style="color:#E6AC00">&#128241;</div>
+          <div class="txt"><div class="nm" id="if-2-nm">Bijbakken? Altijd registreren</div><div class="ds" id="if-2-ds">Bak je bij, gebruik dan de bijbak-functie zodat de voorraad klopt.</div></div>
+        </div>
+        <div class="intro-fase groen">
+          <div class="ico" style="color:#639922">&#129504;</div>
+          <div class="txt"><div class="nm" id="if-3-nm">BAK denkt vooruit</div><div class="ds" id="if-3-ds">BAK plant de volgende bakronde al op basis van de huidige voorraad.</div></div>
+        </div>
+      </div>
+      <button class="start-btn" id="start-btn" onclick="showScreen('screen-situatie')">Start de oefening &rarr;</button>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-situatie">
     <div class="situation-block">
       <div class="situation-time">🕑 <span id="sit-time">13:45</span></div>
       <div class="situation-title" id="sit-title">Het schap Pistolet wit lijkt leeg te lopen. Wat doe je?</div>
@@ -190,6 +251,15 @@
       <div class="result-desc" id="result-desc"></div>
       <div class="result-chain" id="result-chain"></div>
       <div class="result-tip" id="result-tip"></div>
+      <div class="eind-les" id="eind-les">
+        <strong id="onthoud-kop">&#128161; Onthoud!</strong>
+        <ul>
+          <li id="les-1">Een bijna leeg schap betekent niet automatisch bijbakken.</li>
+          <li id="les-2">Kijk eerst naar alternatieven en wanneer de volgende bakronde is.</li>
+          <li id="les-3">Bak je toch bij? Registreer het altijd via de bijbak-functie in BAK.</li>
+          <li id="les-4">Een bakronde mag je altijd een uur eerder starten als dat nodig is.</li>
+        </ul>
+      </div>
       <button class="opnieuw-btn" onclick="opnieuw()" id="btn-opnieuw">Opnieuw proberen</button>
     </div>
   </div>
@@ -226,7 +296,7 @@ const productImgs = {
 
 const T = {
   nl: {
-    pageTitle:"Bijbakken", sitTime:"13:45",
+    pageTitle:"Er ligt meer dan je denkt", sitTime:"13:45",
     sitTitle:"Het schap Pistolet wit lijkt leeg te lopen. Wat doe je?",
     sitDesc:"Je loopt langs de broodafdeling en ziet dat er nog maar 2 Pistolet wit liggen. Een klant pakt er eentje. Je volgende bakronde is om 14:00.",
     schapTitle:"Situatie op het schap — 13:45",
@@ -238,6 +308,17 @@ const T = {
     lblGoed:"Ik wacht op de volgende bakronde om 14:00", subGoed:"Er is genoeg alternatief wit brood. BAK regelt het in de volgende ronde.",
     lblVroeg:"Ik start de bakronde een uur eerder", subVroeg:"Een bakronde mag altijd een uur van tevoren gestart worden.",
     opnieuw:"Opnieuw proberen",
+    introTitle:"Er ligt meer dan je denkt",
+    introSub:"Een bijna leeg schap betekent niet automatisch dat je moet bijbakken. Vaak liggen er genoeg alternatieven en houdt BAK al rekening met de voorraad. In deze oefening kies jij wat je doet als het schap Pistolet wit leeg dreigt te lopen.",
+    if1Nm:"Kijk verder dan één product", if1Ds:"Er liggen vaak genoeg alternatieve broodsoorten op het schap.",
+    if2Nm:"Bijbakken? Altijd registreren", if2Ds:"Bak je bij, gebruik dan de bijbak-functie zodat de voorraad klopt.",
+    if3Nm:"BAK denkt vooruit", if3Ds:"BAK plant de volgende bakronde al op basis van de huidige voorraad.",
+    startBtn:"Start de oefening \u2192",
+    onthoudKop:"\uD83D\uDCA1 Onthoud!",
+    les1:"Een bijna leeg schap betekent niet automatisch bijbakken.",
+    les2:"Kijk eerst naar alternatieven en wanneer de volgende bakronde is.",
+    les3:"Bak je toch bij? Registreer het altijd via de bijbak-functie in BAK.",
+    les4:"Een bakronde mag je altijd een uur eerder starten als dat nodig is.",
     results: {
       slecht: {
         badge:"❌ Niet slim", badgeClass:"slecht",
@@ -298,7 +379,7 @@ const T = {
     }
   },
   en: {
-    pageTitle:"Extra baking", sitTime:"13:45",
+    pageTitle:"There’s more than you think", sitTime:"13:45",
     sitTitle:"The Pistolet wit shelf seems to be running low. What do you do?",
     sitDesc:"You walk past the bread section and see only 2 Pistolet wit left. A customer picks one up. Your next baking round is at 14:00.",
     schapTitle:"Shelf situation — 13:45",
@@ -310,6 +391,17 @@ const T = {
     lblGoed:"I wait for the next baking round at 14:00", subGoed:"There is enough alternative white bread. BAK will handle it in the next round.",
     lblVroeg:"I start the baking round one hour earlier", subVroeg:"A baking round can always be started one hour in advance.",
     opnieuw:"Try again",
+    introTitle:"There’s more than you think",
+    introSub:"An almost empty shelf doesn’t automatically mean you should bake extra. There are often enough alternatives and BAK already takes stock into account. In this exercise you decide what to do when the White pistolet shelf is about to run out.",
+    if1Nm:"Look beyond one product", if1Ds:"There are often enough alternative bread types on the shelf.",
+    if2Nm:"Baking extra? Always register", if2Ds:"If you bake extra, use the extra-baking function so stock stays correct.",
+    if3Nm:"BAK thinks ahead", if3Ds:"BAK already plans the next baking round based on current stock.",
+    startBtn:"Start the exercise \u2192",
+    onthoudKop:"\uD83D\uDCA1 Remember!",
+    les1:"An almost empty shelf doesn’t automatically mean baking extra.",
+    les2:"First look at alternatives and when the next baking round is.",
+    les3:"Baking extra anyway? Always register it via the extra-baking function in BAK.",
+    les4:"You may always start a baking round an hour earlier if needed.",
     results: {
       slecht: {
         badge:"❌ Not smart", badgeClass:"slecht",
@@ -370,7 +462,7 @@ const T = {
     }
   },
   tr: {
-    pageTitle:"Ek pişirme", sitTime:"13:45",
+    pageTitle:"Sandığından fazlası var", sitTime:"13:45",
     sitTitle:"Pistolet wit rafı tükenmeye başlıyor. Ne yaparsın?",
     sitDesc:"Ekmek bölümünden geçerken yalnızca 2 adet Pistolet wit kaldığını görüyorsun. Bir müşteri birini alıyor. Bir sonraki pişirme turnu 14:00'te.",
     schapTitle:"Raf durumu — 13:45",
@@ -381,6 +473,17 @@ const T = {
     lblOk:"Ek pişiriyorum — ve BAK'a kaydediyorum", subOk:"Stok doğru kalsın diye BAK'taki ek pişirme fonksiyonunu kullanıyorum.",
     lblGoed:"14:00'teki bir sonraki pişirme turunu bekliyorum", subGoed:"Yeterince alternatif beyaz ekmek var. BAK bir sonraki turda halleder.",
     opnieuw:"Tekrar dene",
+    introTitle:"Sandığından fazlası var",
+    introSub:"Neredeyse boş bir raf, otomatik olarak ek pişirmen gerektiği anlamına gelmez. Genellikle yeterince alternatif vardır ve BAK stoğu zaten hesaba katar. Bu alıştırmada, beyaz pistolet rafı boşalmak üzereyken ne yapacağına sen karar verirsin.",
+    if1Nm:"Tek ürünün ötesine bak", if1Ds:"Rafta genellikle yeterince alternatif ekmek türü bulunur.",
+    if2Nm:"Ek pişirme mi? Daima kaydet", if2Ds:"Ek pişirirsen, stok doğru kalsın diye ek pişirme işlevini kullan.",
+    if3Nm:"BAK ileriyi düşünür", if3Ds:"BAK bir sonraki pişirme turunu mevcut stoğa göre önceden planlar.",
+    startBtn:"Alıştırmayı başlat \u2192",
+    onthoudKop:"\uD83D\uDCA1 Unutma!",
+    les1:"Neredeyse boş bir raf otomatik olarak ek pişirme anlamına gelmez.",
+    les2:"Önce alternatiflere ve bir sonraki pişirme turunun ne zaman olduğuna bak.",
+    les3:"Yine de ek mi pişiriyorsun? Bunu daima BAK'taki ek pişirme işleviyle kaydet.",
+    les4:"Gerekirse bir pişirme turunu her zaman bir saat erken başlatabilirsin.",
     results: {
       slecht: {badge:"❌ Akıllıca değil",badgeClass:"slecht",title:"BAK ne yaptığını bilmiyor",desc:"Kaydetmeden ek pişirdin. BAK stoğun hâlâ düşük olduğunu düşünüyor ve 14:00'te yeniden çok Pistolet wit pişirmeyi tavsiye edecek. Sonuç: aşırı üretim.",chain:[{cls:"slecht",icon:"🫙",text:"Kayıt yapmadan ek pişiriyorsun"},{cls:"slecht",icon:"❓",text:"BAK ekstra stoğu görmüyor"},{cls:"slecht",icon:"📈",text:"BAK 14:00'te yeniden çok Pistolet wit tavsiye ediyor"},{cls:"slecht",icon:"🗑️",text:"Günün sonu: aşırı üretim ve israf"}],chainTitle:"Şimdi ne oluyor:",tip:"💡 Ek pişiriyorsan her zaman BAK'taki ek pişirme fonksiyonunu kullan.",tipClass:"slecht"},
       ok: {badge:"✅ Aferin",badgeClass:"goed",title:"Kayıtlı ek pişirme — gerçekten gerektiğinde doğru seçim",desc:"Ek pişirdin ve BAK'a doğru şekilde kaydetttin. BAK stoğu dondurucudan rafa taşıyor ve 14:00 tavsiyesini ayarlıyor.",chain:[{cls:"goed",icon:"📱",text:"BAK üzerinden ek pişirmeyi kaydediyorsun"},{cls:"goed",icon:"✅",text:"BAK stoğu dondurucudan rafa taşıyor"},{cls:"goed",icon:"📉",text:"BAK 14:00 tavsiyesini ayarlıyor"},{cls:"goed",icon:"👍",text:"Aşırı üretim yok"}],chainTitle:"Şimdi ne oluyor:",tip:"💡 Ama önce sor: ek pişirme gerçekten gerekli mi? Hâlâ Tijgerbol, Kaiserbroodje ve Desem pistolet wit vardı.",tipClass:"ok"},
@@ -389,7 +492,7 @@ const T = {
     }
   },
   pl: {
-    pageTitle:"Dodatkowe pieczenie", sitTime:"13:45",
+    pageTitle:"Jest więcej niż myślisz", sitTime:"13:45",
     sitTitle:"Półka z Pistolet wit wydaje się pustoszeć. Co robisz?",
     sitDesc:"Mijasz dział piekarniczy i widzisz, że zostały tylko 2 sztuki Pistolet wit. Klient bierze jedną. Następna runda pieczenia jest o 14:00.",
     schapTitle:"Sytuacja na półce — 13:45",
@@ -400,6 +503,17 @@ const T = {
     lblOk:"Piekę dodatkowo — i rejestruję to w BAK", subOk:"Używam funkcji dodatkowego pieczenia w BAK.",
     lblGoed:"Czekam na następną rundę pieczenia o 14:00", subGoed:"Jest wystarczająco dużo alternatywnego białego chleba.",
     opnieuw:"Spróbuj ponownie",
+    introTitle:"Jest więcej niż myślisz",
+    introSub:"Prawie pusta półka nie oznacza automatycznie, że trzeba dopiekać. Często jest wystarczająco dużo alternatyw, a BAK już uwzględnia stan. W tym ćwiczeniu decydujesz, co zrobić, gdy półka z białym pistoletem ma się opróżnić.",
+    if1Nm:"Patrz dalej niż jeden produkt", if1Ds:"Na półce często jest wystarczająco dużo alternatywnych rodzajów pieczywa.",
+    if2Nm:"Dopiekasz? Zawsze rejestruj", if2Ds:"Jeśli dopiekasz, użyj funkcji dopiekania, aby stan był poprawny.",
+    if3Nm:"BAK myśli z wyprzedzeniem", if3Ds:"BAK już planuje następną rundę pieczenia na podstawie aktualnego stanu.",
+    startBtn:"Rozpocznij ćwiczenie \u2192",
+    onthoudKop:"\uD83D\uDCA1 Zapamiętaj!",
+    les1:"Prawie pusta półka nie oznacza automatycznie dopiekania.",
+    les2:"Najpierw spójrz na alternatywy i kiedy jest następna runda pieczenia.",
+    les3:"Mimo to dopiekasz? Zawsze rejestruj to przez funkcję dopiekania w BAK.",
+    les4:"Rundę pieczenia możesz zawsze rozpocząć godzinę wcześniej, jeśli trzeba.",
     results: {
       slecht: {badge:"❌ Niezbyt mądrze",badgeClass:"slecht",title:"BAK nie wie, co zrobiłeś",desc:"Upiekłeś dodatkowo bez rejestrowania. BAK myśli, że stan jest nadal niski i doradzi znowu dużo Pistolet wit o 14:00.",chain:[{cls:"slecht",icon:"🫙",text:"Pieczesz dodatkowo bez rejestracji"},{cls:"slecht",icon:"❓",text:"BAK nie widzi dodatkowego zapasu"},{cls:"slecht",icon:"📈",text:"BAK doradza znowu dużo Pistolet wit o 14:00"},{cls:"slecht",icon:"🗑️",text:"Koniec dnia: nadprodukcja i marnotrawstwo"}],chainTitle:"Co się teraz dzieje:",tip:"💡 Jeśli pieczesz dodatkowo, zawsze używaj funkcji dodatkowego pieczenia w BAK.",tipClass:"slecht"},
       ok: {badge:"✅ Dobra robota",badgeClass:"goed",title:"Dodatkowe pieczenie z rejestracją — właściwy wybór gdy potrzebny",desc:"Upiekłeś dodatkowo i poprawnie zarejestrowałeś w BAK. BAK przenosi zapas z zamrażarki na półkę i dostosowuje poradę.",chain:[{cls:"goed",icon:"📱",text:"Rejestrujesz dodatkowe pieczenie przez BAK"},{cls:"goed",icon:"✅",text:"BAK przenosi zapas z zamrażarki na półkę"},{cls:"goed",icon:"📉",text:"BAK dostosowuje poradę na 14:00"},{cls:"goed",icon:"👍",text:"Brak nadprodukcji"}],chainTitle:"Co się teraz dzieje:",tip:"💡 Ale zawsze zapytaj najpierw: czy to naprawdę konieczne? Były jeszcze Tijgerbol, Kaiserbroodje i Desem pistolet wit.",tipClass:"ok"},
@@ -408,7 +522,7 @@ const T = {
     }
   },
   ar: {
-    pageTitle:"الخبز الإضافي", sitTime:"13:45",
+    pageTitle:"هناك أكثر مما تظن", sitTime:"13:45",
     sitTitle:"يبدو أن رف Pistolet wit يوشك على النفاد. ماذا تفعل؟",
     sitDesc:"تمر بجانب قسم الخبز وترى أن 2 قطع فقط من Pistolet wit متبقية. يأخذ أحد العملاء قطعة. جولة الخبز التالية في الساعة 14:00.",
     schapTitle:"وضع الرف — 13:45",
@@ -419,6 +533,17 @@ const T = {
     lblOk:"أخبز إضافياً — وأسجله في BAK", subOk:"أستخدم وظيفة الخبز الإضافي في BAK.",
     lblGoed:"أنتظر جولة الخبز التالية في 14:00", subGoed:"يوجد خبز أبيض بديل كافٍ. سيتولى BAK الأمر.",
     opnieuw:"حاول مرة أخرى",
+    introTitle:"هناك أكثر مما تظن",
+    introSub:"الرفّ شبه الفارغ لا يعني تلقائياً أن عليك الخبز الإضافي. غالباً ما توجد بدائل كافية ويأخذ BAK المخزون بالحسبان مسبقاً. في هذا التمرين تقرّر ماذا تفعل عندما يوشك رفّ البيستوليه الأبيض على النفاد.",
+    if1Nm:"انظر أبعد من منتج واحد", if1Ds:"غالباً ما توجد أنواع خبز بديلة كافية على الرفّ.",
+    if2Nm:"خبز إضافي؟ سجّله دائماً", if2Ds:"إذا خبزت إضافياً، استخدم وظيفة الخبز الإضافي ليبقى المخزون صحيحاً.",
+    if3Nm:"BAK يفكّر مسبقاً", if3Ds:"يخطّط BAK لجولة الخبز التالية بناءً على المخزون الحالي.",
+    startBtn:"ابدأ التمرين \u2192",
+    onthoudKop:"\uD83D\uDCA1 تذكّر!",
+    les1:"الرفّ شبه الفارغ لا يعني تلقائياً الخبز الإضافي.",
+    les2:"انظر أولاً إلى البدائل ومتى تكون جولة الخبز التالية.",
+    les3:"تخبز إضافياً مع ذلك؟ سجّله دائماً عبر وظيفة الخبز الإضافي في BAK.",
+    les4:"يمكنك دائماً بدء جولة الخبز قبل ساعة إذا لزم الأمر.",
     results: {
       slecht: {badge:"❌ ليس ذكياً",badgeClass:"slecht",title:"BAK لا يعرف ما فعلته",desc:"خبزت إضافياً دون تسجيل. يعتقد BAK أن المخزون لا يزال منخفضاً وسينصح مرة أخرى في 14:00.",chain:[{cls:"slecht",icon:"🫙",text:"تخبز إضافياً دون تسجيل"},{cls:"slecht",icon:"❓",text:"BAK لا يرى المخزون الإضافي"},{cls:"slecht",icon:"📈",text:"BAK ينصح مرة أخرى بكميات كبيرة في 14:00"},{cls:"slecht",icon:"🗑️",text:"نهاية اليوم: إنتاج زائد وهدر"}],chainTitle:"ما الذي يحدث الآن:",tip:"💡 إذا خبزت إضافياً، استخدم دائماً وظيفة الخبز الإضافي في BAK.",tipClass:"slecht"},
       ok: {badge:"✅ أحسنت",badgeClass:"goed",title:"خبز إضافي مع تسجيل — الخيار الصحيح عند الحاجة",desc:"خبزت إضافياً وسجلته في BAK. ينقل BAK المخزون إلى الرف ويضبط نصيحة 14:00.",chain:[{cls:"goed",icon:"📱",text:"تسجل الخبز الإضافي عبر BAK"},{cls:"goed",icon:"✅",text:"BAK ينقل المخزون من الفريزر إلى الرف"},{cls:"goed",icon:"📉",text:"BAK يضبط نصيحة 14:00"},{cls:"goed",icon:"👍",text:"لا إنتاج زائد"}],chainTitle:"ما الذي يحدث الآن:",tip:"💡 لكن اسأل نفسك أولاً: هل الخبز الإضافي ضروري؟ كان لا يزال هناك Tijgerbol وKaiserbroodje وDesem pistolet wit.",tipClass:"ok"},
@@ -439,7 +564,14 @@ function setLang(l, btn) {
 
 function applyLang() {
   const L = T[lang];
-  document.getElementById('header-title').textContent = L.pageTitle;
+  const set = (id,val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+  set('header-title', L.pageTitle);
+  set('intro-title', L.introTitle);
+  set('intro-sub', L.introSub);
+  set('if-1-nm', L.if1Nm); set('if-1-ds', L.if1Ds);
+  set('if-2-nm', L.if2Nm); set('if-2-ds', L.if2Ds);
+  set('if-3-nm', L.if3Nm); set('if-3-ds', L.if3Ds);
+  set('start-btn', L.startBtn);
   document.getElementById('sit-time').textContent = L.sitTime;
   document.getElementById('sit-title').textContent = L.sitTitle;
   document.getElementById('sit-desc').textContent = L.sitDesc;
@@ -459,13 +591,25 @@ function applyLang() {
   document.getElementById('btn-opnieuw').textContent = L.opnieuw;
   if(L.lblVroeg) document.getElementById('lbl-vroeg').textContent = L.lblVroeg;
   if(L.subVroeg) document.getElementById('sub-vroeg').textContent = L.subVroeg;
+  const ok = document.getElementById('onthoud-kop'); if(ok) ok.innerHTML = L.onthoudKop;
+  set('les-1', L.les1); set('les-2', L.les2); set('les-3', L.les3); set('les-4', L.les4);
+  document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+  if (document.getElementById('screen-resultaat').classList.contains('active')) renderResult();
 }
 
+let gekozenType = null;
 function kies(type) {
-  const L = T[lang];
-  const r = L.results[type];
+  gekozenType = type;
   document.querySelectorAll('.keuze-btn').forEach(b => b.className = 'keuze-btn');
   document.getElementById('btn-'+type).className = 'keuze-btn ' + (type==='goed'||type==='vroeg'?'selected-good':type==='ok'?'selected-ok':'selected-bad');
+  renderResult();
+  showScreen('screen-resultaat');
+}
+
+function renderResult() {
+  if (!gekozenType) return;
+  const L = T[lang];
+  const r = L.results[gekozenType];
   const badge = document.getElementById('result-badge');
   badge.textContent = r.badge;
   badge.className = 'result-badge '+r.badgeClass;
@@ -476,16 +620,22 @@ function kies(type) {
   const tip = document.getElementById('result-tip');
   tip.textContent = r.tip;
   tip.className = 'result-tip '+r.tipClass;
-  showScreen('screen-resultaat');
 }
 
 function opnieuw() {
+  gekozenType = null;
   document.querySelectorAll('.keuze-btn').forEach(b => b.className = 'keuze-btn');
-  showScreen('screen-situatie');
+  showScreen('screen-intro');
+}
+
+function terug() {
+  const cur = ['screen-intro','screen-situatie','screen-resultaat'].find(id => document.getElementById(id).classList.contains('active'));
+  if (cur === 'screen-resultaat') { opnieuw(); }
+  else if (cur === 'screen-situatie') { showScreen('screen-intro'); }
 }
 
 function showScreen(id) {
-  ['screen-situatie','screen-resultaat'].forEach(s => {
+  ['screen-intro','screen-situatie','screen-resultaat'].forEach(s => {
     const el = document.getElementById(s);
     el.classList.remove('active');
     el.style.display = 'none';
@@ -493,8 +643,9 @@ function showScreen(id) {
   const el = document.getElementById(id);
   el.style.display = 'flex';
   el.classList.add('active');
+  window.scrollTo(0,0);
 }
 
 applyLang();
-showScreen('screen-situatie');
+showScreen('screen-intro');
 </script>
