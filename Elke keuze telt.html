@@ -1,11 +1,45 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+:root{
+  --color-border-tertiary: rgba(0,0,0,0.08);
+  --color-border-secondary: rgba(0,0,0,0.16);
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f4f4f4;
+  --color-text-primary: #1f1f1f;
+  --color-text-secondary: #6a6a6a;
+  --border-radius-lg: 14px;
+  --border-radius-md: 10px;
+}
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .app { max-width: 420px; margin: 0 auto; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: rgba(255,255,255,0.88); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-.header { background: #00A0E2; padding: 14px 16px; color: #fff; display: flex; align-items: center; gap: 10px; }
-.header-title { font-size: 16px; font-weight: 500; flex: 1; }
+.header { background: #00A0E2; padding: 12px 16px; color: #fff; display: flex; align-items: center; gap: 10px; position: relative; }
+.header-back { font-size: 20px; cursor: pointer; opacity: 0.85; background:none; border:none; color:#fff; line-height:1; z-index:1; }
+.header-center { position: absolute; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 10px; pointer-events: none; }
+.header-logo { width: 34px; height: 34px; border-radius: 0; background: #fff; padding: 4px; flex-shrink: 0; display:block; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+.header-title { font-size: 16px; font-weight: 600; }
+/* Intro */
+.intro-block { padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; }
+.intro-icon { font-size: 44px; text-align: center; }
+.intro-title { font-size: 19px; font-weight: 600; color: var(--color-text-primary); text-align: center; line-height: 1.35; }
+.intro-sub { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; text-align: center; }
+.intro-fases { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.intro-fase { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: var(--border-radius-md); background: rgba(245,245,245,0.92); border: 0.5px solid var(--color-border-tertiary); }
+.intro-fase .ico { font-size: 22px; width: 28px; text-align: center; flex-shrink: 0; }
+.intro-fase .txt { flex: 1; }
+.intro-fase .nm { font-size: 14px; font-weight: 600; color: var(--color-text-primary); }
+.intro-fase .ds { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; line-height: 1.4; }
+.intro-fase.blauw { border-left: 3px solid #00A0E2; }
+.intro-fase.geel { border-left: 3px solid #E6AC00; }
+.intro-fase.groen { border-left: 3px solid #639922; }
+.start-btn { width: 100%; background: #00A0E2; color: #fff; border: none; border-radius: 8px; padding: 13px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 6px; }
+.start-btn:hover { background: #0089c2; }
+/* Onthoud-tips op eindscherm */
+.eind-les { background: #E8F4FC; border: 0.5px solid #00A0E2; border-radius: var(--border-radius-md); padding: 13px 14px; font-size: 13px; color: #005BA3; line-height: 1.55; text-align: left; width: 100%; }
+.eind-les strong { font-weight: 600; }
+.eind-les ul { margin: 8px 0 0; padding-left: 18px; }
+.eind-les li { margin-bottom: 6px; }
+.eind-les li:last-child { margin-bottom: 0; }
 .lang-bar { display: flex; gap: 6px; padding: 8px 12px; background: rgba(240,240,240,0.85); border-bottom: 0.5px solid var(--color-border-tertiary); overflow-x: auto; }
 .lang-btn { background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 500; cursor: pointer; white-space: nowrap; color: var(--color-text-primary); }
 .lang-btn.active { background: #00A0E2; border-color: #00A0E2; color: #fff; }
@@ -43,31 +77,12 @@
 .footer-btn { width: 100%; background: #00A0E2; color: #fff; border: none; border-radius: 8px; padding: 12px; font-size: 15px; font-weight: 500; cursor: pointer; }
 .screen { display: none; flex-direction: column; }
 .screen.active { display: flex; }
-.afrond-intro { padding: 12px 16px; font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; border-bottom: 0.5px solid var(--color-border-tertiary); }
-.afrond-intro strong { color: var(--color-text-primary); font-weight: 500; }
-.stock-row { display: flex; align-items: center; gap: 10px; padding: 9px 16px; border-bottom: 0.5px solid var(--color-border-tertiary); }
-.stock-info { flex: 1; min-width: 0; }
-.stock-name { font-size: 13px; color: var(--color-text-primary); line-height: 1.3; }
-.stock-sub { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
-.stock-input { width: 60px; text-align: center; border: 1.5px solid #00A0E2; border-radius: 20px; padding: 5px 8px; font-size: 13px; font-weight: 500; background: var(--color-background-primary); color: var(--color-text-primary); outline: none; }
-.stock-input.warn { border-color: #E6AC00; background: #FFF8E1; color: #633806; }
-.stock-label { font-size: 11px; color: var(--color-text-secondary); white-space: nowrap; }
-.result-screen { display: none; flex-direction: column; align-items: center; padding: 28px 20px; gap: 12px; text-align: center; }
-.result-screen.active { display: flex; }
-.result-icon { font-size: 44px; color: #3B6D11; }
-.result-title { font-size: 18px; font-weight: 500; color: var(--color-text-primary); }
-.result-sub { font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; }
-.result-stat { background: rgba(245,245,245,0.92); border-radius: var(--border-radius-md); padding: 10px 16px; width: 100%; text-align: left; font-size: 13px; color: var(--color-text-secondary); }
-.result-stat strong { color: var(--color-text-primary); font-weight: 500; }
 
 .afgerond-screen { display: none; flex-direction: column; align-items: center; padding: 32px 20px; gap: 16px; text-align: center; }
 .afgerond-screen.active { display: flex; }
 .afgerond-icon { font-size: 52px; }
 .afgerond-title { font-size: 20px; font-weight: 600; color: #27500A; }
 .afgerond-sub { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; max-width: 320px; }
-.result-tip-box { border-radius: 10px; padding: 14px 16px; width: 100%; text-align: left; font-size: 13px; line-height: 1.6; }
-.result-tip-box.goed { background: #EAF3DE; border: 0.5px solid #639922; color: #27500A; }
-.result-tip-box.info { background: #E8F4FC; border: 0.5px solid #00A0E2; color: #005BA3; }
 
 .page-bg {
   min-height: 100vh;
@@ -85,8 +100,11 @@
 
 <div class="page-bg"><div class="app">
   <div class="header">
-    <i class="ti ti-arrow-left" style="font-size:20px;cursor:pointer" aria-hidden="true" onclick="goBack()"></i>
-    <span class="header-title" id="header-title">Uittellen voor morgen</span>
+    <button class="header-back" onclick="terug()" aria-label="Terug">&#8592;</button>
+    <div class="header-center">
+      <img class="header-logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB2ZXJzaW9uPSIxLjEiCiAgIHdpZHRoPSIxMDAwIgogICBoZWlnaHQ9IjEwNDcuMDkiCiAgIGlkPSJzdmczODU4Ij4KICA8ZGVmcwogICAgIGlkPSJkZWZzMzg2MCIgLz4KICA8bWV0YWRhdGEKICAgICBpZD0ibWV0YWRhdGEzODYzIj4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29yawogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICAgIDxkYzp0aXRsZT48L2RjOnRpdGxlPgogICAgICA8L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZwogICAgIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy44NjgyMTUsMzA1LjYyNDA5KSIKICAgICBpZD0ibGF5ZXIxIj4KICAgIDxnCiAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgxNS41MDQxMzcsMCwwLDE1LjUwNDEzNywtNTg2Ni4wNTExLC03Mzc5LjczODEpIgogICAgICAgaWQ9ImczOTI4Ij4KICAgICAgPHBhdGgKICAgICAgICAgZD0ibSA0NDAuNDU3ODksNDg4LjY5NTE5IGMgMCwwIC0xNC4wODY5MSwtMjYuMjM5MDIgLTE0LjA4NjkxLC0yNi4yMzkwMiAtMS40ODQzNywtMi43NTg3OCAtNC44ODQwNCwtMy43NjgzMSAtNy41OTc2NSwtMi4yNTU4NiAwLDAgLTI1Ljc4MjQ3LDE0LjM3NSAtMjUuNzgyNDcsMTQuMzc1IC0xLjE2MDg5LDAuNjY0MDYgLTIuMjQzNjUsMS44MjM3NCAtMi43MzY4MiwzLjQ2NjggMCwwIC02LjkxODk1LDI0LjAyOTU0IC02LjkxODk1LDI0LjAyOTU0IC0wLjgyODg2LDIuODczNTQgMC43OTIyNCw1Ljg4NzQ2IDMuNjIxODMsNi43MzIxOSAwLDAgNDAuNjQ0NTQsMTEuNTYwMDUgNDAuNjQ0NTQsMTEuNTYwMDUgMi44MjcxNSwwLjg0MjI4IDUuNzkzNDUsLTAuODA4MSA2LjYyMzUyLC0zLjY4NTMgMCwwIDYuNzIzNjQsLTIzLjU2MjAyIDYuNzIzNjQsLTIzLjU2MjAyIDAuNDM3MDEsLTEuMzgzMDUgMC4xOTE2NSwtMy4wODk2IC0wLjQ5MDczLC00LjQyMTM4IHoiCiAgICAgICAgIGlkPSJwYXRoMzMwNyIKICAgICAgICAgc3R5bGU9ImZpbGw6IzAwYTBlMjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgLz4KICAgICAgPHBhdGgKICAgICAgICAgZD0ibSA0MDguODYyNDQsNDkzLjc0NjQ2IGMgMCwwIC00LjQ3MDIyLC04LjcxNzA0IC03LjM1OTYyLC04LjcxNzA0IC0yLjIzOTk5LDAuMDAyIC0yLjQzNDA5LDIuMzY4MTcgLTIuNDI3OTgsOC4wNzAwNyAwLjAwOSw1LjcwNDM1IDAuMzE2MTcsNy45MjYwMiAyLjQyMDY1LDcuOTI2MDIgMi44NjAxMiwtMC4wMDIgNy4zNjY5NSwtNy4yNzkwNSA3LjM2Njk1LC03LjI3OTA1IHogbSA1Ljc0NzA3LC03LjI3Mjk1IGMgMi4yOTAwMywtMy4yOTcxMiA0LjM2MDM1LC02LjU2MTI3IDguMjMyNDIsLTYuNTYxMjcgNC4yODcxMiwtMC4wMDIgNi42MTAxMiwzLjU4NjQyIDYuNjI0NzUsNi42MDY0MyAwLDAuMDMwNSAtMC4wMTgzLDE5LjMzMzUgLTAuMDE4MywxOS4zMzM1IDAsMCAtNC44MTQ0NiwwIC00LjgxNDQ2LDAgMCwwIC0wLjAyMDgsLTE4LjMwMDc4IC0wLjAyMDgsLTE4LjMwMDc4IDAsLTIuNTEzNDMgLTIuMDIwMjYsLTIuNTA4NTQgLTIuMDQ4MzQsLTIuNTA4NTQgLTEuNjI4NDEsMCAtNC42MjE1OSw0LjA4MzI1IC03Ljk1Mjg5LDguNjE2OTQgMCwwIDAsMTIuMTk5NzEgMCwxMi4xOTk3MSAwLDAgLTQuODY4MTYsMC4wMDUgLTQuODY4MTYsMC4wMDUgMCwwIC0wLjAwNiwtNS42NDY5NiAtMC4wMDYsLTUuNjQ2OTYgMCwwIC0zLjIxODk5LDUuNjQ2OTYgLTguMDM4MzIsNS42NTMwNyAtNS40Njc1NCwxMGUtNCAtNy4zMjMsLTMuNzU4NTUgLTcuMzM2NDMsLTEyLjc2NDkgLTAuMDA5LC04LjU4MDMyIDEuMjA4NDksLTEzLjE3MTM5IDcuMDY5MDksLTEzLjE3NjI2IDQuNDU4MDEsLTAuMDA0IDguMjg3MzUsNi40OTE3IDguMjg3MzUsNi40OTE3IDAsMCAxMGUtNCwtNC4xMTM3OCAxMGUtNCwtNC4xMTM3OCAwLDAgNC44OTEzNSwtNi41ODgxMyA0Ljg5MTM1LC02LjU4ODEzIDAsMCAtMC4wMjA4LDEwLjc4MDAzIC0wLjAwMiwxMC43NTQ0IHoiCiAgICAgICAgIGlkPSJwYXRoMzMwOSIKICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgLz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo=" alt="Albert Heijn">
+      <span class="header-title" id="header-title">Elke keuze telt</span>
+    </div>
   </div>
 
   <div class="lang-bar">
@@ -97,7 +115,31 @@
     <button class="lang-btn" onclick="setLang('ar',this)">AR</button>
   </div>
 
-  <div class="screen active" id="screen-uittellen">
+  <!-- SCHERM 0: Intro -->
+  <div class="screen active" id="screen-intro">
+    <div class="intro-block">
+      <div class="intro-icon">&#127838;</div>
+      <div class="intro-title" id="intro-title">Elke keuze telt</div>
+      <div class="intro-sub" id="intro-sub">Bij het uittellen voor morgen telt elke keuze. Tel je meer dan het advies, dan riskeer je verspilling. Tel je minder, dan kunnen klanten misgrijpen. Door nauwkeurig uit te tellen geef je BAK betrouwbare data. In deze oefening tel je programma 103 uit.</div>
+      <div class="intro-fases">
+        <div class="intro-fase geel">
+          <div class="ico" style="color:#E6AC00">&#128201;</div>
+          <div class="txt"><div class="nm" id="if-1-nm">Boven het advies = verspilling</div><div class="ds" id="if-1-ds">Meer uittellen dan nodig betekent brood dat blijft liggen.</div></div>
+        </div>
+        <div class="intro-fase blauw">
+          <div class="ico" style="color:#00A0E2">&#128230;</div>
+          <div class="txt"><div class="nm" id="if-2-nm">Onder het advies = lege schappen</div><div class="ds" id="if-2-ds">Te weinig uittellen betekent dat klanten kunnen misgrijpen.</div></div>
+        </div>
+        <div class="intro-fase groen">
+          <div class="ico" style="color:#639922">&#9989;</div>
+          <div class="txt"><div class="nm" id="if-3-nm">Nauwkeurig = betrouwbare data</div><div class="ds" id="if-3-ds">Goed uittellen helpt BAK om steeds betere adviezen te geven.</div></div>
+        </div>
+      </div>
+      <button class="start-btn" id="start-btn" onclick="showScreen('screen-uittellen')">Start de oefening &rarr;</button>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-uittellen">
     <div class="tabs">
       <div class="tab done">Prog. 101</div>
       <div class="tab done">Prog. 102</div>
@@ -117,32 +159,23 @@
     </div>
   </div>
 
-  <!-- SCHERM 2: Afgerond bevestiging + knop DV controleren -->
+  <!-- EINDSCHERM: Afgerond + Onthoud -->
   <div class="afgerond-screen" id="screen-afgerond">
     <div class="afgerond-icon">✅</div>
     <div class="afgerond-title" id="afgerond-title">Programma 103 afgerond!</div>
-    <div class="afgerond-sub" id="afgerond-sub">Goed werk! Wil je nu de DV-voorraad bijwerken? BAK gebruikt deze informatie voor nauwkeurigere bakadviezen.</div>
+    <div class="afgerond-sub" id="afgerond-sub">Goed werk! Je hebt programma 103 zorgvuldig uitgeteld.</div>
+    <div class="eind-les" id="eind-les">
+      <strong id="onthoud-kop">&#128161; Onthoud!</strong>
+      <ul>
+        <li id="les-1">Bij het uittellen telt elke keuze — voor verspilling én voor lege schappen.</li>
+        <li id="les-2">Meer dan het advies uittellen leidt tot overproductie en verspilling.</li>
+        <li id="les-3">Minder dan het advies uittellen betekent dat klanten kunnen misgrijpen.</li>
+        <li id="les-4">Nauwkeurig uittellen geeft BAK betrouwbare data voor betere adviezen.</li>
+      </ul>
+    </div>
     <div class="footer" style="width:100%;padding:0;">
-      <button class="footer-btn" onclick="goToAfronden()" id="btn-dv-check">DV-voorraad controleren →</button>
+      <button class="footer-btn" onclick="opnieuw()" id="btn-opnieuw">Opnieuw</button>
     </div>
-  </div>
-
-  <!-- SCHERM 3: DV-voorraad invoeren -->
-  <div class="screen" id="screen-afronden">
-    <div class="afrond-intro" id="afrond-intro">Voer de huidige <strong>DV-voorraad</strong> in per product.</div>
-    <div id="stock-rows"></div>
-    <div class="footer">
-      <button class="footer-btn" onclick="goToResult()" id="btn-bevestigen">Bevestigen</button>
-    </div>
-  </div>
-
-  <!-- SCHERM 4: Eindresultaat + leerzame tekst -->
-  <div class="result-screen" id="screen-result">
-    <div style="font-size:44px">📦</div>
-    <div class="result-title" id="result-title">DV-voorraad opgeslagen</div>
-    <div class="result-sub" id="result-sub"></div>
-    <div class="result-tip-box info" id="result-tip"></div>
-    <button class="footer-btn" onclick="opnieuw()" id="btn-opnieuw" style="margin-top:4px;width:100%;">Opnieuw</button>
   </div>
 </div></div>
 
@@ -206,70 +239,130 @@ const state = products.map(p => ({r1: p.r1, r2: p.r2}));
 
 const T = {
   nl: {
-    pageTitle:"Uittellen voor morgen", dvTitle:"DV-voorraad invoeren",
+    pageTitle:"Elke keuze telt", dvTitle:"DV-voorraad invoeren",
     r1:"Ronde 1", r2:"Ronde 2", advies:n=>`Advies: ${n}`, bonus:"Bonus",
     afronden:"Programma 103 afronden", bevestigen:"Bevestigen",
+    introTitle:"Elke keuze telt",
+    introSub:"Bij het uittellen voor morgen telt elke keuze. Tel je meer dan het advies, dan riskeer je verspilling. Tel je minder, dan kunnen klanten misgrijpen. Door nauwkeurig uit te tellen geef je BAK betrouwbare data. In deze oefening tel je programma 103 uit.",
+    if1Nm:"Boven het advies = verspilling", if1Ds:"Meer uittellen dan nodig betekent brood dat blijft liggen.",
+    if2Nm:"Onder het advies = lege schappen", if2Ds:"Te weinig uittellen betekent dat klanten kunnen misgrijpen.",
+    if3Nm:"Nauwkeurig = betrouwbare data", if3Ds:"Goed uittellen helpt BAK om steeds betere adviezen te geven.",
+    startBtn:"Start de oefening \u2192",
+    onthoudKop:"\uD83D\uDCA1 Onthoud!",
+    les1:"Bij het uittellen telt elke keuze — voor verspilling én voor lege schappen.",
+    les2:"Meer dan het advies uittellen leidt tot overproductie en verspilling.",
+    les3:"Minder dan het advies uittellen betekent dat klanten kunnen misgrijpen.",
+    les4:"Nauwkeurig uittellen geeft BAK betrouwbare data voor betere adviezen.",
+    opnieuwBtn:"Opnieuw",
     afrondIntro:"Voer de huidige <strong>DV-voorraad</strong> in per product.",
     gepland:"Gepland", uitgeteld:"Uitgeteld", dvLabel:"st. DV",
     warnOver:(kg,stuks)=>`⚠️ ${stuks} extra ${stuks===1?'stuk':'stuks'} = ~${kg} mogelijke voedselverspilling. Weet je zeker dat je meer nodig hebt dan het advies?`,
     warnUnder:(stuks)=>`⚠️ ${stuks} ${stuks===1?'stuk':'stuks'} minder dan het advies. Klanten kunnen misgrijpen. Weet je zeker dat dit genoeg is?`,
-    afgerondTitle:"Programma 103 afgerond!", afgerondSub:"Goed werk! Wil je nu de DV-voorraad bijwerken? BAK gebruikt deze informatie voor nauwkeurigere bakadviezen.", dvCheck:"DV-voorraad controleren →",
+    afgerondTitle:"Programma 103 afgerond!", afgerondSub:"Goed werk! Je hebt programma 103 zorgvuldig uitgeteld.",
     resultTitle:"DV-voorraad opgeslagen",
     resultOver:kg=>`DV-voorraad bijgewerkt! BAK weet nu wat er in de vriezer ligt en kan nauwkeurige bakadviezen geven voor de volgende rondes.`,
     resultGeen:"Geen DV-voorraad ingevoerd. Vergeet dit niet — BAK kan dan geen nauwkeurig advies geven voor de volgende rondes.", totaal:"Totaal",
     resultTip:"💡 De DV-voorraad is het geheugen van BAK. Klopt dit getal, dan weet BAK precies wat er nog in de vriezer ligt en adviseert het precies genoeg — niet te veel, niet te weinig. Zo voorkom je verspilling én lege schappen!"
   },
   en: {
-    pageTitle:"Count out for tomorrow", dvTitle:"Enter current stock",
+    pageTitle:"Every choice counts", dvTitle:"Enter current stock",
     r1:"Round 1", r2:"Round 2", advies:n=>`Advice: ${n}`, bonus:"Bonus",
     afronden:"Complete programme 103", bevestigen:"Confirm",
+    introTitle:"Every choice counts",
+    introSub:"When counting out for tomorrow, every choice counts. Count more than the advice and you risk waste. Count less and customers may miss out. By counting accurately you give BAK reliable data. In this exercise you count out programme 103.",
+    if1Nm:"Above the advice = waste", if1Ds:"Counting more than needed means bread that stays unsold.",
+    if2Nm:"Below the advice = empty shelves", if2Ds:"Counting too little means customers may miss out.",
+    if3Nm:"Accurate = reliable data", if3Ds:"Counting well helps BAK give ever better advice.",
+    startBtn:"Start the exercise \u2192",
+    onthoudKop:"\uD83D\uDCA1 Remember!",
+    les1:"When counting out, every choice counts — for waste and for empty shelves.",
+    les2:"Counting more than the advice leads to overproduction and waste.",
+    les3:"Counting less than the advice means customers may miss out.",
+    les4:"Accurate counting gives BAK reliable data for better advice.",
+    opnieuwBtn:"Try again",
     afrondIntro:"Enter the current <strong>stock</strong> per product.",
     gepland:"Planned", uitgeteld:"Counted", dvLabel:"pcs",
     warnOver:(kg,stuks)=>`⚠️ ${stuks} extra ${stuks===1?'piece':'pieces'} = ~${kg} possible food waste. Are you sure you need more than advised?`,
     warnUnder:(stuks)=>`⚠️ ${stuks} ${stuks===1?'piece':'pieces'} fewer than advised. Customers may miss out. Are you sure this is enough?`,
-    afgerondTitle:"Programme 103 completed!", afgerondSub:"Well done! Would you like to update the stock now? BAK uses this for more accurate baking advice.", dvCheck:"Check stock →",
+    afgerondTitle:"Programme 103 completed!", afgerondSub:"Well done! You counted out programme 103 carefully.",
     resultTitle:"Stock saved",
     resultOver:kg=>`Stock updated! BAK now knows what's in the freezer and can give accurate baking advice for the next rounds.`,
     resultGeen:"No stock entered. Don't forget — BAK cannot give accurate advice for the next rounds without this.", totaal:"Total",
     resultTip:"💡 Stock is the memory of BAK. When this number is correct, BAK knows exactly what's in the freezer and advises just the right amount — not too much, not too little. This prevents waste and empty shelves!"
   },
   tr: {
-    pageTitle:"Yarın için sayım", dvTitle:"Mevcut stoku girin",
+    pageTitle:"Her seçim önemli", dvTitle:"Mevcut stoku girin",
     r1:"Tur 1", r2:"Tur 2", advies:n=>`Tavsiye: ${n}`, bonus:"Bonus",
     afronden:"Program 103'ü tamamla", bevestigen:"Onayla",
+    introTitle:"Her seçim önemli",
+    introSub:"Yarın için sayım yaparken her seçim önemlidir. Tavsiyeden fazla sayarsan israf riski olur. Az sayarsan müşteriler bulamayabilir. Doğru sayarak BAK’a güvenilir veri verirsin. Bu alıştırmada program 103’ü sayarsın.",
+    if1Nm:"Tavsiyenin üstü = israf", if1Ds:"Gerekenden fazla saymak, satılmadan kalan ekmek demektir.",
+    if2Nm:"Tavsiyenin altı = boş raflar", if2Ds:"Çok az saymak, müşterilerin bulamaması demektir.",
+    if3Nm:"Doğru = güvenilir veri", if3Ds:"İyi saymak, BAK’ın giderek daha iyi tavsiye vermesine yardımcı olur.",
+    startBtn:"Alıştırmayı başlat \u2192",
+    onthoudKop:"\uD83D\uDCA1 Unutma!",
+    les1:"Sayım yaparken her seçim önemlidir — hem israf hem boş raflar için.",
+    les2:"Tavsiyeden fazla saymak aşırı üretime ve israfa yol açar.",
+    les3:"Tavsiyeden az saymak müşterilerin bulamaması demektir.",
+    les4:"Doğru sayım, BAK’a daha iyi tavsiye için güvenilir veri verir.",
+    opnieuwBtn:"Tekrar dene",
     afrondIntro:"Her ürün için mevcut <strong>stoku</strong> girin.",
     gepland:"Planlanan", uitgeteld:"Sayılan", dvLabel:"adet",
     warnOver:(kg,stuks)=>`⚠️ ${stuks} ekstra adet = ~${kg} olası gıda israfı. Tavsiyeden fazlasına gerçekten ihtiyacın var mı?`,
     warnUnder:(stuks)=>`⚠️ Planlananın ${stuks} adet altında. Müşteriler ürün bulamayabilir. Bu yeterli mi?`,
-    afgerondTitle:"Program 103 tamamlandı!", afgerondSub:"Harika iş! Şimdi stoku güncellemek ister misin? BAK bunu daha doğru pişirme tavsiyeleri için kullanır.", dvCheck:"Stoku kontrol et →",
+    afgerondTitle:"Program 103 tamamlandı!", afgerondSub:"Harika iş! Program 103’ü dikkatlice saydın.",
     resultTitle:"Stok kaydedildi",
     resultOver:kg=>`Stok güncellendi! BAK artık dondurucuda ne olduğunu biliyor ve sonraki turlar için doğru pişirme tavsiyeleri verebilir.`,
     resultGeen:"Stok girilmedi. Bunu unutma — BAK olmadan sonraki turlar için doğru tavsiye veremez.", totaal:"Toplam",
     resultTip:"💡 Stok BAK'ın hafızasıdır. Bu sayı doğru olduğunda BAK dondurucuda tam olarak ne olduğunu bilir ve tam doğru miktarı tavsiye eder — ne fazla ne az. Bu sayede hem israf hem boş raf önlenir!"
   },
   pl: {
-    pageTitle:"Liczenie na jutro", dvTitle:"Wprowadź stan zapasów",
+    pageTitle:"Każdy wybór się liczy", dvTitle:"Wprowadź stan zapasów",
     r1:"Runda 1", r2:"Runda 2", advies:n=>`Zalecenie: ${n}`, bonus:"Bonus",
     afronden:"Zakończ program 103", bevestigen:"Zatwierdź",
+    introTitle:"Każdy wybór się liczy",
+    introSub:"Przy liczeniu na jutro każdy wybór się liczy. Policzysz więcej niż zalecenie — ryzykujesz marnotrawstwo. Policzysz mniej — klienci mogą nie znaleźć produktu. Licząc dokładnie, dajesz BAK wiarygodne dane. W tym ćwiczeniu liczysz program 103.",
+    if1Nm:"Powyżej zalecenia = marnotrawstwo", if1Ds:"Liczenie więcej niż trzeba to pieczywo, które zostaje.",
+    if2Nm:"Poniżej zalecenia = puste półki", if2Ds:"Liczenie za mało oznacza, że klienci mogą nie znaleźć produktu.",
+    if3Nm:"Dokładnie = wiarygodne dane", if3Ds:"Dobre liczenie pomaga BAK dawać coraz lepsze porady.",
+    startBtn:"Rozpocznij ćwiczenie \u2192",
+    onthoudKop:"\uD83D\uDCA1 Zapamiętaj!",
+    les1:"Przy liczeniu każdy wybór się liczy — dla marnotrawstwa i pustych półek.",
+    les2:"Liczenie więcej niż zalecenie prowadzi do nadprodukcji i marnotrawstwa.",
+    les3:"Liczenie mniej niż zalecenie oznacza, że klienci mogą nie znaleźć produktu.",
+    les4:"Dokładne liczenie daje BAK wiarygodne dane do lepszych porad.",
+    opnieuwBtn:"Spróbuj ponownie",
     afrondIntro:"Wprowadź aktualny <strong>stan zapasów</strong> dla każdego produktu.",
     gepland:"Zaplanowano", uitgeteld:"Policzone", dvLabel:"szt.",
     warnOver:(kg,stuks)=>`⚠️ ${stuks} dodatkowych sztuk = ~${kg} możliwego marnowania. Czy na pewno potrzebujesz więcej niż zalecono?`,
     warnUnder:(stuks)=>`⚠️ ${stuks} sztuk mniej niż zaplanowano. Klienci mogą nie dostać produktu. Czy to wystarczy?`,
-    afgerondTitle:"Program 103 zakończony!", afgerondSub:"Dobra robota! Czy chcesz teraz zaktualizować stan zapasów? BAK używa tego do dokładniejszych porad.", dvCheck:"Sprawdź zapasy →",
+    afgerondTitle:"Program 103 zakończony!", afgerondSub:"Dobra robota! Starannie policzyłeś program 103.",
     resultTitle:"Stan zapasów zapisany",
     resultOver:kg=>`Stan zapasów zaktualizowany! BAK wie teraz co jest w zamrażalniku i może udzielać dokładnych porad na kolejne rundy.`,
     resultGeen:"Nie wprowadzono zapasów. Nie zapomnij — BAK nie może bez tego udzielać dokładnych porad.", totaal:"Łącznie",
     resultTip:"💡 Stan zapasów to pamięć BAK. Gdy ta liczba jest prawidłowa, BAK wie dokładnie co jest w zamrażalniku i doradza dokładnie właściwą ilość — nie za dużo, nie za mało. Zapobiega to marnotrawstwu i pustym półkom!"
   },
   ar: {
-    pageTitle:"العد للغد", dvTitle:"أدخل المخزون الحالي",
+    pageTitle:"كل اختيار مهم", dvTitle:"أدخل المخزون الحالي",
     r1:"جولة 1", r2:"جولة 2", advies:n=>`النصيحة: ${n}`, bonus:"مكافأة",
     afronden:"إنهاء البرنامج 103", bevestigen:"تأكيد",
+    introTitle:"كل اختيار مهم",
+    introSub:"عند العدّ للغد، كل اختيار مهم. إذا عددت أكثر من التوصية، تخاطر بالهدر. وإذا عددت أقل، قد لا يجد العملاء المنتج. بالعدّ الدقيق تعطي BAK بيانات موثوقة. في هذا التمرين تَعُدّ البرنامج 103.",
+    if1Nm:"فوق التوصية = هدر", if1Ds:"العدّ أكثر من اللازم يعني خبزاً يبقى دون بيع.",
+    if2Nm:"تحت التوصية = رفوف فارغة", if2Ds:"العدّ القليل جداً يعني أن العملاء قد لا يجدون المنتج.",
+    if3Nm:"الدقة = بيانات موثوقة", if3Ds:"العدّ الجيد يساعد BAK على تقديم نصائح أفضل باستمرار.",
+    startBtn:"ابدأ التمرين \u2192",
+    onthoudKop:"\uD83D\uDCA1 تذكّر!",
+    les1:"عند العدّ، كل اختيار مهم — للهدر وللرفوف الفارغة.",
+    les2:"العدّ أكثر من التوصية يؤدي إلى الإفراط في الإنتاج والهدر.",
+    les3:"العدّ أقل من التوصية يعني أن العملاء قد لا يجدون المنتج.",
+    les4:"العدّ الدقيق يعطي BAK بيانات موثوقة لنصائح أفضل.",
+    opnieuwBtn:"حاول مرة أخرى",
     afrondIntro:"أدخل <strong>المخزون</strong> الحالي لكل منتج.",
     gepland:"مخطط", uitgeteld:"تم العد", dvLabel:"قطعة",
     warnOver:(kg,stuks)=>`⚠️ ${stuks} قطعة إضافية = ~${kg} هدر غذائي محتمل. هل أنت متأكد أنك تحتاج أكثر مما أوصى به النظام؟`,
     warnUnder:(stuks)=>`⚠️ ${stuks} قطعة أقل من المخطط. قد لا يجد العملاء المنتج. هل هذا كافٍ؟`,
-    afgerondTitle:"اكتمل البرنامج 103!", afgerondSub:"عمل رائع! هل تريد تحديث المخزون الآن؟ يستخدم BAK هذا لنصائح خبز أكثر دقة.", dvCheck:"تحقق من المخزون ←",
+    afgerondTitle:"اكتمل البرنامج 103!", afgerondSub:"عمل رائع! لقد عددت البرنامج 103 بعناية.",
     resultTitle:"تم حفظ المخزون",
     resultOver:kg=>`تم تحديث المخزون! يعرف BAK الآن ما في الفريزر ويمكنه تقديم نصائح خبز دقيقة للجولات القادمة.`,
     resultGeen:"لم يتم إدخال مخزون. لا تنسَ — لا يمكن لـ BAK تقديم نصائح دقيقة بدون هذا.", totaal:"المجموع",
@@ -290,14 +383,22 @@ function setLang(l, btn) {
 function applyLang() {
   const L = T[lang];
   const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
-  const setHTML = (id, val) => { const el = document.getElementById(id); if(el) el.innerHTML = val; };
   set('header-title', L.pageTitle);
+  set('intro-title', L.introTitle);
+  set('intro-sub', L.introSub);
+  set('if-1-nm', L.if1Nm); set('if-1-ds', L.if1Ds);
+  set('if-2-nm', L.if2Nm); set('if-2-ds', L.if2Ds);
+  set('if-3-nm', L.if3Nm); set('if-3-ds', L.if3Ds);
+  set('start-btn', L.startBtn);
   set('lbl-r1', L.r1);
   set('lbl-r2', L.r2);
   set('btn-afronden', L.afronden);
-  set('btn-bevestigen', L.bevestigen);
-  set('btn-opnieuw', 'Opnieuw');
-  setHTML('afrond-intro', L.afrondIntro);
+  set('btn-opnieuw', L.opnieuwBtn || 'Opnieuw');
+  set('afgerond-title', L.afgerondTitle);
+  set('afgerond-sub', L.afgerondSub);
+  const ok = document.getElementById('onthoud-kop'); if(ok) ok.innerHTML = L.onthoudKop;
+  set('les-1', L.les1); set('les-2', L.les2); set('les-3', L.les3); set('les-4', L.les4);
+  document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
 }
 
 function opnieuw() {
@@ -305,7 +406,7 @@ function opnieuw() {
   state.forEach((s, i) => { s.r1 = products[i].r1; s.r2 = products[i].r2; });
   applyLang();
   render();
-  showScreen('screen-uittellen');
+  showScreen('screen-intro');
 }
 
 function toggleCheck(i) {
@@ -379,85 +480,31 @@ function render() {
 }
 
 function goToAfgerond() {
-  const L = T[lang];
-  const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
-  set('afgerond-title', L.afgerondTitle || 'Programma 103 afgerond!');
-  set('afgerond-sub', L.afgerondSub || '');
-  set('btn-dv-check', L.dvCheck || 'DV-voorraad controleren →');
+  applyLang();
   showScreen('screen-afgerond');
 }
 
-function goToAfronden() {
-  const L = T[lang];
-  document.getElementById('header-title').textContent = L.dvTitle;
-  const container = document.getElementById('stock-rows');
-  container.innerHTML = '';
-  products.forEach((p, i) => {
-    const row = document.createElement('div');
-    row.className = 'stock-row';
-    row.innerHTML = `
-      <div class="product-img"><span style="font-size:20px">${p.emoji}</span></div>
-      <div class="stock-info">
-        <div class="stock-name">${p.name}</div>
-
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
-        <input class="stock-input" id="dv-${i}" type="number" min="0" placeholder="0" value="${p.dv}" oninput="updateDv(${i},this)" aria-label="${p.name}" />
-        <span class="stock-label">${L.dvLabel}</span>
-      </div>`;
-    container.appendChild(row);
-  });
-  showScreen('screen-afronden');
-}
-
-function updateDv(i, el) {
-  products[i].dv = el.value === '' ? '' : Math.max(0, parseInt(el.value)||0);
-  const tot = state[i].r1 + state[i].r2;
-  // no coloring
-}
-
-function goToResult() {
-  const L = T[lang];
-  const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
-  set('header-title', L.resultTitle);
-  let totalGrams = 0;
-  products.forEach((p) => {
-    const dv = p.dv === '' ? 0 : parseInt(p.dv)||0;
-    if (dv > 0) totalGrams += dv * p.w;
-  });
-  const disp = totalGrams >= 1000 ? `${(totalGrams/1000).toFixed(2)} kg` : `${totalGrams}g`;
-  set('result-title', L.resultTitle);
-  set('result-sub', totalGrams > 0 ? L.resultOver(disp) : L.resultGeen);
-  set('result-tip', L.resultTip);
-  const statsEl = document.getElementById('result-stats');
-  if(statsEl) statsEl.style.display = 'none';
-  showScreen('screen-result');
-}
-
-function goBack() {
-  if (document.getElementById('screen-result').classList.contains('active')) {
-    showScreen('screen-afronden');
-  } else if (document.getElementById('screen-afronden').classList.contains('active')) {
-    showScreen('screen-afgerond');
-  } else if (document.getElementById('screen-afgerond').classList.contains('active')) {
-    applyLang();
+function terug() {
+  if (document.getElementById('screen-afgerond').classList.contains('active')) {
     showScreen('screen-uittellen');
+  } else if (document.getElementById('screen-uittellen').classList.contains('active')) {
+    showScreen('screen-intro');
   }
 }
 
 function showScreen(id) {
-  ['screen-uittellen','screen-afgerond','screen-afronden','screen-result'].forEach(s => {
+  ['screen-intro','screen-uittellen','screen-afgerond'].forEach(s => {
     const el = document.getElementById(s);
     el.classList.remove('active');
     el.style.display = 'none';
   });
   const el = document.getElementById(id);
-  const isAfgerond = id === 'screen-afgerond';
-  el.style.display = isAfgerond ? 'flex' : 'flex';
+  el.style.display = 'flex';
   el.classList.add('active');
+  window.scrollTo(0,0);
 }
 
 applyLang();
 render();
-showScreen('screen-uittellen');
+showScreen('screen-intro');
 </script>
