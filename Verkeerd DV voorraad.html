@@ -1,11 +1,46 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+:root{
+  --color-border-tertiary: rgba(0,0,0,0.08);
+  --color-border-secondary: rgba(0,0,0,0.16);
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f4f4f4;
+  --color-text-primary: #1f1f1f;
+  --color-text-secondary: #6a6a6a;
+  --border-radius-lg: 14px;
+  --border-radius-md: 10px;
+  --vriezer: #00A0E2;
+  --productie: #E6AC00;
+  --schap: #639922;
+}
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .app { max-width: 420px; margin: 0 auto; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: rgba(255,255,255,0.88); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-.header { background: #00A0E2; padding: 14px 16px; color: #fff; display: flex; align-items: center; gap: 10px; }
-.header-title { font-size: 16px; font-weight: 500; flex: 1; }
+.header { background: #00A0E2; padding: 12px 16px; color: #fff; display: flex; align-items: center; gap: 10px; position: relative; }
+.header-back { font-size: 20px; cursor: pointer; opacity: 0.85; background:none; border:none; color:#fff; line-height:1; z-index:1; }
+.header-center { position: absolute; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 10px; pointer-events: none; }
+.header-logo { width: 34px; height: 34px; border-radius: 0; background: #fff; padding: 4px; flex-shrink: 0; display:block; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+.header-title { font-size: 16px; font-weight: 600; }
+/* Intro */
+.intro-block { padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; }
+.intro-icon { font-size: 44px; text-align: center; }
+.intro-title { font-size: 19px; font-weight: 600; color: var(--color-text-primary); text-align: center; line-height: 1.35; }
+.intro-sub { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; text-align: center; }
+.intro-fases { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.intro-fase { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: var(--border-radius-md); background: rgba(245,245,245,0.92); border: 0.5px solid var(--color-border-tertiary); }
+.intro-fase .ico { font-size: 22px; width: 28px; text-align: center; flex-shrink: 0; }
+.intro-fase .txt { flex: 1; }
+.intro-fase .nm { font-size: 14px; font-weight: 600; color: var(--color-text-primary); }
+.intro-fase .ds { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; line-height: 1.4; }
+.intro-fase.blauw { border-left: 3px solid #00A0E2; }
+.intro-fase.geel { border-left: 3px solid #E6AC00; }
+.intro-fase.groen { border-left: 3px solid #639922; }
+.start-btn { width: 100%; background: #00A0E2; color: #fff; border: none; border-radius: 8px; padding: 13px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 6px; }
+.start-btn:hover { background: #0089c2; }
+/* Onthoud-tips lijst in eind */
+.eind-les ul { margin: 8px 0 0; padding-left: 18px; }
+.eind-les li { margin-bottom: 6px; }
+.eind-les li:last-child { margin-bottom: 0; }
 .lang-bar { display: flex; gap: 6px; padding: 8px 12px; background: rgba(240,240,240,0.85); border-bottom: 0.5px solid var(--color-border-tertiary); overflow-x: auto; }
 .lang-btn { background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 500; cursor: pointer; white-space: nowrap; color: var(--color-text-primary); }
 .lang-btn.active { background: #00A0E2; border-color: #00A0E2; color: #fff; }
@@ -125,8 +160,11 @@
 
 <div class="page-bg"><div class="app">
   <div class="header">
-    <i class="ti ti-arrow-left" style="font-size:20px;cursor:pointer;opacity:0.7" aria-hidden="true"></i>
-    <span class="header-title" id="header-title">Uittellen charge 3</span>
+    <button class="header-back" onclick="terug()" aria-label="Terug">&#8592;</button>
+    <div class="header-center">
+      <img class="header-logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB2ZXJzaW9uPSIxLjEiCiAgIHdpZHRoPSIxMDAwIgogICBoZWlnaHQ9IjEwNDcuMDkiCiAgIGlkPSJzdmczODU4Ij4KICA8ZGVmcwogICAgIGlkPSJkZWZzMzg2MCIgLz4KICA8bWV0YWRhdGEKICAgICBpZD0ibWV0YWRhdGEzODYzIj4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29yawogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICAgIDxkYzp0aXRsZT48L2RjOnRpdGxlPgogICAgICA8L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZwogICAgIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy44NjgyMTUsMzA1LjYyNDA5KSIKICAgICBpZD0ibGF5ZXIxIj4KICAgIDxnCiAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgxNS41MDQxMzcsMCwwLDE1LjUwNDEzNywtNTg2Ni4wNTExLC03Mzc5LjczODEpIgogICAgICAgaWQ9ImczOTI4Ij4KICAgICAgPHBhdGgKICAgICAgICAgZD0ibSA0NDAuNDU3ODksNDg4LjY5NTE5IGMgMCwwIC0xNC4wODY5MSwtMjYuMjM5MDIgLTE0LjA4NjkxLC0yNi4yMzkwMiAtMS40ODQzNywtMi43NTg3OCAtNC44ODQwNCwtMy43NjgzMSAtNy41OTc2NSwtMi4yNTU4NiAwLDAgLTI1Ljc4MjQ3LDE0LjM3NSAtMjUuNzgyNDcsMTQuMzc1IC0xLjE2MDg5LDAuNjY0MDYgLTIuMjQzNjUsMS44MjM3NCAtMi43MzY4MiwzLjQ2NjggMCwwIC02LjkxODk1LDI0LjAyOTU0IC02LjkxODk1LDI0LjAyOTU0IC0wLjgyODg2LDIuODczNTQgMC43OTIyNCw1Ljg4NzQ2IDMuNjIxODMsNi43MzIxOSAwLDAgNDAuNjQ0NTQsMTEuNTYwMDUgNDAuNjQ0NTQsMTEuNTYwMDUgMi44MjcxNSwwLjg0MjI4IDUuNzkzNDUsLTAuODA4MSA2LjYyMzUyLC0zLjY4NTMgMCwwIDYuNzIzNjQsLTIzLjU2MjAyIDYuNzIzNjQsLTIzLjU2MjAyIDAuNDM3MDEsLTEuMzgzMDUgMC4xOTE2NSwtMy4wODk2IC0wLjQ5MDczLC00LjQyMTM4IHoiCiAgICAgICAgIGlkPSJwYXRoMzMwNyIKICAgICAgICAgc3R5bGU9ImZpbGw6IzAwYTBlMjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgLz4KICAgICAgPHBhdGgKICAgICAgICAgZD0ibSA0MDguODYyNDQsNDkzLjc0NjQ2IGMgMCwwIC00LjQ3MDIyLC04LjcxNzA0IC03LjM1OTYyLC04LjcxNzA0IC0yLjIzOTk5LDAuMDAyIC0yLjQzNDA5LDIuMzY4MTcgLTIuNDI3OTgsOC4wNzAwNyAwLjAwOSw1LjcwNDM1IDAuMzE2MTcsNy45MjYwMiAyLjQyMDY1LDcuOTI2MDIgMi44NjAxMiwtMC4wMDIgNy4zNjY5NSwtNy4yNzkwNSA3LjM2Njk1LC03LjI3OTA1IHogbSA1Ljc0NzA3LC03LjI3Mjk1IGMgMi4yOTAwMywtMy4yOTcxMiA0LjM2MDM1LC02LjU2MTI3IDguMjMyNDIsLTYuNTYxMjcgNC4yODcxMiwtMC4wMDIgNi42MTAxMiwzLjU4NjQyIDYuNjI0NzUsNi42MDY0MyAwLDAuMDMwNSAtMC4wMTgzLDE5LjMzMzUgLTAuMDE4MywxOS4zMzM1IDAsMCAtNC44MTQ0NiwwIC00LjgxNDQ2LDAgMCwwIC0wLjAyMDgsLTE4LjMwMDc4IC0wLjAyMDgsLTE4LjMwMDc4IDAsLTIuNTEzNDMgLTIuMDIwMjYsLTIuNTA4NTQgLTIuMDQ4MzQsLTIuNTA4NTQgLTEuNjI4NDEsMCAtNC42MjE1OSw0LjA4MzI1IC03Ljk1Mjg5LDguNjE2OTQgMCwwIDAsMTIuMTk5NzEgMCwxMi4xOTk3MSAwLDAgLTQuODY4MTYsMC4wMDUgLTQuODY4MTYsMC4wMDUgMCwwIC0wLjAwNiwtNS42NDY5NiAtMC4wMDYsLTUuNjQ2OTYgMCwwIC0zLjIxODk5LDUuNjQ2OTYgLTguMDM4MzIsNS42NTMwNyAtNS40Njc1NCwxMGUtNCAtNy4zMjMsLTMuNzU4NTUgLTcuMzM2NDMsLTEyLjc2NDkgLTAuMDA5LC04LjU4MDMyIDEuMjA4NDksLTEzLjE3MTM5IDcuMDY5MDksLTEzLjE3NjI2IDQuNDU4MDEsLTAuMDA0IDguMjg3MzUsNi40OTE3IDguMjg3MzUsNi40OTE3IDAsMCAxMGUtNCwtNC4xMTM3OCAxMGUtNCwtNC4xMTM3OCAwLDAgNC44OTEzNSwtNi41ODgxMyA0Ljg5MTM1LC02LjU4ODEzIDAsMCAtMC4wMjA4LDEwLjc4MDAzIC0wLjAwMiwxMC43NTQ0IHoiCiAgICAgICAgIGlkPSJwYXRoMzMwOSIKICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgLz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo=" alt="Albert Heijn">
+      <span class="header-title" id="header-title">Verkeerde DV-voorraad, verkeerd advies</span>
+    </div>
   </div>
 
   <div class="lang-bar">
@@ -137,8 +175,32 @@
     <button class="lang-btn" onclick="setLang('ar',this)">AR</button>
   </div>
 
+  <!-- SCHERM 0: Intro -->
+  <div class="screen active" id="screen-intro">
+    <div class="intro-block">
+      <div class="intro-icon">&#129534;</div>
+      <div class="intro-title" id="intro-title">Verkeerde DV-voorraad, verkeerd advies</div>
+      <div class="intro-sub" id="intro-sub">BAK adviseert op basis van de voorraad die in het systeem staat. Klopt de DV-voorraad (in de vriezer) niet, dan klopt het bakadvies ook niet. In deze situatie krijg je een opvallend laag advies. Wat doe je?</div>
+      <div class="intro-fases">
+        <div class="intro-fase blauw">
+          <div class="ico" style="color:#00A0E2">&#10052;</div>
+          <div class="txt"><div class="nm" id="if-1-nm">Het advies komt uit de voorraad</div><div class="ds" id="if-1-ds">BAK kan nooit meer adviseren dan er volgens het systeem in de vriezer ligt.</div></div>
+        </div>
+        <div class="intro-fase geel">
+          <div class="ico" style="color:#E6AC00">&#9888;</div>
+          <div class="txt"><div class="nm" id="if-2-nm">Een laag advies is een signaal</div><div class="ds" id="if-2-ds">Voelt een advies te laag? Controleer dan eerst de DV-voorraad.</div></div>
+        </div>
+        <div class="intro-fase groen">
+          <div class="ico" style="color:#639922">&#128064;</div>
+          <div class="txt"><div class="nm" id="if-3-nm">Jij bent de ogen van BAK</div><div class="ds" id="if-3-ds">Jij telt en corrigeert de werkelijke voorraad in het systeem.</div></div>
+        </div>
+      </div>
+      <button class="start-btn" id="start-btn" onclick="showScreen('screen-situatie')">Start de oefening &rarr;</button>
+    </div>
+  </div>
+
   <!-- SCHERM 1: Situatie + keuze -->
-  <div class="screen active" id="screen-situatie">
+  <div class="screen" id="screen-situatie">
     <div class="situation-block">
       <div class="situation-time">🕒 <span id="sit-time">13:30</span></div>
       <div class="situation-title" id="sit-title">Het bakadvies voor Pistolet wit is maar 2 stuks. Dat voelt veel te laag voor de rest van de dag. Wat doe je?</div>
@@ -249,7 +311,13 @@
       <div class="eind-sub" id="eind-sub">Het advies was zo laag omdat BAK dacht dat er maar 2 stuks in de vriezer lagen. Nu de voorraad klopt, geeft BAK het juiste advies.</div>
 
       <div class="eind-les" id="eind-les">
-        <strong>💡 Onthoud:</strong> BAK kan nooit meer adviseren dan de DV-voorraad die in het systeem staat. Klopt de DV-voorraad niet? Dan klopt het advies ook niet. Jij bent de ogen van BAK.
+        <strong id="onthoud-kop">&#128161; Onthoud!</strong>
+        <ul>
+          <li id="les-1">BAK kan nooit meer adviseren dan de DV-voorraad die in het systeem staat.</li>
+          <li id="les-2">Klopt de DV-voorraad niet? Dan klopt het advies ook niet.</li>
+          <li id="les-3">Een opvallend laag advies is een signaal om de vriezervoorraad te controleren.</li>
+          <li id="les-4">Jij bent de ogen van BAK: tel en corrigeer de werkelijke voorraad.</li>
+        </ul>
       </div>
 
       <button class="next-btn" id="eind-opnieuw" onclick="opnieuw()" style="width:100%;margin-top:4px;"></button>
@@ -292,7 +360,7 @@ const productImgs = {
 
 const T = {
   nl: {
-    pageTitle: "Uittellen charge 3",
+    pageTitle: "Verkeerde DV-voorraad, verkeerd advies",
     sitTime: "13:30",
     sitTitle: "Het bakadvies voor Pistolet wit is maar 2 stuks. Dat voelt veel te laag voor de rest van de dag. Wat doe je?",
     adviesHeader: "BAK — Uittellen charge 3",
@@ -354,10 +422,21 @@ const T = {
     eindNaSub: "DV: 31 st.",
     eindSub: "Het advies was zo laag omdat BAK dacht dat er maar 2 stuks in de vriezer lagen. Nu de voorraad klopt, geeft BAK het juiste advies.",
     eindLes: "<strong>💡 Onthoud:</strong> BAK kan nooit meer adviseren dan de DV-voorraad die in het systeem staat. Klopt de DV-voorraad niet? Dan klopt het advies ook niet. Jij bent de ogen van BAK.",
-    opnieuw: "Opnieuw proberen"
+    opnieuw: "Opnieuw proberen",
+    introTitle: "Verkeerde DV-voorraad, verkeerd advies",
+    introSub: "BAK adviseert op basis van de voorraad die in het systeem staat. Klopt de DV-voorraad (in de vriezer) niet, dan klopt het bakadvies ook niet. In deze situatie krijg je een opvallend laag advies. Wat doe je?",
+    if1Nm: "Het advies komt uit de voorraad", if1Ds: "BAK kan nooit meer adviseren dan er volgens het systeem in de vriezer ligt.",
+    if2Nm: "Een laag advies is een signaal", if2Ds: "Voelt een advies te laag? Controleer dan eerst de DV-voorraad.",
+    if3Nm: "Jij bent de ogen van BAK", if3Ds: "Jij telt en corrigeert de werkelijke voorraad in het systeem.",
+    startBtn: "Start de oefening \u2192",
+    onthoudKop: "\uD83D\uDCA1 Onthoud!",
+    les1: "BAK kan nooit meer adviseren dan de DV-voorraad die in het systeem staat.",
+    les2: "Klopt de DV-voorraad niet? Dan klopt het advies ook niet.",
+    les3: "Een opvallend laag advies is een signaal om de vriezervoorraad te controleren.",
+    les4: "Jij bent de ogen van BAK: tel en corrigeer de werkelijke voorraad."
   },
   en: {
-    pageTitle: "Count out charge 3",
+    pageTitle: "Wrong frozen stock, wrong advice",
     sitTime: "13:30",
     sitTitle: "The baking advice for White pistolet is only 2 pieces. That feels much too low for the rest of the day. What do you do?",
     adviesHeader: "BAK — Count out charge 3",
@@ -419,10 +498,21 @@ const T = {
     eindNaSub: "Frozen: 31 pcs.",
     eindSub: "The advice was so low because BAK thought there were only 2 pieces in the freezer. Now that the stock is correct, BAK gives the right advice.",
     eindLes: "<strong>💡 Remember:</strong> BAK can never advise more than the frozen stock registered in the system. If the frozen stock is wrong, the advice is wrong. You are the eyes of BAK.",
-    opnieuw: "Try again"
+    opnieuw: "Try again",
+    introTitle: "Wrong frozen stock, wrong advice",
+    introSub: "BAK advises based on the stock registered in the system. If the frozen stock isn't correct, the baking advice is wrong too. In this situation you get a surprisingly low advice. What do you do?",
+    if1Nm: "The advice comes from the stock", if1Ds: "BAK can never advise more than what the system thinks is in the freezer.",
+    if2Nm: "A low advice is a signal", if2Ds: "Does an advice feel too low? Check the frozen stock first.",
+    if3Nm: "You are the eyes of BAK", if3Ds: "You count and correct the actual stock in the system.",
+    startBtn: "Start the exercise \u2192",
+    onthoudKop: "\uD83D\uDCA1 Remember!",
+    les1: "BAK can never advise more than the frozen stock registered in the system.",
+    les2: "If the frozen stock is wrong, the advice is wrong too.",
+    les3: "A surprisingly low advice is a signal to check the freezer stock.",
+    les4: "You are the eyes of BAK: count and correct the actual stock."
   },
   tr: {
-    pageTitle: "Charge 3 sayımı",
+    pageTitle: "Yanlış stok, yanlış tavsiye",
     sitTime: "13:30",
     sitTitle: "Beyaz pistolet için fırın tavsiyesi sadece 2 adet. Günün geri kalanı için bu çok düşük görünüyor. Ne yaparsın?",
     adviesHeader: "BAK — Charge 3 sayımı",
@@ -484,10 +574,21 @@ const T = {
     eindNaSub: "DV: 31 adet",
     eindSub: "Tavsiye bu kadar düşüktü çünkü BAK dondurucuda yalnızca 2 adet olduğunu düşünüyordu. Stok düzeltilince BAK doğru tavsiyeyi verdi.",
     eindLes: "<strong>💡 Unutma:</strong> BAK, sistemde kayıtlı derin dondurucu stoktan fazlasını asla tavsiye edemez. Stok yanlışsa tavsiye de yanlış olur. Sen BAK'ın gözlerisin.",
-    opnieuw: "Tekrar dene"
+    opnieuw: "Tekrar dene",
+    introTitle: "Yanlış stok, yanlış tavsiye",
+    introSub: "BAK, sistemde kayıtlı stoğa göre tavsiye verir. Dondurucu stoğu doğru değilse, pişirme tavsiyesi de yanlış olur. Bu durumda şaşırtıcı derecede düşük bir tavsiye alıyorsun. Ne yaparsın?",
+    if1Nm: "Tavsiye stoktan gelir", if1Ds: "BAK, sisteme göre dondurucuda olandan fazlasını asla tavsiye edemez.",
+    if2Nm: "Düşük tavsiye bir sinyaldir", if2Ds: "Bir tavsiye çok mu düşük geliyor? Önce dondurucu stoğunu kontrol et.",
+    if3Nm: "Sen BAK'ın gözlerisin", if3Ds: "Gerçek stoğu sistemde sen sayar ve düzeltirsin.",
+    startBtn: "Alıştırmayı başlat \u2192",
+    onthoudKop: "\uD83D\uDCA1 Unutma!",
+    les1: "BAK, sistemde kayıtlı dondurucu stoğundan fazlasını asla tavsiye edemez.",
+    les2: "Dondurucu stoğu yanlışsa, tavsiye de yanlış olur.",
+    les3: "Şaşırtıcı derecede düşük bir tavsiye, dondurucu stoğunu kontrol etme sinyalidir.",
+    les4: "Sen BAK'ın gözlerisin: gerçek stoğu say ve düzelt."
   },
   pl: {
-    pageTitle: "Liczenie charge 3",
+    pageTitle: "Błędny stan, błędne zalecenie",
     sitTime: "13:30",
     sitTitle: "Zalecenie dotyczące Białej bułki pistolet to tylko 2 sztuki. Na resztę dnia wydaje się to zdecydowanie za mało. Co robisz?",
     adviesHeader: "BAK — Liczenie charge 3",
@@ -549,10 +650,21 @@ const T = {
     eindNaSub: "Zamr.: 31 szt.",
     eindSub: "Zalecenie było tak niskie, bo BAK myślał, że w zamrażalniku są tylko 2 sztuki. Teraz gdy stan jest prawidłowy, BAK daje właściwe zalecenie.",
     eindLes: "<strong>💡 Zapamiętaj:</strong> BAK nigdy nie może doradzić więcej niż stan zamrażalnika zarejestrowany w systemie. Jeśli stan jest błędny, zalecenie też jest błędne. Jesteś oczami BAK.",
-    opnieuw: "Spróbuj ponownie"
+    opnieuw: "Spróbuj ponownie",
+    introTitle: "Błędny stan, błędne zalecenie",
+    introSub: "BAK doradza na podstawie stanu zarejestrowanego w systemie. Jeśli stan zamrażalnika jest błędny, zalecenie pieczenia też jest błędne. W tej sytuacji otrzymujesz zaskakująco niskie zalecenie. Co robisz?",
+    if1Nm: "Zalecenie pochodzi ze stanu", if1Ds: "BAK nigdy nie doradzi więcej niż to, co według systemu jest w zamrażalniku.",
+    if2Nm: "Niskie zalecenie to sygnał", if2Ds: "Czy zalecenie wydaje się za niskie? Najpierw sprawdź stan zamrażalnika.",
+    if3Nm: "Jesteś oczami BAK", if3Ds: "To Ty liczysz i poprawiasz rzeczywisty stan w systemie.",
+    startBtn: "Rozpocznij ćwiczenie \u2192",
+    onthoudKop: "\uD83D\uDCA1 Zapamiętaj!",
+    les1: "BAK nigdy nie doradzi więcej niż stan zamrażalnika zarejestrowany w systemie.",
+    les2: "Jeśli stan zamrażalnika jest błędny, zalecenie też jest błędne.",
+    les3: "Zaskakująco niskie zalecenie to sygnał, by sprawdzić stan zamrażalnika.",
+    les4: "Jesteś oczami BAK: licz i poprawiaj rzeczywisty stan."
   },
   ar: {
-    pageTitle: "العد charge 3",
+    pageTitle: "مخزون خاطئ، توصية خاطئة",
     sitTime: "13:30",
     sitTitle: "توصية الخبز للخبز الأبيض pistolet هي 2 قطع فقط. هذا يبدو منخفضاً جداً لبقية اليوم. ماذا تفعل؟",
     adviesHeader: "BAK — العد charge 3",
@@ -614,7 +726,18 @@ const T = {
     eindNaSub: "ثلاجة: 31 قطعة",
     eindSub: "كانت التوصية منخفضة جداً لأن BAK اعتقد أن هناك 2 قطع فقط في الثلاجة. الآن بعد تصحيح المخزون، يعطي BAK التوصية الصحيحة.",
     eindLes: "<strong>💡 تذكّر:</strong> لا يمكن لـ BAK أبداً التوصية بأكثر من مخزون الثلاجة المسجل في النظام. إذا كان المخزون خاطئاً، فالتوصية خاطئة أيضاً. أنت عيون BAK.",
-    opnieuw: "حاول مرة أخرى"
+    opnieuw: "حاول مرة أخرى",
+    introTitle: "مخزون خاطئ، توصية خاطئة",
+    introSub: "يقدّم BAK التوصية بناءً على المخزون المسجَّل في النظام. إذا كان مخزون المجمّد غير صحيح، فستكون توصية الخَبز خاطئة أيضًا. في هذه الحالة تحصل على توصية منخفضة بشكل لافت. ماذا تفعل؟",
+    if1Nm: "التوصية تأتي من المخزون", if1Ds: "لا يمكن لـ BAK أبدًا أن يوصي بأكثر مما يعتقد النظام أنه في المجمّد.",
+    if2Nm: "التوصية المنخفضة إشارة", if2Ds: "هل تبدو التوصية منخفضة جدًا؟ تحقّق أولًا من مخزون المجمّد.",
+    if3Nm: "أنت عينا BAK", if3Ds: "أنت من يَعُدّ ويصحّح المخزون الفعلي في النظام.",
+    startBtn: "ابدأ التمرين \u2192",
+    onthoudKop: "\uD83D\uDCA1 تذكّر!",
+    les1: "لا يمكن لـ BAK أبدًا التوصية بأكثر من مخزون المجمّد المسجَّل في النظام.",
+    les2: "إذا كان مخزون المجمّد خاطئًا، فالتوصية خاطئة أيضًا.",
+    les3: "التوصية المنخفضة بشكل لافت إشارة للتحقّق من مخزون المجمّد.",
+    les4: "أنت عينا BAK: عُدّ وصحّح المخزون الفعلي."
   }
 };
 
@@ -628,6 +751,12 @@ function setLang(l, btn) {
 function applyLang() {
   const L = T[lang];
   document.getElementById('header-title').textContent = L.pageTitle;
+  document.getElementById('intro-title').textContent = L.introTitle;
+  document.getElementById('intro-sub').textContent = L.introSub;
+  document.getElementById('if-1-nm').textContent = L.if1Nm; document.getElementById('if-1-ds').textContent = L.if1Ds;
+  document.getElementById('if-2-nm').textContent = L.if2Nm; document.getElementById('if-2-ds').textContent = L.if2Ds;
+  document.getElementById('if-3-nm').textContent = L.if3Nm; document.getElementById('if-3-ds').textContent = L.if3Ds;
+  document.getElementById('start-btn').textContent = L.startBtn;
   document.getElementById('sit-time').textContent = L.sitTime;
   document.getElementById('sit-title').textContent = L.sitTitle;
   document.getElementById('warn-txt').textContent = L.warnTxt;
@@ -648,8 +777,13 @@ function applyLang() {
   document.getElementById('eind-voor-sub').textContent = L.eindVoorSub;
   document.getElementById('eind-na-sub').textContent = L.eindNaSub;
   document.getElementById('eind-sub').textContent = L.eindSub;
-  document.getElementById('eind-les').innerHTML = L.eindLes;
+  document.getElementById('onthoud-kop').innerHTML = L.onthoudKop;
+  document.getElementById('les-1').textContent = L.les1;
+  document.getElementById('les-2').textContent = L.les2;
+  document.getElementById('les-3').textContent = L.les3;
+  document.getElementById('les-4').textContent = L.les4;
   document.getElementById('eind-opnieuw').textContent = L.opnieuw;
+  document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
   updateDvHint();
 }
 
@@ -743,11 +877,20 @@ function opnieuw() {
   });
   document.getElementById('dv-val').textContent = dvWaarde;
   document.getElementById('dv-hint').style.display = 'none';
-  showScreen('screen-situatie');
+  showScreen('screen-intro');
+}
+
+function terug() {
+  const order = ['screen-intro','screen-situatie','screen-feedback','screen-dv','screen-wacht','screen-eind'];
+  const cur = order.find(id => document.getElementById(id).classList.contains('active'));
+  if (cur === 'screen-situatie') showScreen('screen-intro');
+  else if (cur === 'screen-feedback') showScreen('screen-situatie');
+  else if (cur === 'screen-dv') showScreen('screen-feedback');
+  else if (cur === 'screen-eind') showScreen('screen-intro');
 }
 
 function showScreen(id) {
-  const ids = ['screen-situatie','screen-feedback','screen-dv','screen-wacht','screen-eind'];
+  const ids = ['screen-intro','screen-situatie','screen-feedback','screen-dv','screen-wacht','screen-eind'];
   ids.forEach(s => {
     const el = document.getElementById(s);
     el.classList.remove('active');
@@ -756,8 +899,9 @@ function showScreen(id) {
   const el = document.getElementById(id);
   el.style.display = 'flex';
   el.classList.add('active');
+  window.scrollTo(0,0);
 }
 
 applyLang();
-showScreen('screen-situatie');
+showScreen('screen-intro');
 </script>
