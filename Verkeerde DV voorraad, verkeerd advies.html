@@ -1,4 +1,4 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 :root{
@@ -22,6 +22,10 @@
 .header-center { position: absolute; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 10px; pointer-events: none; }
 .header-logo { width: 34px; height: 34px; border-radius: 0; background: #fff; padding: 4px; flex-shrink: 0; display:block; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
 .header-title { font-size: 16px; font-weight: 600; }
+.topbar { display: flex; align-items: center; gap: 12px; max-width: 420px; margin: 0 auto 14px auto; padding: 0 4px; }
+.topbar-logo { width: 44px; height: 44px; flex-shrink: 0; display: block; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.45)); }
+.topbar-title { font-family: 'Montserrat', sans-serif; color: #fff; font-size: 19px; font-weight: 700; line-height: 1.2; text-shadow: 0 1px 4px rgba(0,0,0,0.55); }
+
 /* Intro */
 .intro-block { padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; }
 .intro-icon { font-size: 44px; text-align: center; }
@@ -150,21 +154,25 @@
   background-size: cover;
   background-position: center;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px 0;
+  padding: 20px 12px;
 }
 .app { backdrop-filter: blur(0px); }
 </style>
 
 <h2 class="sr-only">BAK simulatie: DV-voorraad bijwerken voor een beter bakadvies</h2>
 
-<div class="page-bg"><div class="app">
+<div class="page-bg">
+  <div class="topbar">
+    <img class="topbar-logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB2ZXJzaW9uPSIxLjEiCiAgIHdpZHRoPSIxMDAwIgogICBoZWlnaHQ9IjEwNDcuMDkiCiAgIGlkPSJzdmczODU4Ij4KICA8ZGVmcwogICAgIGlkPSJkZWZzMzg2MCIgLz4KICA8bWV0YWRhdGEKICAgICBpZD0ibWV0YWRhdGEzODYzIj4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29yawogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICAgIDxkYzp0aXRsZT48L2RjOnRpdGxlPgogICAgICA8L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZwogICAgIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy44NjgyMTUsMzA1LjYyNDA5KSIKICAgICBpZD0ibGF5ZXIxIj4KICAgIDxnCiAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgxNS41MDQxMzcsMCwwLDE1LjUwNDEzNywtNTg2Ni4wNTExLC03Mzc5LjczODEpIgogICAgICAgaWQ9ImczOTI4Ij4KICAgICAgPHBhdGgKICAgICAgICAgZD0ibSA0NDAuNDU3ODksNDg4LjY5NTE5IGMgMCwwIC0xNC4wODY5MSwtMjYuMjM5MDIgLTE0LjA4NjkxLC0yNi4yMzkwMiAtMS40ODQzNywtMi43NTg3OCAtNC44ODQwNCwtMy43NjgzMSAtNy41OTc2NSwtMi4yNTU4NiAwLDAgLTI1Ljc4MjQ3LDE0LjM3NSAtMjUuNzgyNDcsMTQuMzc1IC0xLjE2MDg5LDAuNjY0MDYgLTIuMjQzNjUsMS44MjM3NCAtMi43MzY4MiwzLjQ2NjggMCwwIC02LjkxODk1LDI0LjAyOTU0IC02LjkxODk1LDI0LjAyOTU0IC0wLjgyODg2LDIuODczNTQgMC43OTIyNCw1Ljg4NzQ2IDMuNjIxODMsNi43MzIxOSAwLDAgNDAuNjQ0NTQsMTEuNTYwMDUgNDAuNjQ0NTQsMTEuNTYwMDUgMi44MjcxNSwwLjg0MjI4IDUuNzkzNDUsLTAuODA4MSA2LjYyMzUyLC0zLjY4NTMgMCwwIDYuNzIzNjQsLTIzLjU2MjAyIDYuNzIzNjQsLTIzLjU2MjAyIDAuNDM3MDEsLTEuMzgzMDUgMC4xOTE2NSwtMy4wODk2IC0wLjQ5MDczLC00LjQyMTM4IHoiCiAgICAgICAgIGlkPSJwYXRoMzMwNyIKICAgICAgICAgc3R5bGU9ImZpbGw6IzAwYTBlMjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgLz4KICAgICAgPHBhdGgKICAgICAgICAgZD0ibSA0MDguODYyNDQsNDkzLjc0NjQ2IGMgMCwwIC00LjQ3MDIyLC04LjcxNzA0IC03LjM1OTYyLC04LjcxNzA0IC0yLjIzOTk5LDAuMDAyIC0yLjQzNDA5LDIuMzY4MTcgLTIuNDI3OTgsOC4wNzAwNyAwLjAwOSw1LjcwNDM1IDAuMzE2MTcsNy45MjYwMiAyLjQyMDY1LDcuOTI2MDIgMi44NjAxMiwtMC4wMDIgNy4zNjY5NSwtNy4yNzkwNSA3LjM2Njk1LC03LjI3OTA1IHogbSA1Ljc0NzA3LC03LjI3Mjk1IGMgMi4yOTAwMywtMy4yOTcxMiA0LjM2MDM1LC02LjU2MTI3IDguMjMyNDIsLTYuNTYxMjcgNC4yODcxMiwtMC4wMDIgNi42MTAxMiwzLjU4NjQyIDYuNjI0NzUsNi42MDY0MyAwLDAuMDMwNSAtMC4wMTgzLDE5LjMzMzUgLTAuMDE4MywxOS4zMzM1IDAsMCAtNC44MTQ0NiwwIC00LjgxNDQ2LDAgMCwwIC0wLjAyMDgsLTE4LjMwMDc4IC0wLjAyMDgsLTE4LjMwMDc4IDAsLTIuNTEzNDMgLTIuMDIwMjYsLTIuNTA4NTQgLTIuMDQ4MzQsLTIuNTA4NTQgLTEuNjI4NDEsMCAtNC42MjE1OSw0LjA4MzI1IC03Ljk1Mjg5LDguNjE2OTQgMCwwIDAsMTIuMTk5NzEgMCwxMi4xOTk3MSAwLDAgLTQuODY4MTYsMC4wMDUgLTQuODY4MTYsMC4wMDUgMCwwIC0wLjAwNiwtNS42NDY5NiAtMC4wMDYsLTUuNjQ2OTYgMCwwIC0zLjIxODk5LDUuNjQ2OTYgLTguMDM4MzIsNS42NTMwNyAtNS40Njc1NCwxMGUtNCAtNy4zMjMsLTMuNzU4NTUgLTcuMzM2NDMsLTEyLjc2NDkgLTAuMDA5LC04LjU4MDMyIDEuMjA4NDksLTEzLjE3MTM5IDcuMDY5MDksLTEzLjE3NjI2IDQuNDU4MDEsLTAuMDA0IDguMjg3MzUsNi40OTE3IDguMjg3MzUsNi40OTE3IDAsMCAxMGUtNCwtNC4xMTM3OCAxMGUtNCwtNC4xMTM3OCAwLDAgNC44OTEzNSwtNi41ODgxMyA0Ljg5MTM1LC02LjU4ODEzIDAsMCAtMC4wMjA4LDEwLjc4MDAzIC0wLjAwMiwxMC43NTQ0IHoiCiAgICAgICAgIGlkPSJwYXRoMzMwOSIKICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgLz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo=" alt="Albert Heijn">
+    <span class="topbar-title" id="top-title">Vriezervoorraad incorrect</span>
+  </div>
+  <div class="app">
   <div class="header">
-    <button class="header-back" onclick="terug()" aria-label="Terug">&#8592;</button>
     <div class="header-center">
-      <img class="header-logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB2ZXJzaW9uPSIxLjEiCiAgIHdpZHRoPSIxMDAwIgogICBoZWlnaHQ9IjEwNDcuMDkiCiAgIGlkPSJzdmczODU4Ij4KICA8ZGVmcwogICAgIGlkPSJkZWZzMzg2MCIgLz4KICA8bWV0YWRhdGEKICAgICBpZD0ibWV0YWRhdGEzODYzIj4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29yawogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICAgIDxkYzp0aXRsZT48L2RjOnRpdGxlPgogICAgICA8L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZwogICAgIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy44NjgyMTUsMzA1LjYyNDA5KSIKICAgICBpZD0ibGF5ZXIxIj4KICAgIDxnCiAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgxNS41MDQxMzcsMCwwLDE1LjUwNDEzNywtNTg2Ni4wNTExLC03Mzc5LjczODEpIgogICAgICAgaWQ9ImczOTI4Ij4KICAgICAgPHBhdGgKICAgICAgICAgZD0ibSA0NDAuNDU3ODksNDg4LjY5NTE5IGMgMCwwIC0xNC4wODY5MSwtMjYuMjM5MDIgLTE0LjA4NjkxLC0yNi4yMzkwMiAtMS40ODQzNywtMi43NTg3OCAtNC44ODQwNCwtMy43NjgzMSAtNy41OTc2NSwtMi4yNTU4NiAwLDAgLTI1Ljc4MjQ3LDE0LjM3NSAtMjUuNzgyNDcsMTQuMzc1IC0xLjE2MDg5LDAuNjY0MDYgLTIuMjQzNjUsMS44MjM3NCAtMi43MzY4MiwzLjQ2NjggMCwwIC02LjkxODk1LDI0LjAyOTU0IC02LjkxODk1LDI0LjAyOTU0IC0wLjgyODg2LDIuODczNTQgMC43OTIyNCw1Ljg4NzQ2IDMuNjIxODMsNi43MzIxOSAwLDAgNDAuNjQ0NTQsMTEuNTYwMDUgNDAuNjQ0NTQsMTEuNTYwMDUgMi44MjcxNSwwLjg0MjI4IDUuNzkzNDUsLTAuODA4MSA2LjYyMzUyLC0zLjY4NTMgMCwwIDYuNzIzNjQsLTIzLjU2MjAyIDYuNzIzNjQsLTIzLjU2MjAyIDAuNDM3MDEsLTEuMzgzMDUgMC4xOTE2NSwtMy4wODk2IC0wLjQ5MDczLC00LjQyMTM4IHoiCiAgICAgICAgIGlkPSJwYXRoMzMwNyIKICAgICAgICAgc3R5bGU9ImZpbGw6IzAwYTBlMjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgLz4KICAgICAgPHBhdGgKICAgICAgICAgZD0ibSA0MDguODYyNDQsNDkzLjc0NjQ2IGMgMCwwIC00LjQ3MDIyLC04LjcxNzA0IC03LjM1OTYyLC04LjcxNzA0IC0yLjIzOTk5LDAuMDAyIC0yLjQzNDA5LDIuMzY4MTcgLTIuNDI3OTgsOC4wNzAwNyAwLjAwOSw1LjcwNDM1IDAuMzE2MTcsNy45MjYwMiAyLjQyMDY1LDcuOTI2MDIgMi44NjAxMiwtMC4wMDIgNy4zNjY5NSwtNy4yNzkwNSA3LjM2Njk1LC03LjI3OTA1IHogbSA1Ljc0NzA3LC03LjI3Mjk1IGMgMi4yOTAwMywtMy4yOTcxMiA0LjM2MDM1LC02LjU2MTI3IDguMjMyNDIsLTYuNTYxMjcgNC4yODcxMiwtMC4wMDIgNi42MTAxMiwzLjU4NjQyIDYuNjI0NzUsNi42MDY0MyAwLDAuMDMwNSAtMC4wMTgzLDE5LjMzMzUgLTAuMDE4MywxOS4zMzM1IDAsMCAtNC44MTQ0NiwwIC00LjgxNDQ2LDAgMCwwIC0wLjAyMDgsLTE4LjMwMDc4IC0wLjAyMDgsLTE4LjMwMDc4IDAsLTIuNTEzNDMgLTIuMDIwMjYsLTIuNTA4NTQgLTIuMDQ4MzQsLTIuNTA4NTQgLTEuNjI4NDEsMCAtNC42MjE1OSw0LjA4MzI1IC03Ljk1Mjg5LDguNjE2OTQgMCwwIDAsMTIuMTk5NzEgMCwxMi4xOTk3MSAwLDAgLTQuODY4MTYsMC4wMDUgLTQuODY4MTYsMC4wMDUgMCwwIC0wLjAwNiwtNS42NDY5NiAtMC4wMDYsLTUuNjQ2OTYgMCwwIC0zLjIxODk5LDUuNjQ2OTYgLTguMDM4MzIsNS42NTMwNyAtNS40Njc1NCwxMGUtNCAtNy4zMjMsLTMuNzU4NTUgLTcuMzM2NDMsLTEyLjc2NDkgLTAuMDA5LC04LjU4MDMyIDEuMjA4NDksLTEzLjE3MTM5IDcuMDY5MDksLTEzLjE3NjI2IDQuNDU4MDEsLTAuMDA0IDguMjg3MzUsNi40OTE3IDguMjg3MzUsNi40OTE3IDAsMCAxMGUtNCwtNC4xMTM3OCAxMGUtNCwtNC4xMTM3OCAwLDAgNC44OTEzNSwtNi41ODgxMyA0Ljg5MTM1LC02LjU4ODEzIDAsMCAtMC4wMjA4LDEwLjc4MDAzIC0wLjAwMiwxMC43NTQ0IHoiCiAgICAgICAgIGlkPSJwYXRoMzMwOSIKICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgLz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo=" alt="Albert Heijn">
-      <span class="header-title" id="header-title">Verkeerde DV-voorraad, verkeerd advies</span>
+      <span class="header-title" id="header-title">Vriezervoorraad incorrect</span>
     </div>
   </div>
 
@@ -362,6 +370,7 @@ const productImgs = {
 const T = {
   nl: {
     pageTitle: "Verkeerde DV-voorraad, verkeerd advies",
+    headerTitle: "Vriezervoorraad incorrect",
     sitTime: "13:30",
     sitTitle: "Het bakadvies voor Pistolet wit is maar 2 stuks. Dat voelt veel te laag voor de rest van de dag. Wat doe je?",
     adviesHeader: "BAK — Uittellen charge 3",
@@ -438,6 +447,7 @@ const T = {
   },
   en: {
     pageTitle: "Wrong frozen stock, wrong advice",
+    headerTitle: "Vriezervoorraad incorrect",
     sitTime: "13:30",
     sitTitle: "The baking advice for White pistolet is only 2 pieces. That feels much too low for the rest of the day. What do you do?",
     adviesHeader: "BAK — Count out charge 3",
@@ -514,6 +524,7 @@ const T = {
   },
   tr: {
     pageTitle: "Yanlış stok, yanlış tavsiye",
+    headerTitle: "Vriezervoorraad incorrect",
     sitTime: "13:30",
     sitTitle: "Beyaz pistolet için fırın tavsiyesi sadece 2 adet. Günün geri kalanı için bu çok düşük görünüyor. Ne yaparsın?",
     adviesHeader: "BAK — Charge 3 sayımı",
@@ -590,6 +601,7 @@ const T = {
   },
   pl: {
     pageTitle: "Błędny stan, błędne zalecenie",
+    headerTitle: "Vriezervoorraad incorrect",
     sitTime: "13:30",
     sitTitle: "Zalecenie dotyczące Białej bułki pistolet to tylko 2 sztuki. Na resztę dnia wydaje się to zdecydowanie za mało. Co robisz?",
     adviesHeader: "BAK — Liczenie charge 3",
@@ -666,6 +678,7 @@ const T = {
   },
   ar: {
     pageTitle: "مخزون خاطئ، توصية خاطئة",
+    headerTitle: "Vriezervoorraad incorrect",
     sitTime: "13:30",
     sitTitle: "توصية الخبز للخبز الأبيض pistolet هي 2 قطع فقط. هذا يبدو منخفضاً جداً لبقية اليوم. ماذا تفعل؟",
     adviesHeader: "BAK — العد charge 3",
@@ -751,7 +764,7 @@ function setLang(l, btn) {
 
 function applyLang() {
   const L = T[lang];
-  document.getElementById('header-title').textContent = L.pageTitle;
+  document.getElementById('header-title').textContent = L.headerTitle; { var _tt=document.getElementById('top-title'); if(_tt) _tt.textContent = L.pageTitle; }
   document.getElementById('intro-title').textContent = L.introTitle;
   document.getElementById('intro-sub').textContent = L.introSub;
   document.getElementById('if-1-nm').textContent = L.if1Nm; document.getElementById('if-1-ds').textContent = L.if1Ds;
