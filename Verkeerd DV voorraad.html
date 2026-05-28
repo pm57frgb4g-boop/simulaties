@@ -1,4 +1,3 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 :root{
@@ -785,14 +784,12 @@ function applyLang() {
   document.getElementById('les-4').textContent = L.les4;
   document.getElementById('eind-opnieuw').textContent = L.opnieuw;
   document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+  if (document.getElementById('screen-feedback').classList.contains('active')) renderFeedback();
   updateDvHint();
 }
 
 function kies(keuze) {
   gekozenKeuze = keuze;
-  const L = T[lang];
-  const fb = L.fb[keuze];
-
   // Style the buttons
   ['slecht','goed'].forEach(k => {
     const btn = document.getElementById('btn-' + k);
@@ -801,24 +798,25 @@ function kies(keuze) {
   });
   const map = { goed: 'selected-good', slecht: 'selected-bad' };
   document.getElementById('btn-' + keuze).classList.add(map[keuze]);
+  renderFeedback();
+  showScreen('screen-feedback');
+}
 
-  // Build feedback screen
+function renderFeedback() {
+  if (!gekozenKeuze) return;
+  const L = T[lang];
+  const fb = L.fb[gekozenKeuze];
   document.getElementById('fb-badge').textContent = fb.badge;
   document.getElementById('fb-badge').className = 'result-badge ' + fb.badgeClass;
   document.getElementById('fb-title').textContent = fb.title;
-
-  // Chain
   let chainHTML = `<div class="chain-title">${fb.chain.title}</div>`;
   fb.chain.steps.forEach((s, i) => {
     chainHTML += `<div class="chain-step"><div class="chain-dot ${s.dot}">${i+1}</div><span>${s.text}</span></div>`;
   });
   document.getElementById('fb-chain').innerHTML = chainHTML;
-
   document.getElementById('fb-tip').textContent = fb.tip;
   document.getElementById('fb-tip').className = 'result-tip ' + fb.tipClass;
   document.getElementById('fb-next-btn').textContent = fb.nextBtn;
-
-  showScreen('screen-feedback');
 }
 
 function gaVerder() {
