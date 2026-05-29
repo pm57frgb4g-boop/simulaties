@@ -101,6 +101,10 @@
   justify-content: center;
   padding: 20px 12px;
 }
+
+.next-sim-btn { display:block; width:100%; box-sizing:border-box; margin-top:10px; background:#00A0E2; color:#fff; text-decoration:none; font-weight:600; font-size:15px; padding:13px 20px; border-radius:24px; text-align:center; }
+.next-sim-btn:hover { background:#0089c2; }
+html[dir="rtl"] .next-sim-btn { direction:rtl; }
 </style>
 
 <h2 class="sr-only">BAK simulatie schapvoorraad controleren programma 103</h2>
@@ -184,7 +188,8 @@
         <li id="les-4">Controleer de schapvoorraad minstens één keer per dag voor een betrouwbaar advies.</li>
       </ul>
     </div>
-    <button class="footer-btn" onclick="opnieuw()" id="btn-opnieuw" style="margin-top:4px;width:100%;">Opnieuw</button>
+    <a class="next-sim-btn" id="next-sim-btn" href="https://pm57frgb4g-boop.github.io/simulaties/Er%20ligt%20meer%20dan%20je%20denkt.html">Volgende simulatie →</a>
+      <button class="footer-btn" onclick="opnieuw()" id="btn-opnieuw" style="margin-top:4px;width:100%;">Opnieuw</button>
   </div>
 </div></div>
 
@@ -247,6 +252,7 @@ const products = [
 const T = {
   nl: {
     pageTitle: "Wat jij ziet, ziet BAK",
+    volgende: "Volgende simulatie →",
     headerTitle: "Schapvoorraad controleren",
     infoBanner: "Controleer minstens één keer per dag de schapvoorraad. BAK gebruikt deze informatie om het bakadvies voor de rest van de dag bij te stellen.",
     countLabel: n => `${n}/25 gecontroleerd`,
@@ -285,6 +291,7 @@ const T = {
   },
   en: {
     pageTitle: "What you see, BAK sees",
+    volgende: "Next simulation →",
     headerTitle: "Schapvoorraad controleren",
     infoBanner: "Check the shelf stock at least once a day. BAK uses this information to adjust the baking advice for the rest of the day.",
     countLabel: n => `${n}/25 checked`,
@@ -323,6 +330,7 @@ const T = {
   },
   tr: {
     pageTitle: "Senin gördüğünü BAK görür",
+    volgende: "Sonraki simülasyon →",
     headerTitle: "Schapvoorraad controleren",
     infoBanner: "Raf stoğunu günde en az bir kez kontrol edin. BAK bu bilgiyi günün geri kalanı için pişirme tavsiyesini ayarlamak üzere kullanır.",
     countLabel: n => `${n}/25 kontrol edildi`,
@@ -361,6 +369,7 @@ const T = {
   },
   pl: {
     pageTitle: "Co widzisz, widzi BAK",
+    volgende: "Następna symulacja →",
     headerTitle: "Schapvoorraad controleren",
     infoBanner: "Sprawdzaj stan półki co najmniej raz dziennie. BAK używa tych informacji do dostosowania porady dotyczącej pieczenia na resztę dnia.",
     countLabel: n => `${n}/25 sprawdzono`,
@@ -399,6 +408,7 @@ const T = {
   },
   ar: {
     pageTitle: "ما تراه، يراه BAK",
+    volgende: "← المحاكاة التالية",
     headerTitle: "Schapvoorraad controleren",
     infoBanner: "تحقق من مخزون الرف مرة واحدة على الأقل يومياً. يستخدم BAK هذه المعلومات لضبط نصيحة الخبز لبقية اليوم.",
     countLabel: n => `تم التحقق من ${n}/25`,
@@ -448,6 +458,7 @@ function setLang(l, btn) {
 }
 
 function applyLang() {
+  { var _nb=document.getElementById('next-sim-btn'); if(_nb){ _nb.textContent = T[lang].volgende; } }
   const L = T[lang];
   const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
   set('header-title', L.headerTitle); set('top-title', L.pageTitle);
