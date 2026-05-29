@@ -160,6 +160,10 @@
   padding: 20px 12px;
 }
 .app { backdrop-filter: blur(0px); }
+
+.next-sim-btn { display:block; width:100%; box-sizing:border-box; margin-top:10px; background:#00A0E2; color:#fff; text-decoration:none; font-weight:600; font-size:15px; padding:13px 20px; border-radius:24px; text-align:center; }
+.next-sim-btn:hover { background:#0089c2; }
+html[dir="rtl"] .next-sim-btn { direction:rtl; }
 </style>
 
 <h2 class="sr-only">BAK simulatie: DV-voorraad bijwerken voor een beter bakadvies</h2>
@@ -329,6 +333,7 @@
         </ul>
       </div>
 
+      <a class="next-sim-btn" id="next-sim-btn" href="https://pm57frgb4g-boop.github.io/simulaties/Elke%20keuze%20telt.html">Volgende simulatie →</a>
       <button class="next-btn" id="eind-opnieuw" onclick="opnieuw()" style="width:100%;margin-top:4px;"></button>
     </div>
   </div>
@@ -370,6 +375,7 @@ const productImgs = {
 const T = {
   nl: {
     pageTitle: "Verkeerde DV-voorraad, verkeerd advies",
+    volgende: "Volgende simulatie →",
     headerTitle: "Vriezervoorraad incorrect",
     sitTime: "13:30",
     sitTitle: "Het bakadvies voor Pistolet wit is maar 2 stuks. Dat voelt veel te laag voor de rest van de dag. Wat doe je?",
@@ -447,6 +453,7 @@ const T = {
   },
   en: {
     pageTitle: "Wrong frozen stock, wrong advice",
+    volgende: "Next simulation →",
     headerTitle: "Vriezervoorraad incorrect",
     sitTime: "13:30",
     sitTitle: "The baking advice for White pistolet is only 2 pieces. That feels much too low for the rest of the day. What do you do?",
@@ -524,6 +531,7 @@ const T = {
   },
   tr: {
     pageTitle: "Yanlış stok, yanlış tavsiye",
+    volgende: "Sonraki simülasyon →",
     headerTitle: "Vriezervoorraad incorrect",
     sitTime: "13:30",
     sitTitle: "Beyaz pistolet için fırın tavsiyesi sadece 2 adet. Günün geri kalanı için bu çok düşük görünüyor. Ne yaparsın?",
@@ -601,6 +609,7 @@ const T = {
   },
   pl: {
     pageTitle: "Błędny stan, błędne zalecenie",
+    volgende: "Następna symulacja →",
     headerTitle: "Vriezervoorraad incorrect",
     sitTime: "13:30",
     sitTitle: "Zalecenie dotyczące Białej bułki pistolet to tylko 2 sztuki. Na resztę dnia wydaje się to zdecydowanie za mało. Co robisz?",
@@ -678,6 +687,7 @@ const T = {
   },
   ar: {
     pageTitle: "مخزون خاطئ، توصية خاطئة",
+    volgende: "← المحاكاة التالية",
     headerTitle: "Vriezervoorraad incorrect",
     sitTime: "13:30",
     sitTitle: "توصية الخبز للخبز الأبيض pistolet هي 2 قطع فقط. هذا يبدو منخفضاً جداً لبقية اليوم. ماذا تفعل؟",
@@ -763,6 +773,7 @@ function setLang(l, btn) {
 }
 
 function applyLang() {
+  { var _nb=document.getElementById('next-sim-btn'); if(_nb){ _nb.textContent = T[lang].volgende; } }
   const L = T[lang];
   document.getElementById('header-title').textContent = L.headerTitle; { var _tt=document.getElementById('top-title'); if(_tt) _tt.textContent = L.pageTitle; }
   document.getElementById('intro-title').textContent = L.introTitle;
