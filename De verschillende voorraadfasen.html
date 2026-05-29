@@ -174,6 +174,10 @@
 /* toast */
 .toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(20px); background: #27500A; color: #fff; font-size: 13px; font-weight: 500; padding: 11px 18px; border-radius: 24px; box-shadow: 0 10px 24px -8px rgba(0,0,0,0.4); opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(.2,.8,.3,1); z-index: 50; max-width: 86%; text-align:center; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+.next-sim-btn { display:block; width:100%; box-sizing:border-box; margin-top:10px; background:#00A0E2; color:#fff; text-decoration:none; font-weight:600; font-size:15px; padding:13px 20px; border-radius:24px; text-align:center; }
+.next-sim-btn:hover { background:#0089c2; }
+html[dir="rtl"] .next-sim-btn { direction:rtl; }
 </style>
 </head>
 <body>
@@ -382,6 +386,7 @@
           <li id="les-4">In productie wordt van de vriezervoorraad afgetrokken. Jij bent de ogen van BAK.</li>
         </ul>
       </div>
+      <a class="next-sim-btn" id="next-sim-btn" href="https://pm57frgb4g-boop.github.io/simulaties/Verkeerde%20DV%20voorraad%2C%20verkeerd%20advies.html">Volgende simulatie →</a>
       <button class="opnieuw-btn" id="opnieuw-btn" onclick="opnieuw()">Opnieuw oefenen</button>
     </div>
   </div>
@@ -410,6 +415,7 @@ const products = [
 const T = {
   nl: {
     pageTitle:"De verschillende voorraadfasen",
+    volgende: "Volgende simulatie →",
     headerTitle: "Product",
     introTitle:"De drie voorraadfases in BAK",
     introSub:"In BAK doorloopt elk product drie fases. Klopt de registratie niet, dan klopt het bakadvies ook niet. In deze oefening loop je de drie schermen door en pas je zelf de voorraad aan.",
@@ -446,6 +452,7 @@ const T = {
   },
   en: {
     pageTitle:"The different stock phases",
+    volgende: "Next simulation →",
     headerTitle: "Product",
     introTitle:"The three stock phases in BAK",
     introSub:"In BAK every product goes through three phases. If the registration is wrong, the baking advice is wrong too. In this exercise you walk through the three screens and update the stock yourself.",
@@ -482,6 +489,7 @@ const T = {
   },
   tr: {
     pageTitle:"Farklı stok aşamaları",
+    volgende: "Sonraki simülasyon →",
     headerTitle: "Product",
     introTitle:"BAK'taki üç stok aşaması",
     introSub:"BAK'ta her ürün üç aşamadan geçer. Kayıt yanlışsa, pişirme önerisi de yanlış olur. Bu alıştırmada üç ekranı gezip stoğu kendin güncellersin.",
@@ -518,6 +526,7 @@ const T = {
   },
   pl: {
     pageTitle:"Różne fazy zapasu",
+    volgende: "Następna symulacja →",
     headerTitle: "Product",
     introTitle:"Trzy fazy zapasu w BAK",
     introSub:"W BAK każdy produkt przechodzi przez trzy fazy. Jeśli rejestracja jest błędna, porada dotycząca pieczenia też będzie błędna. W tym ćwiczeniu przejdziesz przez trzy ekrany i sam zaktualizujesz zapas.",
@@ -554,6 +563,7 @@ const T = {
   },
   ar: {
     pageTitle:"مراحل المخزون المختلفة",
+    volgende: "← المحاكاة التالية",
     headerTitle: "Product",
     introTitle:"مراحل المخزون الثلاث في BAK",
     introSub:"في BAK يمر كل منتج بثلاث مراحل. إذا كان التسجيل خاطئًا، فستكون نصيحة الخَبز خاطئة أيضًا. في هذا التمرين تتنقّل عبر الشاشات الثلاث وتحدّث المخزون بنفسك.",
@@ -620,6 +630,7 @@ function setTxt(id, v){ const e = document.getElementById(id); if(e) e.textConte
 function setHtml(id, v){ const e = document.getElementById(id); if(e) e.innerHTML = v; }
 
 function applyLang(){
+  { var _nb=document.getElementById('next-sim-btn'); if(_nb){ _nb.textContent = T[lang].volgende; } }
   const L = T[lang];
   setTxt('header-title', L.headerTitle); setTxt('top-title', L.pageTitle);
   setTxt('intro-title', L.introTitle);
