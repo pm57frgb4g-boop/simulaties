@@ -96,6 +96,10 @@
   justify-content: center;
   padding: 20px 12px;
 }
+
+.next-sim-btn { display:block; width:100%; box-sizing:border-box; margin-top:10px; background:#00A0E2; color:#fff; text-decoration:none; font-weight:600; font-size:15px; padding:13px 20px; border-radius:24px; text-align:center; }
+.next-sim-btn:hover { background:#0089c2; }
+html[dir="rtl"] .next-sim-btn { direction:rtl; }
 </style>
 
 <h2 class="sr-only">BAK simulatie vernietigen programma 103</h2>
@@ -185,7 +189,8 @@
         <li id="les-4">Goed werken met BAK overdag (uittellen, schap bijhouden) beperkt de derving.</li>
       </ul>
     </div>
-    <button class="footer-btn" onclick="opnieuw()" id="btn-opnieuw" style="margin-top:4px;">Opnieuw</button>
+    <a class="next-sim-btn" id="next-sim-btn" href="https://pm57frgb4g-boop.github.io/simulaties/Afsluiter.html">Naar de afsluiting →</a>
+      <button class="footer-btn" onclick="opnieuw()" id="btn-opnieuw" style="margin-top:4px;">Opnieuw</button>
   </div>
 </div></div>
 
@@ -248,6 +253,7 @@ const products = [
 const T = {
   nl: {
     pageTitle:"Van oven tot derving",
+    volgende: "Naar de afsluiting →",
     headerTitle: "Vernietigen", infoBanner:"⏰ Om 23:45 wordt de resterende voorraad in BAK automatisch nulgesteld. Zorg dat je alles hebt ingevoerd vóór die tijd.", scanLabel:"Scan een barcode of zoek naar producten om deze toe te voegen.",
     timeLabel:"Einde van de dag — voer in hoeveel er over is per product", sectionTitle:"Programma 103",
     countLabel:n=>`${n}/25 ingevoerd`, liveLabel:"Totale verspilling tot nu toe:", bevestigen:"Bevestigen en vernietigen",
@@ -273,6 +279,7 @@ const T = {
   },
   en: {
     pageTitle:"From oven to waste",
+    volgende: "To the closing →",
     headerTitle: "Vernietigen", infoBanner:"⏰ At 23:45 the remaining stock in BAK is automatically set to zero. Make sure you have entered everything before that time.", scanLabel:"Scan a barcode or search for products to add them.",
     timeLabel:"End of day — enter how many are left per product", sectionTitle:"Programme 103",
     countLabel:n=>`${n}/25 entered`, liveLabel:"Total waste so far:", bevestigen:"Confirm and destroy",
@@ -298,6 +305,7 @@ const T = {
   },
   tr: {
     pageTitle:"Fırından imhaya",
+    volgende: "Kapanışa geç →",
     headerTitle: "Vernietigen", infoBanner:"⏰ Saat 23:45'te BAK'taki kalan stok otomatik olarak sıfırlanır. O saatten önce her şeyi girdiğinizden emin olun.", scanLabel:"Barkod tarayın veya eklemek için ürün arayın.",
     timeLabel:"Günün sonu — her ürün için kaç tane kaldığını girin", sectionTitle:"Program 103",
     countLabel:n=>`${n}/25 girildi`, liveLabel:"Şimdiye kadar toplam israf:", bevestigen:"Onayla ve imha et",
@@ -323,6 +331,7 @@ const T = {
   },
   pl: {
     pageTitle:"Od pieca do strat",
+    volgende: "Do zakończenia →",
     headerTitle: "Vernietigen", infoBanner:"⏰ O 23:45 pozostały stan w BAK jest automatycznie zerowany. Upewnij się, że wszystko zostało wprowadzone przed tym czasem.", scanLabel:"Zeskanuj kod kreskowy lub wyszukaj produkty, aby je dodać.",
     timeLabel:"Koniec dnia — wprowadź ile pozostało z każdego produktu", sectionTitle:"Program 103",
     countLabel:n=>`${n}/25 wprowadzono`, liveLabel:"Całkowite marnotrawstwo do tej pory:", bevestigen:"Potwierdź i zniszcz",
@@ -348,6 +357,7 @@ const T = {
   },
   ar: {
     pageTitle:"من الفرن إلى الإتلاف",
+    volgende: "← إلى الختام",
     headerTitle: "Vernietigen", infoBanner:"⏰ في الساعة 23:45 يتم تصفير المخزون المتبقي في BAK تلقائياً. تأكد من إدخال كل شيء قبل ذلك الوقت.", scanLabel:"امسح الباركود أو ابحث عن المنتجات لإضافتها.",
     timeLabel:"نهاية اليوم — أدخل كم تبقى من كل منتج", sectionTitle:"البرنامج 103",
     countLabel:n=>`تم إدخال ${n}/25`, liveLabel:"إجمالي الهدر حتى الآن:", bevestigen:"تأكيد والإتلاف",
@@ -384,6 +394,7 @@ function setLang(l, btn) {
 }
 
 function applyLang() {
+  { var _nb=document.getElementById('next-sim-btn'); if(_nb){ _nb.textContent = T[lang].volgende; } }
   const L = T[lang];
   const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
   set('header-title', L.headerTitle); set('top-title', L.pageTitle);
