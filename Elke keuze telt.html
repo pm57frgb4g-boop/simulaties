@@ -100,6 +100,10 @@
   justify-content: center;
   padding: 20px 12px;
 }
+
+.next-sim-btn { display:block; width:100%; box-sizing:border-box; margin-top:10px; background:#00A0E2; color:#fff; text-decoration:none; font-weight:600; font-size:15px; padding:13px 20px; border-radius:24px; text-align:center; }
+.next-sim-btn:hover { background:#0089c2; }
+html[dir="rtl"] .next-sim-btn { direction:rtl; }
 </style>
 
 <h2 class="sr-only">BAK simulatie uittellen voor morgen programma 103</h2>
@@ -183,6 +187,7 @@
       </ul>
     </div>
     <div class="footer" style="width:100%;padding:0;">
+      <a class="next-sim-btn" id="next-sim-btn" href="https://pm57frgb4g-boop.github.io/simulaties/Wat%20jij%20ziet%20ziet%20BAK.html">Volgende simulatie →</a>
       <button class="footer-btn" onclick="opnieuw()" id="btn-opnieuw">Opnieuw</button>
     </div>
   </div>
@@ -249,6 +254,7 @@ const state = products.map(p => ({r1: p.r1, r2: p.r2}));
 const T = {
   nl: {
     pageTitle:"Elke keuze telt",
+    volgende: "Volgende simulatie →",
     headerTitle: "Uittellen voor morgen", dvTitle:"DV-voorraad invoeren",
     r1:"Ronde 1", r2:"Ronde 2", advies:n=>`Advies: ${n}`, bonus:"Bonus",
     afronden:"Programma 103 afronden", bevestigen:"Bevestigen",
@@ -276,6 +282,7 @@ const T = {
   },
   en: {
     pageTitle:"Every choice counts",
+    volgende: "Next simulation →",
     headerTitle: "Uittellen voor morgen", dvTitle:"Enter current stock",
     r1:"Round 1", r2:"Round 2", advies:n=>`Advice: ${n}`, bonus:"Bonus",
     afronden:"Complete programme 103", bevestigen:"Confirm",
@@ -303,6 +310,7 @@ const T = {
   },
   tr: {
     pageTitle:"Her seçim önemli",
+    volgende: "Sonraki simülasyon →",
     headerTitle: "Uittellen voor morgen", dvTitle:"Mevcut stoku girin",
     r1:"Tur 1", r2:"Tur 2", advies:n=>`Tavsiye: ${n}`, bonus:"Bonus",
     afronden:"Program 103'ü tamamla", bevestigen:"Onayla",
@@ -330,6 +338,7 @@ const T = {
   },
   pl: {
     pageTitle:"Każdy wybór się liczy",
+    volgende: "Następna symulacja →",
     headerTitle: "Uittellen voor morgen", dvTitle:"Wprowadź stan zapasów",
     r1:"Runda 1", r2:"Runda 2", advies:n=>`Zalecenie: ${n}`, bonus:"Bonus",
     afronden:"Zakończ program 103", bevestigen:"Zatwierdź",
@@ -357,6 +366,7 @@ const T = {
   },
   ar: {
     pageTitle:"كل اختيار مهم",
+    volgende: "← المحاكاة التالية",
     headerTitle: "Uittellen voor morgen", dvTitle:"أدخل المخزون الحالي",
     r1:"جولة 1", r2:"جولة 2", advies:n=>`النصيحة: ${n}`, bonus:"مكافأة",
     afronden:"إنهاء البرنامج 103", bevestigen:"تأكيد",
@@ -395,6 +405,7 @@ function setLang(l, btn) {
 }
 
 function applyLang() {
+  { var _nb=document.getElementById('next-sim-btn'); if(_nb){ _nb.textContent = T[lang].volgende; } }
   const L = T[lang];
   const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
   set('header-title', L.headerTitle); set('top-title', L.pageTitle);
