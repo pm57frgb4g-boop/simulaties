@@ -113,6 +113,10 @@
   justify-content: center;
   padding: 20px 12px;
 }
+
+.next-sim-btn { display:block; width:100%; box-sizing:border-box; margin-top:10px; background:#00A0E2; color:#fff; text-decoration:none; font-weight:600; font-size:15px; padding:13px 20px; border-radius:24px; text-align:center; }
+.next-sim-btn:hover { background:#0089c2; }
+html[dir="rtl"] .next-sim-btn { direction:rtl; }
 </style>
 
 <h2 class="sr-only">BAK simulatie bijbakken buiten een bakronde</h2>
@@ -269,6 +273,7 @@
           <li id="les-4">Een bakronde mag je altijd een uur eerder starten als dat nodig is.</li>
         </ul>
       </div>
+      <a class="next-sim-btn" id="next-sim-btn" href="https://pm57frgb4g-boop.github.io/simulaties/Van%20oven%20tot%20derving.html">Volgende simulatie →</a>
       <button class="opnieuw-btn" onclick="opnieuw()" id="btn-opnieuw">Opnieuw proberen</button>
     </div>
   </div>
@@ -306,6 +311,7 @@ const productImgs = {
 const T = {
   nl: {
     pageTitle:"Er ligt meer dan je denkt",
+    volgende: "Volgende simulatie →",
     headerTitle: "Uittellen Charge 3", sitTime:"13:45",
     sitTitle:"Het schap Pistolet wit lijkt leeg te lopen. Wat doe je?",
     sitDesc:"Je loopt langs de broodafdeling en ziet dat er nog maar 2 Pistolet wit liggen. Een klant pakt er eentje. Je volgende bakronde is om 14:00.",
@@ -390,6 +396,7 @@ const T = {
   },
   en: {
     pageTitle:"There’s more than you think",
+    volgende: "Next simulation →",
     headerTitle: "Uittellen Charge 3", sitTime:"13:45",
     sitTitle:"The Pistolet wit shelf seems to be running low. What do you do?",
     sitDesc:"You walk past the bread section and see only 2 Pistolet wit left. A customer picks one up. Your next baking round is at 14:00.",
@@ -474,6 +481,7 @@ const T = {
   },
   tr: {
     pageTitle:"Sandığından fazlası var",
+    volgende: "Sonraki simülasyon →",
     headerTitle: "Uittellen Charge 3", sitTime:"13:45",
     sitTitle:"Pistolet wit rafı tükenmeye başlıyor. Ne yaparsın?",
     sitDesc:"Ekmek bölümünden geçerken yalnızca 2 adet Pistolet wit kaldığını görüyorsun. Bir müşteri birini alıyor. Bir sonraki pişirme turnu 14:00'te.",
@@ -505,6 +513,7 @@ const T = {
   },
   pl: {
     pageTitle:"Jest więcej niż myślisz",
+    volgende: "Następna symulacja →",
     headerTitle: "Uittellen Charge 3", sitTime:"13:45",
     sitTitle:"Półka z Pistolet wit wydaje się pustoszeć. Co robisz?",
     sitDesc:"Mijasz dział piekarniczy i widzisz, że zostały tylko 2 sztuki Pistolet wit. Klient bierze jedną. Następna runda pieczenia jest o 14:00.",
@@ -536,6 +545,7 @@ const T = {
   },
   ar: {
     pageTitle:"هناك أكثر مما تظن",
+    volgende: "← المحاكاة التالية",
     headerTitle: "Uittellen Charge 3", sitTime:"13:45",
     sitTitle:"يبدو أن رف Pistolet wit يوشك على النفاد. ماذا تفعل؟",
     sitDesc:"تمر بجانب قسم الخبز وترى أن 2 قطع فقط من Pistolet wit متبقية. يأخذ أحد العملاء قطعة. جولة الخبز التالية في الساعة 14:00.",
@@ -577,6 +587,7 @@ function setLang(l, btn) {
 }
 
 function applyLang() {
+  { var _nb=document.getElementById('next-sim-btn'); if(_nb){ _nb.textContent = T[lang].volgende; } }
   const L = T[lang];
   const set = (id,val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
   set('header-title', L.headerTitle); set('top-title', L.pageTitle);
