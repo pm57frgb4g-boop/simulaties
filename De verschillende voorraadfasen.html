@@ -1,4 +1,9 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAK – De drie voorraadfases</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
@@ -178,6 +183,9 @@
 .next-sim-btn { display:block; width:100%; box-sizing:border-box; margin-top:10px; background:#00A0E2; color:#fff; text-decoration:none; font-weight:600; font-size:15px; padding:13px 20px; border-radius:24px; text-align:center; }
 .next-sim-btn:hover { background:#0089c2; }
 html[dir="rtl"] .next-sim-btn { direction:rtl; }
+
+.restart-btn { display:block; width:100%; box-sizing:border-box; margin-top:10px; background:#fff; color:#00A0E2; border:1.5px solid #00A0E2; border-radius:24px; padding:12px 20px; font-size:15px; font-weight:600; cursor:pointer; text-align:center; }
+.restart-btn:hover { background:#F4FBFE; }
 </style>
 </head>
 <body>
@@ -387,7 +395,7 @@ html[dir="rtl"] .next-sim-btn { direction:rtl; }
         </ul>
       </div>
       <a class="next-sim-btn" id="next-sim-btn" href="https://pm57frgb4g-boop.github.io/simulaties/Verkeerde%20DV%20voorraad%2C%20verkeerd%20advies.html">Volgende simulatie →</a>
-      <button class="opnieuw-btn" id="opnieuw-btn" onclick="opnieuw()">Opnieuw oefenen</button>
+      <button class="restart-btn" id="opnieuw-btn" onclick="opnieuw()">Opnieuw oefenen</button>
     </div>
   </div>
 
@@ -851,3 +859,5 @@ document.getElementById('screen-wijzig').addEventListener('click', e=>{
 applyLang();
 showScreen('screen-intro');
 </script>
+</body>
+</html>
